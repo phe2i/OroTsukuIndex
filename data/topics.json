@@ -1,0 +1,452 @@
+[
+  {
+    "character": "Orochi",
+    "keyname": "SSR",
+    "cn": "SSR",
+    "en": "SSR",
+    "source": "Turn-Based",
+    "thumbnail": "images/Orochi/SSR/thumb.jpg",
+    "full": "images/Orochi/SSR/full.jpg"
+  },
+  {
+    "character": "Tsukuyomi",
+    "keyname": "SSR",
+    "cn": "SSR",
+    "en": "SSR",
+    "source": "Turn-Based",
+    "thumbnail": "images/Tsukuyomi/SSR/thumb.jpg",
+    "full": "images/Tsukuyomi/SSR/full.jpg"
+  },
+  {
+    "character": "Tsukuyomi",
+    "keyname": "SSR_evo",
+    "cn": "觉醒",
+    "en": "evo",
+    "source": "Turn-Based",
+    "thumbnail": "images/Tsukuyomi/SSR_evo/thumb.jpg",
+    "full": "images/Tsukuyomi/SSR_evo/full.jpg"
+  },
+  {
+    "character": "Orochi",
+    "keyname": "SSR_evo",
+    "cn": "觉醒",
+    "en": "evo",
+    "source": "Turn-Based",
+    "thumbnail": "images/Orochi/SSR_evo/thumb.jpg",
+    "full": "images/Orochi/SSR_evo/full.jpg"
+  },
+  {
+    "character": "Orochi",
+    "keyname": "白绯觅影",
+    "cn": "白绯觅影",
+    "en": "White Serpent",
+    "source": "Turn-Based",
+    "thumbnail": "images/Orochi/白绯觅影/thumb.jpg",
+    "full": "images/Orochi/白绯觅影/full.jpg"
+  },
+  {
+    "character": "Orochi",
+    "keyname": "祸隐狭间",
+    "cn": "祸隐狭间",
+    "en": "Threat in the Rift",
+    "source": "Turn-Based",
+    "thumbnail": "images/Orochi/祸隐狭间/thumb.jpg",
+    "full": "images/Orochi/祸隐狭间/full.jpg"
+  },
+  {
+    "character": "Orochi",
+    "keyname": "冷夜暗影",
+    "cn": "冷夜暗影",
+    "en": "Shivering Shadow",
+    "source": "Turn-Based",
+    "thumbnail": "images/Orochi/冷夜暗影/thumb.jpg",
+    "full": "images/Orochi/冷夜暗影/full.jpg"
+  },
+  {
+    "character": "Orochi",
+    "keyname": "SP",
+    "cn": "神堕八岐大蛇",
+    "en": "Fallen God Orochi",
+    "source": "Turn-Based",
+    "thumbnail": "images/Orochi/SP/thumb.jpg",
+    "full": "images/Orochi/SP/full.jpg"
+  },
+  {
+    "character": "Orochi",
+    "keyname": "玄夜神隐",
+    "cn": "玄夜神隐",
+    "en": "Dark Passenger",
+    "source": "Turn-Based",
+    "thumbnail": "images/Orochi/玄夜神隐/thumb.jpg",
+    "full": "images/Orochi/玄夜神隐/full.jpg"
+  },
+  {
+    "character": "Orochi",
+    "keyname": "神遂幽乡",
+    "cn": "神遂幽乡",
+    "en": "Sinister Sojourner",
+    "source": "Turn-Based",
+    "thumbnail": "images/Orochi/神遂幽乡/thumb.jpg",
+    "full": "images/Orochi/神遂幽乡/full.jpg"
+  },
+  {
+    "character": "Orochi",
+    "keyname": "终焉神主1",
+    "cn": "终焉神主1",
+    "en": "Finality Incarnate",
+    "source": "Turn-Based",
+    "thumbnail": "images/Orochi/终焉神主1/thumb.jpg",
+    "full": "images/Orochi/终焉神主1/full.jpg"
+  },
+  {
+    "character": "Orochi",
+    "keyname": "终焉神主2",
+    "cn": "终焉神主2",
+    "en": "Finality Incarnate 2",
+    "source": "Turn-Based",
+    "thumbnail": "images/Orochi/终焉神主2/thumb.jpg",
+    "full": "images/Orochi/终焉神主2/full.jpg"
+  },
+  {
+    "character": "Orochi",
+    "keyname": "锻厄缚因",
+    "cn": "锻厄缚因",
+    "en": "Chains of Destiny",
+    "source": "Turn-Based",
+    "thumbnail": "images/Orochi/锻厄缚因/thumb.jpg",
+    "full": "images/Orochi/锻厄缚因/full.jpg"
+  },
+  {
+    "character": "Orochi",
+    "keyname": "檀樱倚梦",
+    "cn": "檀樱倚梦",
+    "en": "Sakura Reverie",
+    "source": "Turn-Based",
+    "thumbnail": "images/Orochi/檀樱倚梦/thumb.jpg",
+    "full": "images/Orochi/檀樱倚梦/full.jpg"
+  },
+  {
+    "character": "Tsukuyomi",
+    "keyname": "月落银桂",
+    "cn": "月落银桂",
+    "en": "Silvery Osmanthus",
+    "source": "Turn-Based",
+    "thumbnail": "images/Tsukuyomi/月落银桂/thumb.jpg",
+    "full": "images/Tsukuyomi/月落银桂/full.jpg"
+  },
+  {
+    "character": "Tsukuyomi",
+    "keyname": "堇云月华",
+    "cn": "堇云月华",
+    "en": ":(",
+    "source": "Turn-Based",
+    "thumbnail": "images/Tsukuyomi/堇云月华/thumb.jpg",
+    "full": "images/Tsukuyomi/堇云月华/full.jpg"
+  },
+  {
+    "character": "Orochi",
+    "keyname": "蛇游幻影",
+    "cn": "蛇游幻影",
+    "en": "Slithering Phantom",
+    "source": "Turn-Based",
+    "thumbnail": "images/Orochi/蛇游幻影/thumb.jpg",
+    "full": "images/Orochi/蛇游幻影/full.jpg"
+  },
+  {
+    "character": "Orochi",
+    "keyname": "琉璃愿境",
+    "cn": "琉璃愿境",
+    "en": "Glass Realm",
+    "source": "Turn-Based",
+    "thumbnail": "images/Orochi/琉璃愿境/thumb.jpg",
+    "full": "images/Orochi/琉璃愿境/full.jpg"
+  },
+  {
+    "character": "Tsukuyomi",
+    "keyname": "NPC_Male",
+    "cn": "NPC",
+    "en": "NPC Male",
+    "source": "Turn-Based",
+    "thumbnail": "images/Tsukuyomi/NPC_Male/thumb.png",
+    "full": "images/Tsukuyomi/NPC_Male/full.png"
+  },
+  {
+    "character": "Tsukuyomi",
+    "keyname": "NPC_Female",
+    "cn": "NPC",
+    "en": "NPC Female",
+    "source": "Turn-Based",
+    "thumbnail": "images/Tsukuyomi/NPC_Female/thumb.png",
+    "full": ""
+  },
+  {
+    "character": "Tsukuyomi",
+    "keyname": "庆典",
+    "cn": "庆典",
+    "en": "Celebration",
+    "source": "Merch: COMIPLUS+",
+    "thumbnail": "images/Tsukuyomi/庆典/thumb.png",
+    "full": "images/Tsukuyomi/庆典/full.jpg"
+  },
+  {
+    "character": "Orochi",
+    "keyname": "庆典",
+    "cn": "庆典",
+    "en": "Celebration",
+    "source": "Merch: COMIPLUS+",
+    "thumbnail": "images/Orochi/庆典/thumb.png",
+    "full": "images/Orochi/庆典/full.jpg"
+  },
+  {
+    "character": "Orochi",
+    "keyname": "新春祈福",
+    "cn": "新春祈福",
+    "en": "New Year's blessings",
+    "source": "Merch: COMIPLUS+",
+    "thumbnail": "images/Orochi/新春祈福/thumb.png",
+    "full": ""
+  },
+  {
+    "character": "Tsukuyomi",
+    "keyname": "新春祈福",
+    "cn": "新春祈福",
+    "en": "New Year's blessings",
+    "source": "Merch: COMIPLUS+",
+    "thumbnail": "images/Tsukuyomi/新春祈福/thumb.png",
+    "full": ""
+  },
+  {
+    "character": "Tsukuyomi",
+    "keyname": "至臻风尚",
+    "cn": "至臻风尚",
+    "en": "Ultimate Style",
+    "source": "Merch: COMIPLUS+",
+    "thumbnail": "images/Tsukuyomi/至臻风尚/thumb.png",
+    "full": "images/Tsukuyomi/至臻风尚/full.jpg"
+  },
+  {
+    "character": "Orochi",
+    "keyname": "至臻风尚",
+    "cn": "至臻风尚",
+    "en": "Ultimate Style",
+    "source": "Merch: COMIPLUS+",
+    "thumbnail": "images/Orochi/至臻风尚/thumb.png",
+    "full": "images/Orochi/至臻风尚/full.jpg"
+  },
+  {
+    "character": "Orochi",
+    "keyname": "热爱",
+    "cn": "热爱",
+    "en": "Passion",
+    "source": "Merch: Firefly ACG",
+    "thumbnail": "images/Orochi/热爱/thumb.png",
+    "full": "images/Orochi/热爱/full.png"
+  },
+  {
+    "character": "Tsukuyomi",
+    "keyname": "热爱",
+    "cn": "热爱",
+    "en": "Passion",
+    "source": "Merch: Firefly ACG",
+    "thumbnail": "images/Tsukuyomi/热爱/thumb.png",
+    "full": ""
+  },
+  {
+    "character": "Tsukuyomi",
+    "keyname": "虚月幻戏_Male",
+    "cn": "虚月幻戏",
+    "en": "Hundred Fantasies",
+    "source": "The Card Game",
+    "thumbnail": "images/Tsukuyomi/虚月幻戏_Male/thumb.jpg",
+    "full": "images/Tsukuyomi/虚月幻戏_Male/full.jpg"
+  },
+  {
+    "character": "Tsukuyomi",
+    "keyname": "虚月幻戏_Female",
+    "cn": "虚月幻戏",
+    "en": "Hundred Fantasies",
+    "source": "The Card Game",
+    "thumbnail": "images/Tsukuyomi/虚月幻戏_Female/thumb.jpg",
+    "full": "images/Tsukuyomi/虚月幻戏_Female/full.jpg"
+  },
+  {
+    "character": "Orochi",
+    "keyname": "Dye_DarkBlue",
+    "cn": "绀色",
+    "en": "Dark Blue",
+    "source": "Turn-Based",
+    "thumbnail": "images/Orochi/Dye_DarkBlue/thumb.jpg",
+    "full": "images/Orochi/Dye_DarkBlue/full.jpg"
+  },
+  {
+    "character": "Orochi",
+    "keyname": "Dye_TrueRed_SP",
+    "cn": "真红",
+    "en": "True Red",
+    "source": "Turn-Based",
+    "thumbnail": "images/Orochi/Dye_TrueRed_SP/thumb.jpg",
+    "full": "images/Tsukuyomi/Dye_TrueRed_SP/full.jpg"
+  },
+  {
+    "character": "Orochi",
+    "keyname": "Dye_DarkBlue_SP",
+    "cn": "绀色",
+    "en": "Dark Blue",
+    "source": "Turn-Based",
+    "thumbnail": "images/Orochi/Dye_DarkBlue_SP/thumb.jpg",
+    "full": "images/Orochi/Dye_DarkBlue_SP/full.jpg"
+  },
+  {
+    "character": "Tsukuyomi",
+    "keyname": "Dye_DarkBlue",
+    "cn": "绀色",
+    "en": "Dark Blue",
+    "source": "Turn-Based",
+    "thumbnail": "images/Tsukuyomi/Dye_DarkBlue/thumb.jpg",
+    "full": "images/Tsukuyomi/Dye_DarkBlue/full.jpg"
+  },
+  {
+    "character": "Orochi",
+    "keyname": "赤冕临祀",
+    "cn": "赤冕临祀",
+    "en": "Crimson Crowned Ritual",
+    "source": "Arena",
+    "thumbnail": "images/Orochi/赤冕临祀/thumb.jpg",
+    "full": "images/Orochi/赤冕临祀/full.jpg"
+  },
+  {
+    "character": "Orochi",
+    "keyname": "八俣夷医",
+    "cn": "八俣夷医",
+    "en": "",
+    "source": "Yokai Koya",
+    "thumbnail": "images/Orochi/八俣夷医/thumb.jpg",
+    "full": "images/Orochi/八俣夷医/full.jpg"
+  },
+  {
+    "character": "Orochi",
+    "keyname": "今宵乐尽",
+    "cn": "今宵乐尽",
+    "en": "",
+    "source": "Yokai Koya",
+    "thumbnail": "images/Orochi/今宵乐尽/thumb.jpg",
+    "full": "images/Orochi/今宵乐尽/full.jpg"
+  },
+  {
+    "character": "Orochi",
+    "keyname": "神念之影",
+    "cn": "神念之影",
+    "en": "Divine Shadow",
+    "source": "The Card Game",
+    "thumbnail": "images/Orochi/神念之影/thumb.jpg",
+    "full": "images/Orochi/神念之影/full.jpg"
+  },
+  {
+    "character": "Orochi",
+    "keyname": "血冕终焉",
+    "cn": "血冕终焉",
+    "en": "",
+    "source": "The Card Game",
+    "thumbnail": "images/Orochi/血冕终焉/thumb.jpg",
+    "full": "images/Orochi/血冕终焉/full.jpg"
+  },
+  {
+    "character": "Orochi",
+    "keyname": "店长",
+    "cn": "店长",
+    "en": "Manager",
+    "source": "Onmyoji Cafe",
+    "thumbnail": "images/Orochi/店长/thumb.jpg",
+    "full": "images/Orochi/店长/full.jpg"
+  },
+  {
+    "character": "Orochi",
+    "keyname": "店长2",
+    "cn": "店长2",
+    "en": "Manager2",
+    "source": "Onmyoji Cafe",
+    "thumbnail": "images/Orochi/店长2/thumb.jpg",
+    "full": "images/Orochi/店长2/full.jpg"
+  },
+  {
+    "character": "Orochi",
+    "keyname": "店长3",
+    "cn": "店长3",
+    "en": "Manager3",
+    "source": "Onmyoji Cafe",
+    "thumbnail": "images/Orochi/店长3/thumb.jpg",
+    "full": "images/Orochi/店长3/full.jpg"
+  },
+  {
+    "character": "Orochi",
+    "keyname": "店长4",
+    "cn": "店长4",
+    "en": "Manager4",
+    "source": "Onmyoji Cafe",
+    "thumbnail": "images/Orochi/店长4/thumb.jpg",
+    "full": "images/Orochi/店长4/full.jpg"
+  },
+  {
+    "character": "Orochi",
+    "keyname": "流年妖约",
+    "cn": "流年妖约",
+    "en": "",
+    "source": "6th Anniversary",
+    "thumbnail": "images/Orochi/流年妖约/thumb.jpg",
+    "full": "images/Orochi/流年妖约/full.jpg"
+  },
+  {
+    "character": "Orochi",
+    "keyname": "KIRABASE",
+    "cn": "(@哎哟Rocco你又在打电动哦)",
+    "en": "KIRABASE",
+    "source": "5th Anniversary",
+    "thumbnail": "images/Orochi/KIRABASE/thumb.jpg",
+    "full": "images/Orochi/KIRABASE/full.jpg"
+  },
+  {
+    "character": "Orochi",
+    "keyname": "盛宴",
+    "cn": "盛宴",
+    "en": "Grand Banquet",
+    "source": "Merch: Firefly ACG",
+    "thumbnail": "images/Orochi/盛宴/thumb.jpg",
+    "full": "images/Orochi/盛宴/full.jpg"
+  },
+  {
+    "character": "Orochi",
+    "keyname": "神迹",
+    "cn": "神迹",
+    "en": "MiracleS",
+    "source": "Merch: Firefly ACG",
+    "thumbnail": "images/Orochi/神迹/thumb.jpg",
+    "full": "images/Orochi/神迹/full.jpg"
+  },
+  {
+    "character": "Orochi",
+    "keyname": "约定系列",
+    "cn": "约定系列",
+    "en": "",
+    "source": "Merch: COMIPLUS+",
+    "thumbnail": "images/Orochi/约定系列/thumb.jpg",
+    "full": "images/Orochi/约定系列/full.jpg"
+  },
+  {
+    "character": "Orochi",
+    "keyname": "深渊篇章",
+    "cn": "深渊篇章",
+    "en": "7 Sins",
+    "source": "Merch: COMIPLUS+",
+    "thumbnail": "images/Orochi/深渊篇章/thumb.jpg",
+    "full": "images/Orochi/深渊篇章/full.jpg"
+  },
+  {
+    "character": "Orochi",
+    "keyname": "CP23",
+    "cn": "FALL/WIN",
+    "en": "FALL/WIN",
+    "source": "Merch: COMIPLUS+",
+    "thumbnail": "images/Orochi/CP23/thumb.jpg",
+    "full": "images/Orochi/CP23/full.jpg"
+  }
+]

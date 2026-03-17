@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="./styles/index.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=ZCOOL+XiaoWei&display=swap" rel="stylesheet">
+
+    <link rel="icon" type="image/x-icon" href="./images/favicon.ico">
+    <title>SheYue99</title>
+</head>
+<body class="flex items-center justify-center min-h-screen
+            bg-gradient-to-r from-slate-700 to-slate-900
+            animate-gradient"
+>
+    <div class="grid 
+            grid-cols-2 
+            grid-rows-[1fr_3fr]
+            md:grid-cols-3 md:grid-rows-1
+            w-full max-w-6xl
+            h-screen md:h-auto
+            ">
+
+        <div id="orochiCard" class="card">
+            <img id="orochiThumb" class="card-thumb">
+            <h2 id="orochiEN" class="card-en"></h2>
+            <p id="orochiCN" class="card-cn"></p>
+            <p id="orochiSource" class="card-source"></p>
+        </div>
+
+        <div class="control flex flex-col items-center justify-center 
+                    gap-4 h-full w-full max-w-xs 
+                    mx-auto p-10
+                    col-span-2 md:col-span-1
+                    order-first md:order-none
+                    ">
+
+            <button id="randomBtn"
+                class="text-white font-bold
+                        text-xl md:text-2xl
+                        px-6 md:px-10
+                        py-4 md:py-8
+                        w-full
+                        rounded shadow
+                        bg-gradient-to-r from-purple-700 to-indigo-600
+                        hover:brightness-110 hover:shadow-lg hover:shadow-white/10"
+                >
+                Random
+            </button>
+
+            <div>
+                <input type="radio" id="fixed" name="pairMode" value="fixed">
+                <label for="fixed">same set only</label>
+            </div>
+            <div>
+                <input type="radio" id="diff" name="pairMode" value="diff">
+                <label for="diff">different set only</label>
+            </div>
+
+            <button id="allBtn"
+                class="text-white font-bold
+                        text-lg md:text-xl
+                        px-6 md:px-10
+                        py-2 md:py-4
+                        w-full
+                        rounded shadow
+                        bg-gray-600
+                        hover:brightness-110 hover:shadow-lg hover:shadow-black/20"
+                >
+                View All
+            </button>
+            
+        </div>
+
+        <div id="tsukuCard" class="card">
+            <img id="tsukuThumb" class="card-thumb">
+            <h2 id="tsukuEN" class="card-en"></h2>
+            <p id="tsukuCN" class="card-cn"></p>
+            <p id="tsukuSource" class="card-source"></p>
+        </div>
+    </div>
+
+
+    <div id="imageModal"
+     class="fixed inset-0 bg-black/70 hidden items-center justify-center z-50">
+
+        <img id="modalImg"
+            class="max-h-[90vh] max-w-[90vw] rounded shadow-lg">
+<!-- 
+        <button id="prevBtn"
+            class="absolute left-5 text-white text-3xl">❮</button>
+
+        <button id="nextBtn"
+            class="absolute right-5 text-white text-3xl">❯</button> -->
+    </div>
+
+
+    <div id="allModal"
+        class="fixed inset-0 bg-black/70 hidden items-center justify-center z-40">
+
+        <div class="bg-slate-800 w-[90vw] max-w-5xl max-h-[90vh] 
+        p-6 rounded shadow-lg
+        overflow-y-auto 
+        [&::-webkit-scrollbar]:w-2
+        [&::-webkit-scrollbar-track]:bg-indigo-900
+        [&::-webkit-scrollbar-thumb]:bg-violet-600">
+
+            <div>
+                <h2 class="text-white text-xl font-bold cursor-pointer"
+                    onclick="toggleSection('oroSection')">
+                    Orochi ▼
+                </h2>
+                <div id="oroSection" class="grid grid-cols-2 md:grid-cols-4 gap-4 mt-2"></div>
+            </div>
+
+            <div class="mt-6">
+                <h2 class="text-white text-xl font-bold cursor-pointer"
+                    onclick="toggleSection('tsukuSection')">
+                    Tsukuyomi ▼
+                </h2>
+                <div id="tsukuSection" class="grid grid-cols-2 md:grid-cols-4 gap-4 mt-2"></div>
+            </div>
+
+        </div>
+    </div>
+
+    <script src="./scripts/index.js"></script>
+</body>
+</html>
