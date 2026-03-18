@@ -40,7 +40,8 @@ async function loadData(){
     pairKeys = Object.keys(orochiMap)
     .filter(k => tsukuMap[k])
     // console.log(pairKeys)
-
+    
+    renderAllCards()
     setDefault()
 }
 function randomL(list){
@@ -170,7 +171,7 @@ document.getElementById("allBtn")
 
 .addEventListener("click", () => {
 
-    renderAllCards()
+    // renderAllCards()
 
     allModal.classList.remove("hidden")
     allModal.classList.add("flex")
