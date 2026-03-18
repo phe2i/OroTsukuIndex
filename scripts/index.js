@@ -7,9 +7,22 @@ let tsukuMap = {}
 
 let pairKeys = []
 
+const game = ["Turn-Based", "The Card Game", "Arena"]
+
 async function loadData(){
     const res = await fetch("./data/topics.json")
     topics = await res.json()
+
+    topics.sort((a, b) => {
+        const indexA = game.indexOf(a.source)
+        const indexB = game.indexOf(b.source)
+        // others
+        const safeA = indexA === -1 ? Infinity : indexA
+        const safeB = indexB === -1 ? Infinity : indexB
+
+        return safeA - safeB
+    })
+
 
     orochiList = topics.filter(t => t.character === "Orochi")
     tsukuList = topics.filter(t => t.character === "Tsukuyomi")
@@ -218,9 +231,11 @@ function renderAllCards(){
     }
 }
 
-function toggleSection(id){
+function toggleSection(id, h){
     const el = document.getElementById(id)
     el.classList.toggle("hidden")
+
+    h.scrollIntoView()
 }
 
 // move to fn if want to close all at once

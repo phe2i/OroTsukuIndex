@@ -52,14 +52,15 @@
                 >
                 Random
             </button>
-
-            <div>
-                <input type="radio" id="fixed" name="pairMode" value="fixed">
-                <label for="fixed">same set only</label>
-            </div>
-            <div>
-                <input type="radio" id="diff" name="pairMode" value="diff">
-                <label for="diff">different set only</label>
+            <div class="text-lg md:text-xl flex flex-col gap-4">
+                <div class="radio-line">
+                    <input type="radio" id="fixed" name="pairMode" value="fixed">
+                    <label for="fixed">same set only</label>
+                </div>
+                <div class="radio-line">
+                    <input type="radio" id="diff" name="pairMode" value="diff">
+                    <label for="diff">different set only</label>
+                </div>
             </div>
 
             <button id="allBtn"
@@ -103,27 +104,27 @@
     <div id="allModal"
         class="fixed inset-0 bg-black/70 hidden items-center justify-center z-40">
 
-        <div class="bg-slate-800 w-[90vw] max-w-5xl max-h-[90vh] 
-        p-6 rounded shadow-lg
+        <div class="main-bg w-[90vw] max-w-5xl max-h-[90vh] 
+        rounded shadow-lg
         overflow-y-auto 
         [&::-webkit-scrollbar]:w-2
         [&::-webkit-scrollbar-track]:bg-indigo-900
         [&::-webkit-scrollbar-thumb]:bg-violet-600">
 
             <div>
-                <h2 class="text-white text-xl font-bold cursor-pointer"
-                    onclick="toggleSection('oroSection')">
+                <h2 class="char-section"
+                    onclick="toggleSection('oroSection', this)">
                     Orochi ▼
                 </h2>
-                <div id="oroSection" class="grid grid-cols-2 md:grid-cols-4 gap-4 mt-2"></div>
+                <div id="oroSection" class="grid grid-cols-2 md:grid-cols-4 gap-4 m-2"></div>
             </div>
 
-            <div class="mt-6">
-                <h2 class="text-white text-xl font-bold cursor-pointer"
-                    onclick="toggleSection('tsukuSection')">
+            <div>
+                <h2 class="char-section"
+                    onclick="toggleSection('tsukuSection', this)">
                     Tsukuyomi ▼
                 </h2>
-                <div id="tsukuSection" class="grid grid-cols-2 md:grid-cols-4 gap-4 mt-2"></div>
+                <div id="tsukuSection" class="grid grid-cols-2 md:grid-cols-4 gap-4 m-2"></div>
             </div>
 
         </div>
