@@ -7,15 +7,15 @@ let tsukuMap = {}
 
 let pairKeys = []
 
-const game = ["Turn-Based", "The Card Game", "Arena"]
+const games = ["Turn-Based", "The Card Game", "Arena"]
 
 async function loadData(){
     const res = await fetch("./data/topics.json")
     topics = await res.json()
 
     topics.sort((a, b) => {
-        const indexA = game.indexOf(a.source)
-        const indexB = game.indexOf(b.source)
+        const indexA = games.indexOf(a.source)
+        const indexB = games.indexOf(b.source)
         // others
         const safeA = indexA === -1 ? Infinity : indexA
         const safeB = indexB === -1 ? Infinity : indexB
@@ -40,9 +40,9 @@ async function loadData(){
     pairKeys = Object.keys(orochiMap)
     .filter(k => tsukuMap[k])
     // console.log(pairKeys)
-    
-    renderAllCards()
+
     setDefault()
+    renderAllCards()
 }
 function randomL(list){
     return list[Math.floor(Math.random()*list.length)]
@@ -88,7 +88,15 @@ function randomPair(){
     const mode = document.querySelector('input[name="pairMode"]:checked')?.value
     let o,t
 
-    if(mode === "fixed"){
+    if(mode === "ingame"){
+        const oroList = orochiList.filter(t => games.includes(t.source))
+        const tsuList = tsukuList.filter(t => games.includes(t.source))
+        // console.log(oroList)
+        // console.log(tsuList)
+        o = randomL(oroList)
+        t = randomL(tsuList)
+    }
+    else if(mode === "fixed"){
         const key = randomL(pairKeys)
         
         const oroList = orochiMap[key] || []
