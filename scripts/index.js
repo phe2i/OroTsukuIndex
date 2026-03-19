@@ -7,7 +7,7 @@ let tsukuMap = {}
 
 let pairKeys = []
 
-const games = ["Turn-Based", "The Card Game", "Arena"]
+const games = ["Turn-Based", "The Card Game", "Arena", "Yokai Koya"]
 
 async function loadData(){
     const res = await fetch("./data/topics.json")
