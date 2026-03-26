@@ -448,5 +448,50 @@
     "source": "Merch: COMIPLUS+",
     "thumbnail": "images/Orochi/CP23/thumb.jpg",
     "full": "images/Orochi/CP23/full.jpg"
+  },
+  {
+    "character": "Orochi",
+    "keyname": "temp1",
+    "cn": "",
+    "en": "",
+    "source": "temp",
+    "thumbnail": "images/Orochi/temp1/thumb.jpg",
+    "full": "images/Orochi/temp1/full.jpg"
+  },
+  {
+    "character": "Orochi",
+    "keyname": "temp2",
+    "cn": "",
+    "en": "",
+    "source": "temp",
+    "thumbnail": "images/Orochi/temp2/thumb.jpg",
+    "full": "images/Orochi/temp2/full.jpg"
+  },
+  {
+    "character": "Orochi",
+    "keyname": "temp3",
+    "cn": "",
+    "en": "",
+    "source": "temp",
+    "thumbnail": "images/Orochi/temp3/thumb.jpg",
+    "full": "images/Orochi/temp3/full.jpg"
+  },
+  {
+    "character": "Orochi",
+    "keyname": "temp4",
+    "cn": "",
+    "en": "",
+    "source": "temp",
+    "thumbnail": "images/Orochi/temp4/thumb.jpg",
+    "full": "images/Orochi/temp4/full.jpg"
+  },
+  {
+    "character": "Tsukuyomi",
+    "keyname": "temp5",
+    "cn": "",
+    "en": "",
+    "source": "temp",
+    "thumbnail": "images/Tsukuyomi/temp5/thumb.jpg",
+    "full": "images/Tsukuyomi/temp5/full.jpg"
   }
 ]
