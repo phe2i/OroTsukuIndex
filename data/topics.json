@@ -493,5 +493,23 @@
     "source": "temp",
     "thumbnail": "images/Tsukuyomi/temp5/thumb.jpg",
     "full": "images/Tsukuyomi/temp5/full.jpg"
+  },
+  {
+    "character": "Orochi",
+    "keyname": "Keep going",
+    "cn": "觉醒之力",
+    "en": "Keep going",
+    "source": "Merch: Keep",
+    "thumbnail": "images/Orochi/Keep going/thumb.jpg",
+    "full": "images/Orochi/Keep going/full.jpg"
+  },
+  {
+    "character": "Tsukuyomi",
+    "keyname": "大天使",
+    "cn": "大天使",
+    "en": "Archangel",
+    "source": "Merch: COMIPLUS+",
+    "thumbnail": "images/Tsukuyomi/大天使/thumb.jpg",
+    "full": "images/Tsukuyomi/大天使/full.jpg"
   }
 ]
