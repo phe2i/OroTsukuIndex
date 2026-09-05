@@ -182,6 +182,8 @@ input[type="radio"]:focus {
   transition:
     transform 0.2s ease,
     filter 0.2s ease;
+
+  overflow: hidden;
 }
 
 .model-viewer-float img {
