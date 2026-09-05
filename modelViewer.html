@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Model Viewer</title>
+    <link
+        rel="stylesheet"
+        href="./styles/index.css"
+    >
+    <link
+        rel="stylesheet"
+        href="./styles/modelViewer.css"
+    >
+
+</head>
+
+<body>
+
+    <main class="model-viewer-page">
+
+        <!-- LEFT PANEL -->
+        <aside
+            id="modelSidebar"
+            class="model-sidebar"
+        >
+
+            <section class="model-section">
+
+                <header class="model-list-header">
+
+                    <h1>
+                        ❖ Model List ⏾
+                    </h1>
+
+                    <!-- Search -->
+                    <div class="model-search">
+                        <svg
+                            class="search-icon"
+                            viewBox="0 0 24 24"
+                            aria-hidden="true"
+                        >
+                            <circle
+                                cx="11"
+                                cy="11"
+                                r="7"
+                            ></circle>
+
+                            <line
+                                x1="16.5"
+                                y1="16.5"
+                                x2="21"
+                                y2="21"
+                            ></line>
+                        </svg>
+
+                        <input
+                            id="modelSearch"
+                            type="search"
+                            placeholder="Search models..."
+                            autocomplete="off"
+                        >
+                    </div>
+
+                </header>
+
+
+                <section
+                    id="modelList"
+                    class="model-list"
+                >
+                </section>
+
+            </section>
+
+            <div
+                id="verticalResizeHandle"
+                class="vertical-resize-handle"
+                title="Resize model/material panels"
+            ></div>
+
+
+            <section class="material-panel">
+
+                <div class="material-header">
+
+                    <h2>
+                        Material List
+                    </h2>
+
+
+                    <div class="material-actions">
+
+                        <button
+                            id="showAllMaterials"
+                            class="material-action"
+                            title="Show all materials"
+                        >
+                            A
+                        </button>
+
+                        <button
+                            id="revertMaterials"
+                            class="material-action"
+                            title="Revert material visibility"
+                        >
+                            R
+                        </button>
+
+                    </div>
+
+                </div>
+
+
+                <div
+                    id="materialList"
+                    class="material-list"
+                >
+                    <div class="material-empty">
+                        Select a model
+                    </div>
+                </div>
+
+            </section>
+
+            <div
+                id="horizontalResizeHandle"
+                class="horizontal-resize-handle"
+                title="Resize sidebar"
+            ></div>
+
+        </aside>
+
+        <!-- switch page btn -->
+        <a id="modelViewerBtn"
+        href="./index.html"
+        class="model-viewer-float"
+        aria-label="Open Skin List"
+        title="Open Skin List">
+
+            <!-- Idle -->
+            <img
+                id="modelViewerStatic"
+                src="./images/UI/skinViewer-0.png"
+                alt="Model Viewer"
+            >
+
+            <!-- Animated GIF -->
+            <img
+                id="modelViewerGif"
+                src="./images/UI/skinViewer.gif"
+                alt=""
+            >
+        </a>
+
+        <!-- ================
+             MAIN VIEWER AREA
+             ================ -->
+
+        <section class="viewer-area">
+
+            <!-- THREE.JS VIEWPORT -->
+            <div
+                id="modelViewport"
+                class="model-viewport"
+            >
+
+                <div
+                    id="viewerLoading"
+                    class="viewer-loading hidden"
+                >
+                    Loading...
+                </div>
+
+
+                <div
+                    id="viewerEmpty"
+                    class="viewer-empty"
+                >
+                    Select a model
+                </div>
+
+
+                <!-- Viewer controls -->
+
+                <div class="viewer-controls">
+
+                    <input
+                        id="backgroundColor"
+                        class="background-color-picker"
+                        type="color"
+                        value="#c3c3c3"
+                        title="Change background color"
+                    >
+
+                    <button
+                        id="resetCamera"
+                        class="viewer-button"
+                        title="Reset Camera"
+                    >
+                        ↻
+                    </button>
+
+                    <button
+                        id="lightSettings"
+                        class="viewer-button"
+                        title="Light Settings"
+                    >
+                        ☀
+                    </button>
+                    <div
+                        id="lightPanel"
+                        class="light-panel"
+                    >
+
+                        <div class="light-panel-title">
+                            Light
+                        </div>
+
+                        <!-- ishouldvejustusedreactomg -->
+                        <!-- Distance -->
+                        <div class="light-control">
+
+                            <div class="light-control-header">
+                                <label for="lightDistance">
+                                    Distance
+                                </label>
+
+                                <span id="lightDistanceValue">
+                                    20.00
+                                </span>
+                            </div>
+
+                            <input
+                                id="lightDistance"
+                                type="range"
+                                min="0"
+                                max="200"
+                                step="10"
+                                value="20"
+                            >
+
+                        </div>
+
+                        <!-- Intensity -->
+                        <div class="light-control">
+
+                            <div class="light-control-header">
+                                <label for="lightIntensity">
+                                    Intensity
+                                </label>
+
+                                <span id="lightIntensityValue">
+                                    3.00
+                                </span>
+                            </div>
+
+                            <input
+                                id="lightIntensity"
+                                type="range"
+                                min="0"
+                                max="5"
+                                step="0.05"
+                                value="3"
+                            >
+
+                        </div>
+
+                        <!-- Horizontal -->
+                        <div class="light-control">
+
+                            <div class="light-control-header">
+                                <label for="lightHorizontal">
+                                    Horizontal
+                                </label>
+
+                                <span id="lightHorizontalValue">
+                                </span>
+                            </div>
+
+                            <input
+                                id="lightHorizontal"
+                                type="range"
+                                min="0"
+                                max="360"
+                                step="1"
+                                value="45"
+                            >
+
+                        </div>
+
+                        <!-- Vertical -->
+                        <div class="light-control">
+
+                            <div class="light-control-header">
+                                <label for="lightVertical">
+                                    Vertical
+                                </label>
+
+                                <span id="lightVerticalValue">
+                                </span>
+                            </div>
+
+                            <input
+                                id="lightVertical"
+                                type="range"
+                                min="-60"
+                                max="90"
+                                step="1"
+                                value="0"
+                            >
+
+                        </div>
+
+                        <!-- Ambient -->
+                        <div class="light-control">
+
+                            <div class="light-control-header">
+                                <label for="ambientLight">
+                                    Ambient
+                                </label>
+
+                                <span id="ambientLightValue">
+                                </span>
+                            </div>
+
+                            <input
+                                id="ambientLight"
+                                type="range"
+                                min="0"
+                                max="10"
+                                step="0.05"
+                                value="2"
+                            >
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+    <script type="importmap">
+    {
+        "imports": {
+            "three": "https://cdn.jsdelivr.net/npm/three@0.157.0/build/three.module.js",
+            "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.157.0/examples/jsm/"
+        }
+    }
+    </script>
+
+    <script
+        type="module"
+        src="./scripts/modelViewer.js"
+    ></script>
+
+</body>
+
+</html>

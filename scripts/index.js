@@ -11,7 +11,9 @@ const games = ["Turn-Based", "The Card Game", "Arena", "Yokai Koya"]
 
 async function loadData(){
     const res = await fetch("./data/topics.json")
-    topics = await res.json()
+    const data = await res.json()
+
+    topics = data.topics || []
 
     topics.sort((a, b) => {
         const indexA = games.indexOf(a.source)
