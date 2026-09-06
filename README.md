@@ -2,8 +2,7 @@
 
 > An archive dedicated to the **月蛇月** ship from *Onmyoji* (阴阳师手游).
 
-The archive is available through the web interface:
-**[SheYue99](https://phe2i.github.io/OroTsukuIndex/)**
+## The archive is available through the web interface: **[SheYue99](https://phe2i.github.io/OroTsukuIndex/)**
 
 Currently provides:
 
@@ -44,7 +43,7 @@ Where possible, original sources and relevant references are recorded alongside 
 
 Some of the collected information is also available in this [Google Document](https://docs.google.com/document/d/1HqaYiDbOqpp6UyVHBzZM5eC6ugqhWbtIgfyjqP4Un2U/preview?tab=t.0).
 
-
+> If you find incorrect information, missing credits, or useful archival sources, please feel free to contact me through the available contact methods.
 
 ## About Rigging
 
@@ -62,13 +61,5 @@ If you would like to continue working on the models, you are welcome to continue
 This repository is intended for **archival, reference, and fan purposes** and is not affiliated with NetEase Games or Onmyoji.
 
 Original artwork, game assets, merchandise, models, trademarks, and other materials remain the property of their respective copyright holders and creators.
-
----
-
-# Maintainer
-
-This project is independently organized and maintained by **[phe2i (飞Pheii)](https://github.com/phe2i)**.
-
-If you find incorrect information, missing credits, or useful archival sources, please feel free to contact me through the available contact methods.
 
 ---
