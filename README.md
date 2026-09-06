@@ -11,6 +11,17 @@ Currently provides:
 * Random skin selection for drawing-topic purposes
 * In-game 3D model viewing
 
+## About models folder
+If you only want the model files without checking out the rest of the repository:
+
+```
+git clone --depth 1 --no-checkout https://github.com/phe2i/OroTsukuIndex.git
+cd OroTsukuIndex
+git sparse-checkout set models
+git checkout
+```
+This will create a local copy containing only the **models/** folder.
+
 ---
 
 # About
@@ -32,6 +43,17 @@ The archive may include:
 Where possible, original sources and relevant references are recorded alongside the archived information.
 
 Some of the collected information is also available in this [Google Document](https://docs.google.com/document/d/1HqaYiDbOqpp6UyVHBzZM5eC6ugqhWbtIgfyjqP4Un2U/preview?tab=t.0).
+
+
+
+## About Rigging
+
+Only a small portion of the models in this archive are rigged.
+
+The main purpose of storing these models here is to preserve the closest available version of the original model, rather than to provide fully rigged or ready-to-use models.
+
+
+If you would like to continue working on the models, you are welcome to continue rigging or improving them from the versions provided here.
 
 ---
 
