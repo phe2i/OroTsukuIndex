@@ -9,6 +9,9 @@ let pairKeys = []
 
 const games = ["Turn-Based", "The Card Game", "Arena", "Yokai Koya"]
 
+let currentOrochiData = null
+let currentTsukuData = null
+
 async function loadData(){
     const res = await fetch("./data/topics.json")
     const data = await res.json()
@@ -45,6 +48,9 @@ async function loadData(){
 
     setDefault()
     renderAllCards()
+
+    enableImagePopup("orochiThumb")
+    enableImagePopup("tsukuThumb")
 }
 function randomL(list){
     return list[Math.floor(Math.random()*list.length)]
@@ -53,13 +59,21 @@ function randomL(list){
 function display(card, data){
     if(!data) return
 
+    if(card === "orochi"){
+        currentOrochiData = data
+    }else if(card === "tsuku"){
+        currentTsukuData = data
+    }
+
     const imgEl = document.getElementById(card+"Thumb")
+
     imgEl.src = data.thumbnail
+
     imgEl.dataset.images = JSON.stringify([
         data.thumbnail,
         data.full
     ])
-    // document.getElementById(card+"Thumb").src = data.thumbnail
+
     document.getElementById(card+"EN").innerText = data.en
     document.getElementById(card+"CN").innerText = data.cn
     document.getElementById(card+"Source").innerText = data.source
@@ -129,6 +143,43 @@ function randomPair(){
 document.getElementById("randomBtn")
 .addEventListener("click", randomPair)
 
+function showModalWithData(data) {
+    if(!data) return
+    
+    currentImages = [
+        data.thumbnail,
+        data.full || data.thumbnail
+    ]
+    modalImg.src = currentImages[1] || currentImages[0]
+
+    const releaseDate = document.getElementById("modalReleaseDate")
+    releaseDate.innerText = data.releaseDate ? `Release: ${data.releaseDate}` : "Release: -"
+
+    const links = document.getElementById("modalLinks")
+    links.innerHTML = ""
+
+    if(data.links && data.links.length > 0){
+        data.links.forEach((link, index) => {
+            const btn = document.createElement("a")
+            btn.href = link.url
+            btn.target = "_blank"
+            btn.rel = "noopener noreferrer"
+            btn.innerText = link.label
+            btn.className = "topic-link-btn"
+            
+            if(index % 2 === 0){
+                btn.classList.add("btn1")
+            }else{
+                btn.classList.add("btn2")
+            }
+            links.appendChild(btn)
+        })
+    }
+
+    modal.classList.remove("hidden")
+    modal.classList.add("flex")
+}
+
 // img popup
 const modal = document.getElementById("imageModal")
 const modalImg = document.getElementById("modalImg")
@@ -138,24 +189,28 @@ let currentImages = []
 function enableImagePopup(imgId){
     const img = document.getElementById(imgId)
     img.addEventListener("click", () => {
+
+        let data
+        if (imgId === "orochiThumb") {
+            data = currentOrochiData
+        } else if (imgId === "tsukuThumb") {
+            data = currentTsukuData
+        }
         
-        currentImages = JSON.parse(img.dataset.images || "[]")
-        if(currentImages[1]){
-           modalImg.src = currentImages[1]
-        }else{ modalImg.src = currentImages[0] }
-        // modalImg.src = img.src
-        modal.classList.remove("hidden")
-        modal.classList.add("flex")
+        console.log('Data retrieved:', data)
+        if(!data) return
+
+        showModalWithData(data)
     })
 }
 
-enableImagePopup("orochiThumb")
-enableImagePopup("tsukuThumb")
 
 // close when clicking bg
-modal.addEventListener("click", () => {
-    modal.classList.remove("flex")
-    modal.classList.add("hidden")
+modal.addEventListener("click", (e) => {
+    if(e.target === modal){
+        modal.classList.remove("flex")
+        modal.classList.add("hidden")
+    }
 })
 
 
@@ -196,14 +251,7 @@ function createCard(item){
     img.className = "w-full rounded mb-2 cursor-pointer"
 
     img.addEventListener("click", () => {
-        currentImg = [
-            item.thumbnail,
-            item.full || item.thumbnail
-        ]
-        modalImg.src = currentImg[1] || currentImg[0]
-
-        modal.classList.remove("hidden")
-        modal.classList.add("flex")
+        showModalWithData(item)
     })
 
     let name = ""

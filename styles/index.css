@@ -8,6 +8,9 @@
 }
 :root{
   --main-colour: rgb(30,41,59);
+  --btn1-colour: rgb(162, 187, 226);
+  --btn2-colour: rgb(198, 165, 212);
+  --btn-text: rgb(0, 0, 0);
 }
 .main-bg{
   background-color: var(--main-colour); 
@@ -232,4 +235,44 @@ input[type="radio"]:focus {
     right: 1rem;
     bottom: 1rem;
   }
+}
+
+.card-release-date {
+    /* margin-top: 0.5px; */
+    font-size: 0.99rem;
+}
+
+.topic-links {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 6px;
+    margin-top: 6px;
+}
+
+.topic-link-btn {
+    display: inline-block;
+    padding: 4px 10px;
+    border-radius: 6px;
+
+    color: var(--btn-text);
+    text-decoration: none;
+
+    font-size: 1rem;
+    font-weight: 500;
+
+    transition: opacity 0.2s, transform 0.2s;
+}
+
+.topic-link-btn.btn1 {
+    background-color: var(--btn1-colour);
+}
+
+.topic-link-btn.btn2 {
+    background-color: var(--btn2-colour);
+}
+
+.topic-link-btn:hover {
+    opacity: 0.85;
+    transform: translateY(-1px);
 }
