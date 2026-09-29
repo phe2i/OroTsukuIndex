@@ -6,6 +6,7 @@ let orochiMap = {}
 let tsukuMap = {}
 
 let pairKeys = []
+let customPairs = []
 
 const games = ["Turn-Based", "The Card Game", "Arena", "Yokai Koya"]
 
@@ -17,6 +18,7 @@ async function loadData(){
     const data = await res.json()
 
     topics = data.topics || []
+    customPairs = data.customPair || []
 
     topics.sort((a, b) => {
         const indexA = games.indexOf(a.source)
@@ -42,9 +44,27 @@ async function loadData(){
         tsukuMap[t.keyname].push(t)
     }
 
-    pairKeys = Object.keys(orochiMap)
-    .filter(k => tsukuMap[k])
+    Object.keys(tsukuMap)
+    .filter(k => orochiMap[k])
+    .forEach(k => {
+        pairKeys.push({
+            name: k,
+            orochiKey: k,
+            tsukuKey: k
+        })
+    })
+    for(const p of customPairs){
+        if(orochiMap[p.orochiKey] && tsukuMap[p.tsukuKey])
+        {
+            pairKeys.push({
+                name: p.name,
+                orochiKey: p.orochiKey,
+                tsukuKey: p.tsukuKey
+            })
+        }
+    }
     // console.log(pairKeys)
+
 
     setDefault()
     renderAllCards()
@@ -113,10 +133,10 @@ function randomPair(){
         t = randomL(tsuList)
     }
     else if(mode === "fixed"){
-        const key = randomL(pairKeys)
+        const pair = randomL(pairKeys)
         
-        const oroList = orochiMap[key] || []
-        const tsuList = tsukuMap[key] || []
+        const oroList = orochiMap[pair.orochiKey] || []
+        const tsuList = tsukuMap[pair.tsukuKey] || []
 
         o = randomL(oroList)
         t = randomL(tsuList)

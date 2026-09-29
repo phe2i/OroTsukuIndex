@@ -109,10 +109,15 @@
       "cn": "觉醒之力",
       "en": "Keep going",
       "source": "Merch: Keep",
-      "releaseDate": null,
+      "releaseDate": "2026-04-07",
       "thumbnail": "images/Orochi/Keep going/thumb.jpg",
       "full": "images/Orochi/Keep going/full.jpg",
-      "links": [],
+      "links": [
+        {
+          "label": "Source",
+          "url": "https://weibo.com/5342268417/QzFNAuOp5"
+        }
+      ],
       "models": []
     },
     {
@@ -139,10 +144,15 @@
       "cn": "SSR",
       "en": "SSR",
       "source": "Turn-Based",
-      "releaseDate": null,
+      "releaseDate": "2018-12-26",
       "thumbnail": "images/Orochi/SSR/thumb.jpg",
       "full": "images/Orochi/SSR/full.jpg",
-      "links": [],
+      "links": [
+        {
+          "label": "Source",
+          "url": "https://weibo.com/5896401674/H6LdTlFVj"
+        }
+      ],
       "models": [
         {
           "version": 1,
@@ -157,10 +167,15 @@
       "cn": "觉醒",
       "en": "evo",
       "source": "Turn-Based",
-      "releaseDate": null,
+      "releaseDate": "2018-12-26",
       "thumbnail": "images/Orochi/SSR_evo/thumb.jpg",
       "full": "images/Orochi/SSR_evo/full.jpg",
-      "links": [],
+      "links": [
+        {
+          "label": "Source",
+          "url": "https://weibo.com/5896401674/H6LdTlFVj"
+        }
+      ],
       "models": [
         {
           "version": 1,
@@ -247,10 +262,15 @@
       "cn": "冷夜暗影",
       "en": "Shivering Shadow",
       "source": "Turn-Based",
-      "releaseDate": null,
+      "releaseDate": "2025-07-30",
       "thumbnail": "images/Orochi/冷夜暗影/thumb.jpg",
       "full": "images/Orochi/冷夜暗影/full.jpg",
-      "links": [],
+      "links": [
+        {
+          "label": "Source",
+          "url": "https://weibo.com/5896401674/Lb2OorhtP"
+        }
+      ],
       "models": [
         {
           "version": 1,
@@ -282,10 +302,15 @@
       "cn": "庆典",
       "en": "Celebration",
       "source": "Merch: COMIPLUS+",
-      "releaseDate": null,
+      "releaseDate": "2024-09-09",
       "thumbnail": "images/Orochi/庆典/thumb.png",
       "full": "images/Orochi/庆典/full.jpg",
-      "links": [],
+      "links": [
+        {
+          "label": "Source",
+          "url": "https://weibo.com/2589574104/Owc1i5IHt"
+        }
+      ],
       "models": []
     },
     {
@@ -359,10 +384,15 @@
       "cn": "新春祈福",
       "en": "New Year's blessings",
       "source": "Merch: COMIPLUS+",
-      "releaseDate": null,
+      "releaseDate": "2024-02-06",
       "thumbnail": "images/Orochi/新春祈福/thumb.png",
       "full": "",
-      "links": [],
+      "links": [
+        {
+          "label": "Source",
+          "url": "https://weibo.com/1843256734/NFi3JasvL"
+        }
+      ],
       "models": []
     },
     {
@@ -371,10 +401,15 @@
       "cn": "檀樱倚梦",
       "en": "Sakura Reverie",
       "source": "Turn-Based",
-      "releaseDate": null,
+      "releaseDate": "2024-09-01",
       "thumbnail": "images/Orochi/檀樱倚梦/thumb.jpg",
       "full": "images/Orochi/檀樱倚梦/full.jpg",
-      "links": [],
+      "links": [
+        {
+          "label": "Source",
+          "url": "https://weibo.com/5896401674/OudoHfP9T"
+        }
+      ],
       "models": [
         {
           "version": 1,
@@ -401,10 +436,19 @@
       "cn": "深渊篇章",
       "en": "7 Sins",
       "source": "Merch: COMIPLUS+",
-      "releaseDate": null,
+      "releaseDate": "2024-09-07",
       "thumbnail": "images/Orochi/深渊篇章/thumb.jpg",
       "full": "images/Orochi/深渊篇章/full.jpg",
-      "links": [],
+      "links": [
+        {
+          "label": "Source",
+          "url": "https://weibo.com/2589574104/OvSLFfiaF"
+        },
+        {
+          "label": "Lore",
+          "url": "https://weibo.com/2589574104/R50IuozOy"
+        }
+      ],
       "models": []
     },
     {
@@ -425,10 +469,15 @@
       "cn": "玄夜神隐",
       "en": "Dark Passenger",
       "source": "Turn-Based",
-      "releaseDate": null,
+      "releaseDate": "2022-05-18",
       "thumbnail": "images/Orochi/玄夜神隐/thumb.jpg",
       "full": "images/Orochi/玄夜神隐/full.jpg",
-      "links": [],
+      "links": [
+        {
+          "label": "Source",
+          "url": "https://weibo.com/5896401674/LtrbSrDCM"
+        }
+      ],
       "models": [
         {
           "version": 1,
@@ -443,10 +492,15 @@
       "cn": "琉璃愿境",
       "en": "Glass Realm",
       "source": "Turn-Based",
-      "releaseDate": null,
+      "releaseDate": "2024-07-31",
       "thumbnail": "images/Orochi/琉璃愿境/thumb.jpg",
       "full": "images/Orochi/琉璃愿境/full.jpg",
-      "links": [],
+      "links": [
+        {
+          "label": "Source",
+          "url": "https://weibo.com/5896401674/OpNpj55fa"
+        }
+      ],
       "models": [
         {
           "version": 1,
@@ -461,10 +515,15 @@
       "cn": "白绯觅影",
       "en": "White Serpent",
       "source": "Turn-Based",
-      "releaseDate": null,
+      "releaseDate": "2019-07-03",
       "thumbnail": "images/Orochi/白绯觅影/thumb.jpg",
       "full": "images/Orochi/白绯觅影/full.jpg",
-      "links": [],
+      "links": [
+        {
+          "label": "Source",
+          "url": "https://weibo.com/5896401674/HBDnRgpvN"
+        }
+      ],
       "models": [
         {
           "version": 1,
@@ -515,10 +574,15 @@
       "cn": "神遂幽乡",
       "en": "Sinister Sojourner",
       "source": "Turn-Based",
-      "releaseDate": null,
+      "releaseDate": "2023-07-19",
       "thumbnail": "images/Orochi/神遂幽乡/thumb.jpg",
       "full": "images/Orochi/神遂幽乡/full.jpg",
-      "links": [],
+      "links": [
+        {
+          "label": "Source",
+          "url": "https://weibo.com/5896401674/N9n28bFod"
+        }
+      ],
       "models": [
         {
           "version": 1,
@@ -556,10 +620,15 @@
       "cn": "约定系列",
       "en": "",
       "source": "Merch: COMIPLUS+",
-      "releaseDate": null,
+      "releaseDate": "2023-04-30",
       "thumbnail": "images/Orochi/约定系列/thumb.jpg",
       "full": "images/Orochi/约定系列/full.jpg",
-      "links": [],
+      "links": [
+        {
+          "label": "Source",
+          "url": "https://weibo.com/2589574104/MEp8k09Ff"
+        }
+      ],
       "models": []
     },
     {
@@ -568,10 +637,23 @@
       "cn": "终焉神主1",
       "en": "Finality Incarnate",
       "source": "Turn-Based",
-      "releaseDate": null,
+      "releaseDate": "2024-02-07",
       "thumbnail": "images/Orochi/终焉神主1/thumb.jpg",
       "full": "images/Orochi/终焉神主1/full.jpg",
-      "links": [],
+      "links": [
+        {
+          "label": "Source",
+          "url": "https://weibo.com/5896401674/NEffnrsdd"
+        },
+        {
+          "label": "Mind Realm",
+          "url": "https://weibo.com/5896401674/NEfs6BoK2"
+        },
+        {
+          "label": "Detail",
+          "url": "https://weibo.com/5896401674/NEfyW8s7A"
+        }
+      ],
       "models": [
         {
           "version": 1,
@@ -586,10 +668,15 @@
       "cn": "终焉神主2",
       "en": "Finality Incarnate 2",
       "source": "Turn-Based",
-      "releaseDate": null,
+      "releaseDate": "2025-12-10",
       "thumbnail": "images/Orochi/终焉神主2/thumb.jpg",
       "full": "images/Orochi/终焉神主2/full.jpg",
-      "links": [],
+      "links": [
+        {
+          "label": "Source",
+          "url": "https://weibo.com/5896401674/QhDkbaoDf"
+        }
+      ],
       "models": [
         {
           "version": 1,
@@ -604,10 +691,15 @@
       "cn": "至臻风尚",
       "en": "Ultimate Style",
       "source": "Merch: COMIPLUS+",
-      "releaseDate": null,
+      "releaseDate": "2024-01-09",
       "thumbnail": "images/Orochi/至臻风尚/thumb.png",
       "full": "images/Orochi/至臻风尚/full.jpg",
-      "links": [],
+      "links": [
+        {
+          "label": "Source",
+          "url": "https://weibo.com/6509826766/NB1FUaKI5"
+        }
+      ],
       "models": []
     },
     {
@@ -616,10 +708,15 @@
       "cn": "蛇游幻影",
       "en": "Slithering Phantom",
       "source": "Turn-Based",
-      "releaseDate": null,
+      "releaseDate": "2023-11-08",
       "thumbnail": "images/Orochi/蛇游幻影/thumb.jpg",
       "full": "images/Orochi/蛇游幻影/full.jpg",
-      "links": [],
+      "links": [
+        {
+          "label": "Source",
+          "url": "https://weibo.com/5896401674/NqfcZpRjy"
+        }
+      ],
       "models": [
         {
           "version": 1,
@@ -646,10 +743,15 @@
       "cn": "赤冕临祀",
       "en": "Crimson Crowned Ritual",
       "source": "Arena",
-      "releaseDate": null,
+      "releaseDate": "2025-04-02",
       "thumbnail": "images/Orochi/赤冕临祀/thumb.jpg",
       "full": "images/Orochi/赤冕临祀/full.jpg",
-      "links": [],
+      "links": [
+        {
+          "label": "Source",
+          "url": "https://weibo.com/6299431693/Plnze8fFD"
+        }
+      ],
       "models": [
         {
           "version": 1,
@@ -664,10 +766,19 @@
       "cn": "锻厄缚因",
       "en": "Chains of Destiny",
       "source": "Turn-Based",
-      "releaseDate": null,
+      "releaseDate": "2025-05-21",
       "thumbnail": "images/Orochi/锻厄缚因/thumb.jpg",
       "full": "images/Orochi/锻厄缚因/full.jpg",
-      "links": [],
+      "links": [
+        {
+          "label": "Source",
+          "url": "https://weibo.com/5896401674/Psqjp268k"
+        },
+        {
+          "label": "Detail",
+          "url": "https://weibo.com/5896401674/PsqtZE9eR"
+        }
+      ],
       "models": [
         {
           "version": 1,
@@ -746,10 +857,15 @@
       "cn": "SSR",
       "en": "SSR",
       "source": "Turn-Based",
-      "releaseDate": null,
+      "releaseDate": "2023-01-18",
       "thumbnail": "images/Tsukuyomi/SSR/thumb.jpg",
       "full": "images/Tsukuyomi/SSR/full.jpg",
-      "links": [],
+      "links": [
+        {
+          "label": "Source",
+          "url": "https://weibo.com/5896401674/MndTDdLfK"
+        }
+      ],
       "models": [
         {
           "version": 1,
@@ -769,10 +885,15 @@
       "cn": "觉醒",
       "en": "evo",
       "source": "Turn-Based",
-      "releaseDate": null,
+      "releaseDate": "2023-01-18",
       "thumbnail": "images/Tsukuyomi/SSR_evo/thumb.jpg",
       "full": "images/Tsukuyomi/SSR_evo/full.jpg",
-      "links": [],
+      "links": [
+        {
+          "label": "Source",
+          "url": "https://weibo.com/5896401674/MndTDdLfK"
+        }
+      ],
       "models": [
         {
           "version": 1,
@@ -799,10 +920,19 @@
       "cn": "堇云月华",
       "en": ":(",
       "source": "Turn-Based",
-      "releaseDate": null,
+      "releaseDate": "2024-07-17",
       "thumbnail": "images/Tsukuyomi/堇云月华/thumb.jpg",
       "full": "images/Tsukuyomi/堇云月华/full.jpg",
-      "links": [],
+      "links": [
+        {
+          "label": "Source",
+          "url": "https://weibo.com/5896401674/OnNyNvs8E"
+        },
+        {
+          "label": "Detail",
+          "url": "https://weibo.com/5896401674/OnNPRw0mc"
+        }
+      ],
       "models": [
         {
           "version": 1,
@@ -817,10 +947,19 @@
       "cn": "大天使",
       "en": "Archangelus",
       "source": "Merch: COMIPLUS+",
-      "releaseDate": null,
+      "releaseDate": "2026-05-15",
       "thumbnail": "images/Tsukuyomi/大天使/thumb.jpg",
       "full": "images/Tsukuyomi/大天使/full.jpg",
-      "links": [],
+      "links": [
+        {
+          "label": "Source",
+          "url": "https://weibo.com/2589574104/QFuN0kz2t"
+        },
+        {
+          "label": "Lore",
+          "url": "https://weibo.com/2589574104/R50IuozOy"
+        }
+      ],
       "models": []
     },
     {
@@ -829,10 +968,15 @@
       "cn": "庆典",
       "en": "Celebration",
       "source": "Merch: COMIPLUS+",
-      "releaseDate": null,
+      "releaseDate": "2024-09-09",
       "thumbnail": "images/Tsukuyomi/庆典/thumb.png",
       "full": "images/Tsukuyomi/庆典/full.jpg",
-      "links": [],
+      "links": [
+        {
+          "label": "Source",
+          "url": "https://weibo.com/2589574104/Owc1i5IHt"
+        }
+      ],
       "models": []
     },
     {
@@ -841,10 +985,15 @@
       "cn": "新春祈福",
       "en": "New Year's blessings",
       "source": "Merch: COMIPLUS+",
-      "releaseDate": null,
+      "releaseDate": "2026-02-09",
       "thumbnail": "images/Tsukuyomi/新春祈福/thumb.png",
       "full": "",
-      "links": [],
+      "links": [
+        {
+          "label": "Source",
+          "url": "https://weibo.com/2589574104/Qr0PDAKPl"
+        }
+      ],
       "models": []
     },
     {
@@ -853,10 +1002,15 @@
       "cn": "月落银桂",
       "en": "Silvery Osmanthus",
       "source": "Turn-Based",
-      "releaseDate": null,
+      "releaseDate": "2023-09-06",
       "thumbnail": "images/Tsukuyomi/月落银桂/thumb.jpg",
       "full": "images/Tsukuyomi/月落银桂/full.jpg",
-      "links": [],
+      "links": [
+        {
+          "label": "Source",
+          "url": "https://weibo.com/5896401674/NhKJ7xcSX"
+        }
+      ],
       "models": [
         {
           "version": 1,
@@ -883,10 +1037,15 @@
       "cn": "至臻风尚",
       "en": "Ultimate Style",
       "source": "Merch: COMIPLUS+",
-      "releaseDate": null,
+      "releaseDate": "2024-01-09",
       "thumbnail": "images/Tsukuyomi/至臻风尚/thumb.png",
       "full": "images/Tsukuyomi/至臻风尚/full.jpg",
-      "links": [],
+      "links": [
+        {
+          "label": "Source",
+          "url": "https://weibo.com/6509826766/NB1FUaKI5"
+        }
+      ],
       "models": []
     },
     {
@@ -912,6 +1071,35 @@
       "full": "images/Tsukuyomi/虚月幻戏_Male/full.jpg",
       "links": [],
       "models": []
+    },
+    {
+      "character": "Tsukuyomi",
+      "keyname": "雁回盈缺",
+      "cn": "雁回盈缺",
+      "en": "",
+      "source": "Turn-Based",
+      "releaseDate": "2026-10-01",
+      "thumbnail": "images/Tsukuyomi/雁回盈缺/thumb.jpg",
+      "full": "images/Tsukuyomi/雁回盈缺/full.jpg",
+      "links": [
+        {
+          "label": "Source",
+          "url": "https://weibo.com/5896401674/RkksLCp3j"
+        }
+      ],
+      "models": []
+    }
+  ],
+  "customPair": [
+    {
+      "name": "Talisman Pass",
+      "orochiKey": "檀樱倚梦",
+      "tsukuKey": "雁回盈缺"
+    },
+    {
+      "name": "😈😇",
+      "orochiKey": "深渊篇章",
+      "tsukuKey": "大天使"
     }
   ],
   "Qcostume": []
