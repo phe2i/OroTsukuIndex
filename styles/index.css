@@ -232,8 +232,8 @@ input[type="radio"]:focus {
     width: 90px;
     height: 90px;
 
-    right: 1rem;
-    bottom: 1rem;
+    right: 0rem;
+    bottom: 0rem;
   }
 }
 
