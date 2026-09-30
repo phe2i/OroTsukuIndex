@@ -1087,7 +1087,13 @@
           "url": "https://weibo.com/5896401674/RkksLCp3j"
         }
       ],
-      "models": []
+      "models": [
+        {
+          "version": 1,
+          "thumbnail": null,
+          "modelFile": "models/Tsukuyomi/雁回盈缺/雁回盈缺1.pmx"
+        }
+      ]
     }
   ],
   "customPair": [
