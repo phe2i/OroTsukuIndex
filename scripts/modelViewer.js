@@ -50,114 +50,49 @@ const DATA_URL = "./data/topics.json";
 
 
 const viewport = document.getElementById("modelViewport");
-
 const modelList = document.getElementById("modelList");
-
 const materialList = document.getElementById("materialList");
-
 const searchInput = document.getElementById("modelSearch");
-
 const showAllButton = document.getElementById("showAllMaterials");
-
 const revertButton = document.getElementById("revertMaterials");
-
 const loadingElement = document.getElementById("viewerLoading");
-
 const emptyElement = document.getElementById("viewerEmpty");
 
 
 
 // PANEL RESIZING
 
-const root =
-    document.documentElement;
-
-const sidebar =
-    document.getElementById("modelSidebar");
-
-const verticalResizeHandle =
-    document.getElementById(
-        "verticalResizeHandle"
-    );
-
-const horizontalResizeHandle =
-    document.getElementById(
-        "horizontalResizeHandle"
-    );
+const root = document.documentElement;
+const sidebar = document.getElementById("modelSidebar");
+const verticalResizeHandle =  document.getElementById( "verticalResizeHandle");
+const horizontalResizeHandle = document.getElementById("horizontalResizeHandle");
 
 
 
 // VIEWER CTRL
 
-const backgroundColorPicker =
-    document.getElementById(
-        "backgroundColor"
-    );
+const backgroundColorPicker = document.getElementById("backgroundColor");
 
-const resetCameraButton =
-    document.getElementById(
-        "resetCamera"
-    );
+const resetCameraButton = document.getElementById("resetCamera");
 
-const lightSettings =
-    document.getElementById(
-        "lightSettings"
-    );
+const lightSettings = document.getElementById("lightSettings");
+const lightPanel = document.getElementById("lightPanel");
 
-const lightPanel =
-    document.getElementById(
-        "lightPanel"
-    );
+const lightDistance = document.getElementById("lightDistance");
+const lightDistanceValue = document.getElementById("lightDistanceValue");
 
- const lightDistance =
-    document.getElementById(
-        "lightDistance"
-    );
+const lightIntensity = document.getElementById("lightIntensity");
+const lightIntensityValue = document.getElementById("lightIntensityValue");
 
-const lightDistanceValue =
-    document.getElementById(
-        "lightDistanceValue"
-    );
+const lightHorizontal = document.getElementById("lightHorizontal");
+const lightHorizontalValue = document.getElementById("lightHorizontalValue");
 
-const lightIntensity =
-    document.getElementById(
-        "lightIntensity"
-    );
+const lightVertical =document.getElementById("lightVertical");
+const lightVerticalValue = document.getElementById("lightVerticalValue");
 
-const lightIntensityValue =
-    document.getElementById(
-        "lightIntensityValue"
-    );
+const ambientLight = document.getElementById("ambientLight");
+const ambientLightValue = document.getElementById("ambientLightValue");
 
-const lightHorizontal =
-    document.getElementById(
-        "lightHorizontal"
-    );
-
-const lightHorizontalValue =
-    document.getElementById(
-        "lightHorizontalValue"
-    );
-
-const lightVertical =
-    document.getElementById(
-        "lightVertical"
-    );
-
-const lightVerticalValue =
-    document.getElementById(
-        "lightVerticalValue"
-    );
-
-const ambientLight =
-    document.getElementById(
-        "ambientLight"
-    );
-
-const ambientLightValue =
-    document.getElementById(
-        "ambientLightValue"
-    );
 
 
 
@@ -201,31 +136,17 @@ function updateDirectionalLight() {
     }
     const distance = distanceLight;
 
-    const horizontal =
-        THREE.MathUtils.degToRad(
-            Number(
-                lightHorizontal.value
-            )
-        );
-
-
-    const vertical =
-        THREE.MathUtils.degToRad(
-            Number(
-                lightVertical.value
-            )
-        );
-
+    const horizontal = THREE.MathUtils.degToRad(Number(lightHorizontal.value));
+    const vertical = THREE.MathUtils.degToRad(Number(lightVertical.value));
 
     /*
-     * Convert spherical coordinates
-     * into XYZ position.
-     *
-     * Horizontal:
-     *     Rotate around the model.
-     *
-     * Vertical:
-     *     Move above / below the model.
+     Convert spherical coordinates into XYZ position.
+     
+     Horizontal:
+       Rotate around the model.
+     
+     Vertical:
+       Move above / below the model.
      */
 
     const x =
@@ -233,11 +154,9 @@ function updateDirectionalLight() {
         Math.cos(vertical) *
         Math.sin(horizontal);
 
-
     const y =
         distance *
         Math.sin(vertical);
-
 
     const z =
         distance *
@@ -245,49 +164,17 @@ function updateDirectionalLight() {
         Math.cos(horizontal);
 
 
-    directionalLight.position.set(
-        x,
-        y,
-        z
-    );
+    directionalLight.position.set(x, y, z);
 
-
-
-
-    /*
-     * Point the light toward the model.
-     *
-     * frameModel() will update this
-     * to the actual model center.
-     */
-
-    if (
-        currentModel
-    ) {
-
-        const box =
-            new THREE.Box3().setFromObject(
-                currentModel
-            );
-
-        const center =
-            box.getCenter(
-                new THREE.Vector3()
-            );
-
-        directionalLight.target.position.copy(
-            center
-        );
+    if (currentModel) {
+        const box = new THREE.Box3().setFromObject(currentModel);
+        const center = box.getCenter(new THREE.Vector3());
+        
+        directionalLight.target.position.copy(center);
 
     } else {
-
-        directionalLight.target.position.set(
-            0,
-            1,
-            0
-        );
+        directionalLight.target.position.set(0, 1, 0);
     }
-
 
     directionalLight.target.updateMatrixWorld();
 }
@@ -299,11 +186,11 @@ function setupMMDLighting() {
     distanceLight = 20;
 
     directionalLight.position.set(3.5, 5.0, 4.0);
-    directionalLight.intensity = 2.5;
+    directionalLight.intensity = 1.6;
     directionalLight.color.setHex(0xFFFFFF);
     directionalLight.castShadow = false;
-    
-    hemisphereLight.intensity = 0.0;
+    // VV ambient VV
+    hemisphereLight.intensity = 1.35;
     hemisphereLight.color.setHex(0xFFFFFF);
     hemisphereLight.groundColor.setHex(0x8888AA);
     
@@ -320,8 +207,8 @@ function setupMMDLighting() {
         lightDistanceValue.textContent = "20";
     }
     if (lightIntensity) {
-        lightIntensity.value = "2.5";
-        lightIntensityValue.textContent = "2.50";
+        lightIntensity.value = "1.6";
+        lightIntensityValue.textContent = "1.60";
     }
     if (lightHorizontal) {
         lightHorizontal.value = "0";
@@ -332,8 +219,8 @@ function setupMMDLighting() {
         lightVerticalValue.textContent = "22°";
     }
     if (ambientLight) {
-        ambientLight.value = "0.0";
-        ambientLightValue.textContent = "0.00";
+        ambientLight.value = "1.35";
+        ambientLightValue.textContent = "1.35";
     }
     
     updateDirectionalLight();
@@ -343,19 +230,11 @@ function setupMMDLighting() {
 
 // LIGHT PANEL
 
-if (
-    lightSettings &&
-    lightPanel
-) {
+if (lightSettings && lightPanel) {
 
-    lightSettings.addEventListener(
-        "click",
-        () => {
-
-            lightPanel.classList.toggle(
-                "open"
-            );
-
+    lightSettings.addEventListener("click", () => {
+        
+         lightPanel.classList.toggle("open");
         }
     );
 }
@@ -372,136 +251,66 @@ if (lightDistance) {
     });
 }
 
+if (lightIntensity) {
 
-if (
-    lightIntensity
-) {
+    lightIntensity.addEventListener("input", event => {
 
-    lightIntensity.addEventListener(
-        "input",
-        event => {
+            const value = Number(event.target.value);
 
-            const value =
-                Number(
-                    event.target.value
-                );
-
-
-            if (
-                directionalLight
-            ) {
-
-                directionalLight.intensity =
-                    value;
+            if (directionalLight) {
+                directionalLight.intensity = value;
             }
 
-
-            if (
-                lightIntensityValue
-            ) {
-
-                lightIntensityValue.textContent =
-                    value.toFixed(2);
+            if (lightIntensityValue) {
+                lightIntensityValue.textContent = value.toFixed(2);
             }
 
         }
     );
 }
 
+if (lightHorizontal) {
 
-// Horizontal
+    lightHorizontal.addEventListener("input", event => {
+            const value = Number(event.target.value);
 
-if (
-    lightHorizontal
-) {
-
-    lightHorizontal.addEventListener(
-        "input",
-        event => {
-
-            const value =
-                Number(
-                    event.target.value
-                );
-
-
-            if (
-                lightHorizontalValue
-            ) {
-
-                lightHorizontalValue.textContent =
-                    `${value}°`;
+            if (lightHorizontalValue) {
+                lightHorizontalValue.textContent = `${value}°`;
             }
-
 
             updateDirectionalLight();
         }
     );
 }
 
+if (lightVertical) {
 
-// Vertical
+    lightVertical.addEventListener("input", event => {
 
-if (
-    lightVertical
-) {
+            const value = Number(event.target.value);
 
-    lightVertical.addEventListener(
-        "input",
-        event => {
+            if (lightVerticalValue) {
 
-            const value =
-                Number(
-                    event.target.value
-                );
-
-
-            if (
-                lightVerticalValue
-            ) {
-
-                lightVerticalValue.textContent =
-                    `${value}°`;
+                lightVerticalValue.textContent = `${value}°`;
             }
-
 
             updateDirectionalLight();
         }
     );
 }
 
+if (ambientLight) {
 
-// Ambient
+    ambientLight.addEventListener("input", event => {
 
-if (
-    ambientLight
-) {
+            const value = Number(event.target.value);
 
-    ambientLight.addEventListener(
-        "input",
-        event => {
-
-            const value =
-                Number(
-                    event.target.value
-                );
-
-
-            if (
-                hemisphereLight
-            ) {
-
-                hemisphereLight.intensity =
-                    value;
+            if (hemisphereLight) {
+                hemisphereLight.intensity = value;
             }
 
-
-            if (
-                ambientLightValue
-            ) {
-
-                ambientLightValue.textContent =
-                    value.toFixed(2);
+            if (ambientLightValue) {
+                ambientLightValue.textContent = value.toFixed(2);
             }
 
         }
@@ -512,63 +321,40 @@ if (
 // !! HORIZONTAL RESIZE
 // Sidebar <-> viewer
 
-if (
-    horizontalResizeHandle &&
-    sidebar
-) {
+if (horizontalResizeHandle && sidebar) {
 
     let resizing = false;
 
-
-    horizontalResizeHandle.addEventListener(
-        "pointerdown",
-        event => {
+    horizontalResizeHandle.addEventListener("pointerdown", event => {
 
             event.preventDefault();
-
             resizing = true;
-
 
             horizontalResizeHandle.setPointerCapture(
                 event.pointerId
             );
 
+            document.body.style.cursor = "col-resize";
 
-            document.body.style.cursor =
-                "col-resize";
-
-            document.body.style.userSelect =
-                "none";
+            document.body.style.userSelect = "none";
         }
     );
-
-
-    horizontalResizeHandle.addEventListener(
-        "pointermove",
-        event => {
+    horizontalResizeHandle.addEventListener("pointermove", event => {
 
             if (!resizing) {
                 return;
             }
-
-
             const minWidth = 280;
-
-
             const maxWidth =
                 Math.floor(
                     window.innerWidth *
                     0.7
                 );
 
-
             const newWidth =
                 Math.max(
                     minWidth,
-                    Math.min(
-                        event.clientX,
-                        maxWidth
-                    )
+                    Math.min(event.clientX, maxWidth)
                 );
 
 
@@ -577,54 +363,30 @@ if (
                 `${newWidth}px`
             );
 
-
             resizeViewer();
         }
     );
-
-
-    horizontalResizeHandle.addEventListener(
-        "pointerup",
-        event => {
+    horizontalResizeHandle.addEventListener("pointerup", event => {
 
             resizing = false;
 
-
             try {
-
                 horizontalResizeHandle.releasePointerCapture(
                     event.pointerId
                 );
 
             } catch (_) {}
 
-
-            document.body.style.cursor =
-                "";
-
-            document.body.style.userSelect =
-                "";
-
-
+            document.body.style.cursor = "";
+            document.body.style.userSelect = "";
             resizeViewer();
         }
     );
-
-
-    horizontalResizeHandle.addEventListener(
-        "pointercancel",
-        () => {
+    horizontalResizeHandle.addEventListener("pointercancel", () => {
 
             resizing = false;
-
-
-            document.body.style.cursor =
-                "";
-
-            document.body.style.userSelect =
-                "";
-
-
+            document.body.style.cursor = "";
+            document.body.style.userSelect = "";
             resizeViewer();
         }
     );
@@ -634,64 +396,39 @@ if (
 // !! VERTICAL RESIZE
 // Model list <-> material list
 
-if (
-    verticalResizeHandle &&
-    sidebar
-) {
-
+if (verticalResizeHandle &&sidebar) {
     let resizing = false;
 
-
-    verticalResizeHandle.addEventListener(
-        "pointerdown",
-        event => {
+    verticalResizeHandle.addEventListener("pointerdown", event => {
 
             event.preventDefault();
-
             resizing = true;
-
 
             verticalResizeHandle.setPointerCapture(
                 event.pointerId
             );
 
 
-            document.body.style.cursor =
-                "row-resize";
-
-            document.body.style.userSelect =
-                "none";
+            document.body.style.cursor = "row-resize";
+            document.body.style.userSelect = "none";
         }
     );
 
 
-    verticalResizeHandle.addEventListener(
-        "pointermove",
-        event => {
+    verticalResizeHandle.addEventListener("pointermove", event => {
 
             if (!resizing) {
                 return;
             }
 
+            const rect = sidebar.getBoundingClientRect();
 
-            const rect =
-                sidebar.getBoundingClientRect();
-
-
-            const relativeY =
-                event.clientY -
-                rect.top;
-
+            const relativeY = event.clientY - rect.top;
 
             const minModelHeight = 150;
-
             const minMaterialHeight = 120;
 
-
-            const maxModelHeight =
-                rect.height -
-                minMaterialHeight;
-
+            const maxModelHeight = rect.height - minMaterialHeight;
 
             const modelHeight =
                 Math.max(
@@ -715,11 +452,9 @@ if (
                 `${percentage}%`
             );
 
-
             resizeViewer();
         }
     );
-
 
     verticalResizeHandle.addEventListener(
         "pointerup",
@@ -737,11 +472,9 @@ if (
             } catch (_) {}
 
 
-            document.body.style.cursor =
-                "";
+            document.body.style.cursor = "";
 
-            document.body.style.userSelect =
-                "";
+            document.body.style.userSelect = "";
 
 
             resizeViewer();
@@ -749,19 +482,11 @@ if (
     );
 
 
-    verticalResizeHandle.addEventListener(
-        "pointercancel",
-        () => {
+    verticalResizeHandle.addEventListener("pointercancel", () => {
 
             resizing = false;
-
-
-            document.body.style.cursor =
-                "";
-
-            document.body.style.userSelect =
-                "";
-
+            document.body.style.cursor = "";
+            document.body.style.userSelect = "";
 
             resizeViewer();
         }
@@ -876,14 +601,9 @@ function resizeViewer() {
         return;
     }
 
+    const width = viewport.clientWidth;
 
-    const width =
-        viewport.clientWidth;
-
-
-    const height =
-        viewport.clientHeight;
-
+    const height = viewport.clientHeight;
 
     if (
         width <= 0 ||
@@ -892,13 +612,9 @@ function resizeViewer() {
         return;
     }
 
-
-    camera.aspect =
-        width / height;
-
+    camera.aspect = width / height;
 
     camera.updateProjectionMatrix();
-
 
     renderer.setSize(
         width,
@@ -973,15 +689,12 @@ async function loadData() {
     }
 }
 
-function buildModelData(
-    data
-) {
+
+function buildModelData(data) {
 
     allModels = [];
-    if (
-        data &&
-        Array.isArray(data.topics)) 
-        {
+    if (data &&Array.isArray(data.topics)) {
+
         topics =
             data.topics;
 
@@ -1005,47 +718,27 @@ function buildModelData(
                 allModels.push({
 
                     ...model,
-
                     // Parent topic information
-                    character:
-                        topic.character,
-
-                    keyname:
-                        topic.keyname,
-
-                    cn:
-                        topic.cn,
-
-                    en:
-                        topic.en,
-
-                    source:
-                        topic.source,
+                    character: topic.character,
+                    keyname: topic.keyname,
+                    cn: topic.cn,
+                    en: topic.en,
+                    source: topic.source,
 
                     thumbnail:
                         model.thumbnail ||
                         topic.thumbnail ||
                         null,
+                    type: "character"
 
-
-                    type:
-                        "character"
                 });
             }
         }
     }
 
 
-
     // Qcostume
-
-
-    if (
-        data &&
-        Array.isArray(
-            data.Qcostume
-        )
-    ) {
+    if (data && Array.isArray(data.Qcostume)) {
 
         for (
             const costume of data.Qcostume
@@ -1054,18 +747,10 @@ function buildModelData(
             allModels.push({
 
                 ...costume,
-
-                character:
-                    "Qcostume",
-
-                keyname:
-                    costume.name,
-
-                name:
-                    costume.name,
-
-                type:
-                    "Qcostume"
+                character: "Qcostume",
+                keyname: costume.name,
+                name: costume.name,
+                type: "Qcostume"
             });
         }
     }
@@ -1073,30 +758,19 @@ function buildModelData(
 
 // SEARCH
 
-function matchesSearch(
-    model,
-    query
-) {
+function matchesSearch(model, query) {
 
     if (!query) {
         return true;
     }
 
-
     const searchText = [
-
         model.character,
-
         model.keyname,
-
         model.name,
-
         model.cn,
-
         model.en,
-
         model.source
-
     ]
         .filter(Boolean)
         .join(" ")
@@ -1109,17 +783,11 @@ function matchesSearch(
 }
 
 
-function groupModels(
-    models
-) {
+function groupModels(models) {
 
-    const groups =
-        new Map();
+    const groups = new Map();
 
-
-    for (
-        const model of models
-    ) {
+    for (const model of models) {
 
         const groupName =
             model.type === "Qcostume"
@@ -1127,19 +795,9 @@ function groupModels(
                 : model.character ||
                   "Unknown";
 
-
-        if (
-            !groups.has(
-                groupName
-            )
-        ) {
-
-            groups.set(
-                groupName,
-                []
-            );
+        if (!groups.has(groupName)) {
+            groups.set(groupName, []);
         }
-
 
         groups
             .get(groupName)
@@ -1151,17 +809,11 @@ function groupModels(
 }
 
 
-
 function renderModelList() {
 
-    const query =
-        searchInput
-            ? searchInput.value.trim()
-            : "";
+    const query = searchInput ? searchInput.value.trim(): "";
 
-
-    const filteredModels =
-        allModels.filter(
+    const filteredModels = allModels.filter(
             model =>
                 matchesSearch(
                     model,
@@ -1170,29 +822,18 @@ function renderModelList() {
         );
 
 
-    modelList.innerHTML =
-        "";
+    modelList.innerHTML = "";
 
-
-    if (
-        filteredModels.length === 0
-    ) {
+    if (filteredModels.length === 0) {
 
         modelList.innerHTML =
             `<div class="material-empty">
                 No models found.
             </div>`;
-
-
         return;
     }
 
-
-    const groups =
-        groupModels(
-            filteredModels
-        );
-
+    const groups = groupModels(filteredModels);
 
     for (
         const [
@@ -1207,276 +848,122 @@ function renderModelList() {
                 models
             );
 
-
-        modelList.appendChild(
-            category
-        );
+        modelList.appendChild( category);
     }
 }
 
 
 
-function createCategory(
-    groupName,
-    models
-) {
+function createCategory(groupName, models) {
 
-    const category =
-        document.createElement(
-            "section"
-        );
+    const category = document.createElement("section");
+    category.className = "model-category";
 
+// Header
+    const header =document.createElement("button");
+    header.type = "button";
+    header.className = "category-header";
 
-    category.className =
-        "model-category";
-
-
-    // -----------------------------------------------------
-    // Header
-    // -----------------------------------------------------
-
-    const header =
-        document.createElement(
-            "button"
-        );
+    const arrow = document.createElement("span");
+    arrow.className = "category-arrow";
+    arrow.textContent = "▼";
 
 
-    header.type =
-        "button";
+    const title = document.createElement("span");
+    title.textContent = groupName;
 
+    header.appendChild(arrow);
+    header.appendChild(title);
 
-    header.className =
-        "category-header";
+    header.addEventListener("click", () => {
+        
+        category.classList.toggle("collapsed");
 
-
-    const arrow =
-        document.createElement(
-            "span"
-        );
-
-
-    arrow.className =
-        "category-arrow";
-
-
-    arrow.textContent =
-        "▼";
-
-
-    const title =
-        document.createElement(
-            "span"
-        );
-
-
-    title.textContent =
-        groupName;
-
-
-    header.appendChild(
-        arrow
-    );
-
-
-    header.appendChild(
-        title
-    );
-
-
-    header.addEventListener(
-        "click",
-        () => {
-
-            category.classList.toggle(
-                "collapsed"
-            );
         }
     );
 
+// Content
+    const content = document.createElement("div");
+    content.className = "category-content";
 
-    // -----------------------------------------------------
-    // Content
-    // -----------------------------------------------------
+    for (const model of models) {
 
-    const content =
-        document.createElement(
-            "div"
-        );
-
-
-    content.className =
-        "category-content";
-
-
-    for (
-        const model of models
-    ) {
-
-        const card =
-            createModelCard(
-                model
-            );
-
-
-        content.appendChild(
-            card
-        );
+        const card = createModelCard(model);
+        content.appendChild(card);
     }
 
-
-    category.appendChild(
-        header
-    );
-
-
-    category.appendChild(
-        content
-    );
-
+    category.appendChild(header);
+    category.appendChild(content);
 
     return category;
 }
 
-function createModelCard(
-    model
-) {
+function createModelCard(model) {
 
-    const card =
-        document.createElement(
-            "button"
-        );
+    const card = document.createElement("button");
 
+    card.type ="button";
+    card.className = "model-card";
 
-    card.type =
-        "button";
-
-
-    card.className =
-        "model-card";
-
-
-    card.dataset.modelFile =
-        model.modelFile ||
-        "";
+    card.dataset.modelFile = model.modelFile || "";
 
     // for URL sharing
-    card.dataset.character =
-        model.character ||
-        "";
-
-    card.dataset.keyname =
-        model.keyname ||
-        "";
-
-    card.dataset.version =
-        model.version ||
-        "";
+    card.dataset.character = model.character || "";
+    card.dataset.keyname = model.keyname || "";
+    card.dataset.version = model.version || "";
 
 
-    // -----------------------------------------------------
-    // Thumbnail
-    // -----------------------------------------------------
+// Thumbnail
+    if (model.thumbnail) {
 
-    if (
-        model.thumbnail
-    ) {
-
-        const image =
-            document.createElement(
-                "img"
-            );
-
-
-        image.className =
-            "model-thumbnail";
-
-
-        image.src =
-            resolveFrontendPath(
-                model.thumbnail
-            );
-
-
+        const image = document.createElement("img");
+        image.className = "model-thumbnail";
+        image.src = resolveFrontendPath(model.thumbnail);
         image.alt =
             model.name ||
             model.keyname ||
             "Model";
 
+        image.loading = "lazy";
 
-        image.loading =
-            "lazy";
-
-
-        card.appendChild(
-            image
-        );
+        card.appendChild(image);
 
     } else {
 
-        const placeholder =
-            document.createElement(
-                "div"
-            );
+        const placeholder = document.createElement("div");
+        placeholder.className = "model-thumbnail-placeholder";
+        placeholder.textContent = "No Image";
 
-
-        placeholder.className =
-            "model-thumbnail-placeholder";
-
-
-        placeholder.textContent =
-            "No Image";
-
-
-        card.appendChild(
-            placeholder
-        );
+        card.appendChild(placeholder);
     }
 
 
-    const name =
-        document.createElement(
-            "span"
-        );
-
-    name.className =
-        "model-name";
+    const name = document.createElement("span");
+    name.className = "model-name";
 
     const displayName =
         model.name ||
         model.keyname ||
         "Model";
 
-
     if (
         model.version !== undefined &&
         model.version !== null
     ) {
-
         name.textContent =
             `${displayName} v${model.version}`;
 
     } else {
-
         name.textContent =
             displayName;
     }
 
+    card.appendChild(name);
+    card.addEventListener("click", () => {
 
-    card.appendChild(
-        name
-    );
-    card.addEventListener(
-        "click",
-        () => {
+            if (model.modelFile) {
 
-            if (
-                model.modelFile
-            ) {
-
-                loadModel(
-                    model,
-                    card
-                );
+                loadModel(model, card);
             }
         }
     );
@@ -1577,25 +1064,19 @@ function checkUrlParams() {
     }
 }
 
-function resolveFrontendPath(
-    path
-) {
+function resolveFrontendPath(path) {
 
     if (!path) {
         return "";
     }
-
-
     if (
         path.startsWith("./") ||
         path.startsWith("/") ||
         path.startsWith("http://") ||
         path.startsWith("https://")
     ) {
-
         return path;
     }
-
 
     return `./${path}`;
 }
@@ -1612,25 +1093,17 @@ async function loadModel(
         return;
     }
 
+    loadingElement.classList.remove("hidden");
 
-    loadingElement.classList.remove(
-        "hidden"
-    );
-
-
-    emptyElement.classList.add(
-        "hidden"
-    );
+    emptyElement.classList.add("hidden");
 
 
     try {
-
         const loader = new MMDLoader();
         const path =
             resolveFrontendPath(
                 model.modelFile
             );
-
         const modelObj = await loader.loadAsync(path);
 
         // Store current camera position and target
@@ -1638,9 +1111,8 @@ async function loadModel(
         const currentTarget = controls.target.clone();
         const isFirstModel = !currentModel;
 
-        if (
-            currentModel
-        ) {
+        if (currentModel) {
+
             scene.remove(
                 currentModel
             );
@@ -1654,22 +1126,14 @@ async function loadModel(
         // currentModel = modelObj.scene;
         currentModel = modelObj;
 
-        scene.add(
-            currentModel
-        );
-
-        collectMaterials(
-            currentModel
-        );
-
+        scene.add(currentModel);
+        collectMaterials(currentModel);
 
         renderMaterialList();
 
         // Only frame the model if it's the first model
         if (isFirstModel) {
-            frameModel(
-                currentModel
-            );
+            frameModel(currentModel);
         } else {
             // Restore camera position
             camera.position.copy(currentCameraPos);
@@ -1686,9 +1150,7 @@ async function loadModel(
         }
 
         document
-            .querySelectorAll(
-                ".model-card.selected"
-            )
+            .querySelectorAll(".model-card.selected")
             .forEach(
                 card =>
                     card.classList.remove(
@@ -1697,13 +1159,8 @@ async function loadModel(
             );
 
 
-        if (
-            selectedCard
-        ) {
-
-            selectedCard.classList.add(
-                "selected"
-            );
+        if (selectedCard) {
+            selectedCard.classList.add("selected");
         }
         
         if (model.character && model.keyname) {
@@ -1722,221 +1179,79 @@ async function loadModel(
             error
         );
 
-
         alert(
             `Failed to load model:\n${model.modelFile}`
         );
 
 
     } finally {
-
-        loadingElement.classList.add(
-            "hidden"
-        );
+        loadingElement.classList.add("hidden");
     }
 }
 
-// function collectMaterials(
-//     object
-// ) {
-
-//     currentMaterials = [];
-
-
-//     previousMaterialVisibility =
-//         new Map();
-
-
-//     const materialMap =
-//         new Map();
-
-
-//     object.traverse(
-//         child => {
-
-//             if (
-//                 !child.isMesh
-//             ) {
-//                 return;
-//             }
-
-
-//             const materials =
-//                 Array.isArray(
-//                     child.material
-//                 )
-//                     ? child.material
-//                     : [child.material];
-
-
-//             for (
-//                 const material of materials
-//             ) {
-
-//                 if (
-//                     !material
-//                 ) {
-//                     continue;
-//                 }
-
-
-//                 if (
-//                     !materialMap.has(
-//                         material.uuid
-//                     )
-//                 ) {
-
-//                     materialMap.set(
-//                         material.uuid,
-//                         material
-//                     );
-//                 }
-//             }
-//         }
-//     );
-
-
-//     currentMaterials =
-//         Array.from(
-//             materialMap.values()
-//         );
-
-
-//     /*
-//      * Store initial visibility.
-//      */
-
-//     for (
-//         const material of currentMaterials
-//     ) {
-
-//         previousMaterialVisibility.set(
-//             material.uuid,
-//             material.visible
-//         );
-//     }
-// }
-
 function renderMaterialList() {
+    materialList.innerHTML = "";
 
-    materialList.innerHTML =
-        "";
-
-
-    if (
-        currentMaterials.length === 0
-    ) {
+    if (currentMaterials.length === 0) {
 
         materialList.innerHTML =
             `<div class="material-empty">
                 No materials
             </div>`;
 
-
         return;
     }
 
 
-    for (
-        const material of currentMaterials
-    ) {
+    for (const material of currentMaterials) {
 
-        const item =
-            document.createElement(
-                "button"
-            );
+        const item = document.createElement("button");
+        item.type = "button";
+        item.className = "material-item";
 
+        if (!material.visible) {
 
-        item.type =
-            "button";
-
-
-        item.className =
-            "material-item";
-
-
-        if (
-            !material.visible
-        ) {
-
-            item.classList.add(
-                "hidden-material"
-            );
+            item.classList.add("hidden-material");
         }
 
-        const visibility =
-            document.createElement(
-                "span"
-            );
+        const visibility =document.createElement("span");
+        visibility.className = "material-visibility";
 
-        visibility.className =
-            "material-visibility";
+        visibility.innerHTML = getEyeIcon(material.visible);
 
-        visibility.innerHTML =
-            getEyeIcon(
-                material.visible
-            );
-
-        visibility.addEventListener(
-            "click",
-            event => {
+        visibility.addEventListener("click", event => {
 
                 event.stopPropagation();
+                toggleMaterial(material);
 
-
-                toggleMaterial(
-                    material
-                );
             }
         );
 
 
-        const name =
-            document.createElement(
-                "span"
-            );
-
-        name.className =
-            "material-name";
-
+        const name = document.createElement("span");
+        name.className = "material-name";
         name.textContent =
             material.name ||
             "Unnamed Material";
 
+        item.appendChild(visibility);
 
-        item.appendChild(
-            visibility
-        );
+        item.appendChild(name);
 
-        item.appendChild(
-            name
-        );
+        item.addEventListener("click", () => {
 
-        item.addEventListener(
-            "click",
-            () => {
-
-                toggleMaterial(
-                    material
-                );
+                toggleMaterial(material);
             }
         );
 
-        materialList.appendChild(
-            item
-        );
+        materialList.appendChild(item);
     }
 }
 
 // FIGMA ICON
-function getEyeIcon(
-    visible
-) {
+function getEyeIcon(visible) {
 
-    if (
-        visible
-    ) {
-
+    if (visible) {
         return `
             <svg
                 viewBox="0 0 24 24"
@@ -1957,9 +1272,7 @@ function getEyeIcon(
                 ></circle>
             </svg>
         `;
-
     }
-
 
     return `
         <svg
@@ -2104,27 +1417,12 @@ function revertMaterials() {
 }
 
 
-function frameModel(
-    object
-) {
+function frameModel(object) {
 
-    const box =
-        new THREE.Box3().setFromObject(
-            object
-        );
+    const box = new THREE.Box3().setFromObject(object);
 
-
-    const size =
-        box.getSize(
-            new THREE.Vector3()
-        );
-
-
-    const center =
-        box.getCenter(
-            new THREE.Vector3()
-        );
-
+    const size = box.getSize(new THREE.Vector3());
+    const center = box.getCenter(new THREE.Vector3());
 
     const maxSize =
         Math.max(
@@ -2143,12 +1441,9 @@ function frameModel(
 
 
     // Update light target
-    if (
-        directionalLight
-    ) {
-        directionalLight.target.position.copy(
-            center
-        );
+    if (directionalLight) {
+
+        directionalLight.target.position.copy(center);
         directionalLight.target.updateMatrixWorld();
     }
 
@@ -2170,14 +1465,9 @@ function frameModel(
             1
         );
 
-    direction.applyQuaternion(
-        camera.quaternion
-    );
+    direction.applyQuaternion(camera.quaternion);
 
-    camera.position.copy(
-        center
-    );
-
+    camera.position.copy(center);
 
     camera.position.add(
         direction.multiplyScalar(
@@ -2186,9 +1476,7 @@ function frameModel(
     );
 
     // Orbit target
-    controls.target.copy(
-        center
-    );
+    controls.target.copy(center);
 
     // Camera clipping
     camera.near =
@@ -2196,7 +1484,6 @@ function frameModel(
             maxSize / 1000,
             0.001
         );
-
     camera.far =
         Math.max(
             maxSize * 100,
@@ -2209,65 +1496,41 @@ function frameModel(
 
 function resetCamera() {
 
-    if (
-        currentModel
-    ) {
+    if (currentModel) {
 
-        frameModel(
-            currentModel
-        );
-
+        frameModel(currentModel);
         return;
     }
 
+    camera.position.copy(defaultCameraPosition);
 
-    camera.position.copy(
-        defaultCameraPosition
-    );
-
-
-    controls.target.copy(
-        defaultCameraTarget
-    );
-
+    controls.target.copy(defaultCameraTarget);
 
     controls.update();
 }
 
 
-function disposeObject(
-    object
-) {
+function disposeObject(object) {
 
     object.traverse(
         child => {
 
-            if (
-                !child.isMesh
-            ) {
+            if (!child.isMesh) {
                 return;
             }
 
-
-            if (
-                child.geometry
-            ) {
-
+            if (child.geometry) {
                 child.geometry.dispose();
             }
 
-
-            if (
-                child.material
+            if (child.material
             ) {
-
                 const materials =
                     Array.isArray(
                         child.material
                     )
                         ? child.material
                         : [child.material];
-
 
                 materials.forEach(
                     material =>
@@ -2280,32 +1543,20 @@ function disposeObject(
     );
 }
 
-function disposeMaterial(
-    material
-) {
+function disposeMaterial(material) {
 
     if (!material) {
         return;
     }
 
+    for (const key in material) {
 
-    for (
-        const key in material
-    ) {
+        const value = material[key];
 
-        const value =
-            material[key];
-
-
-        if (
-            value &&
-            value.isTexture
-        ) {
-
+        if (value && value.isTexture) {
             value.dispose();
         }
     }
-
 
     material.dispose();
 }
@@ -2313,59 +1564,33 @@ function disposeMaterial(
 
 // EVENTS
 
-if (searchInput
-) {
-
-    searchInput.addEventListener(
-        "input",
-        renderModelList
-    );
+if (searchInput) {
+    searchInput.addEventListener("input", renderModelList);
 }
 
 
-if (resetCameraButton
-) {
-
-    resetCameraButton.addEventListener(
-        "click",
-        resetCamera
-    );
+if (resetCameraButton) {
+    resetCameraButton.addEventListener("click", resetCamera);
 }
 
 
-if (showAllButton
-) {
+if (showAllButton) {
+    showAllButton.addEventListener("click", showAllMaterials);
+}
 
-    showAllButton.addEventListener(
-        "click",
-        showAllMaterials
+if (revertButton) {
+    revertButton.addEventListener("click", revertMaterials
     );
 }
 
-if (revertButton
-) {
+if (backgroundColorPicker) {
 
-    revertButton.addEventListener(
-        "click",
-        revertMaterials
-    );
-}
-
-if (backgroundColorPicker
-) {
-
-    backgroundColorPicker.addEventListener(
-        "input",
-        event => {
+    backgroundColorPicker.addEventListener("input", event => {
 
             if (!scene) {
                 return;
             }
-
-
-            scene.background.set(
-                event.target.value
-            );
+            scene.background.set(event.target.value);
         }
     );
 }

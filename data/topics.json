@@ -281,6 +281,29 @@
     },
     {
       "character": "Orochi",
+      "keyname": "四相行藏",
+      "cn": "四相行藏",
+      "en": "",
+      "source": "Turn-Based",
+      "releaseDate": "2026-10-09",
+      "thumbnail": "images/Orochi/四相行藏/thumb.jpg",
+      "full": "images/Orochi/四相行藏/full.jpg",
+      "links": [
+        {
+          "label": "Source",
+          "url": "https://weibo.com/5896401674/RlTGdhvQz"
+        }
+      ],
+      "models": [
+        {
+          "version": 1,
+          "thumbnail": null,
+          "modelFile": "models/Orochi/四相行藏/四相行藏1.pmx"
+        }
+      ]
+    },
+    {
+      "character": "Orochi",
       "keyname": "夏日交响诗",
       "cn": "夏日交响诗",
       "en": "Summer Symphony",

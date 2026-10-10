@@ -174,37 +174,39 @@ body {
     overflow-y: auto;
     overflow-x: hidden;
 
-    padding: 8px;
+    padding: 0px 8px;
 
     box-sizing: border-box;
 }
 
 .model-category {
-    width: 100%;
+    position: relative;
 
+    width: 100%;
     margin-bottom: 8px;
 }
 
 .category-header {
     width: 100%;
 
+    position: sticky;
+    top: 0;
+    z-index: 10;
+
     display: flex;
     align-items: center;
 
     gap: 8px;
-
     padding: 10px 12px;
 
     border: none;
     border-radius: 5px;
 
     background: var(--section-bg);
-
     color: var(--white);
 
     font-family: inherit;
     font-size: 18px;
-
     text-align: left;
 
     cursor: pointer;
