@@ -1115,6 +1115,11 @@
           "version": 1,
           "thumbnail": null,
           "modelFile": "models/Tsukuyomi/雁回盈缺/雁回盈缺1.pmx"
+        },
+        {
+          "version": 2,
+          "thumbnail": null,
+          "modelFile": "models/Tsukuyomi/雁回盈缺/雁回盈缺2.pmx"
         }
       ]
     }

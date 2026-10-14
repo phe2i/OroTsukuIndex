@@ -186,11 +186,11 @@ function setupMMDLighting() {
     distanceLight = 20;
 
     directionalLight.position.set(3.5, 5.0, 4.0);
-    directionalLight.intensity = 1.6;
+    directionalLight.intensity = 2.6;
     directionalLight.color.setHex(0xFFFFFF);
     directionalLight.castShadow = false;
     // VV ambient VV
-    hemisphereLight.intensity = 1.35;
+    hemisphereLight.intensity = 0;
     hemisphereLight.color.setHex(0xFFFFFF);
     hemisphereLight.groundColor.setHex(0x8888AA);
     
@@ -207,8 +207,8 @@ function setupMMDLighting() {
         lightDistanceValue.textContent = "20";
     }
     if (lightIntensity) {
-        lightIntensity.value = "1.6";
-        lightIntensityValue.textContent = "1.60";
+        lightIntensity.value = directionalLight.intensity;
+        lightIntensityValue.textContent = directionalLight.intensity.toFixed(2);
     }
     if (lightHorizontal) {
         lightHorizontal.value = "0";
@@ -219,8 +219,8 @@ function setupMMDLighting() {
         lightVerticalValue.textContent = "22°";
     }
     if (ambientLight) {
-        ambientLight.value = "1.35";
-        ambientLightValue.textContent = "1.35";
+        ambientLight.value = hemisphereLight.intensity;
+        ambientLightValue.textContent = hemisphereLight.intensity.toFixed(2);
     }
     
     updateDirectionalLight();
