@@ -48,16 +48,14 @@ MMDLoader.prototype.parseMaterials = function(data) {
 
 const DATA_URL = "./data/topics.json";
 
-
 const viewport = document.getElementById("modelViewport");
 const modelList = document.getElementById("modelList");
 const materialList = document.getElementById("materialList");
 const searchInput = document.getElementById("modelSearch");
 const showAllButton = document.getElementById("showAllMaterials");
-const revertButton = document.getElementById("revertMaterials");
+const reverseButton = document.getElementById("reverseMaterials");
 const loadingElement = document.getElementById("viewerLoading");
 const emptyElement = document.getElementById("viewerEmpty");
-
 
 
 // PANEL RESIZING
@@ -67,13 +65,12 @@ const sidebar = document.getElementById("modelSidebar");
 const verticalResizeHandle =  document.getElementById( "verticalResizeHandle");
 const horizontalResizeHandle = document.getElementById("horizontalResizeHandle");
 
-
-
 // VIEWER CTRL
 
 const backgroundColorPicker = document.getElementById("backgroundColor");
 
 const resetCameraButton = document.getElementById("resetCamera");
+const resetLightButton = document.getElementById("resetLightButton");
 
 const lightSettings = document.getElementById("lightSettings");
 const lightPanel = document.getElementById("lightPanel");
@@ -92,8 +89,6 @@ const lightVerticalValue = document.getElementById("lightVerticalValue");
 
 const ambientLight = document.getElementById("ambientLight");
 const ambientLightValue = document.getElementById("ambientLightValue");
-
-
 
 
 let topics = [];
@@ -118,11 +113,38 @@ let currentMaterials = [];
 let previousMaterialVisibility =
     new Map();
 
-
-
+// !!!!!!!!!!!!!!
 // LIGHT SETTINGS
-// const lightDistance = 20;
-let distanceLight = 20;
+// !!!!!!!!!!!!!!
+const DEFAULTS = {
+    backgroundColor: "#c3c3c3",
+
+    cameraPosition: [0, 1, 4],
+    cameraTarget: [0, 1, 0],
+
+    light: {
+        distance: 20,
+        intensity: 2.6,
+        horizontal: 0,
+        vertical: 22,
+        ambientIntensity: 0,
+
+        fillIntensity: 0.3,
+        fillPosition: [0, -1, -2],
+
+        rimIntensity: 0.3,
+        rimColor: 0x8888ff,
+        rimPosition: [-2, 1, -6],
+    },
+};
+
+let distanceLight = DEFAULTS.light.distance;
+
+const defaultCameraPosition =
+    new THREE.Vector3(...DEFAULTS.cameraPosition);
+
+const defaultCameraTarget =
+    new THREE.Vector3(...DEFAULTS.cameraTarget);
 
 function updateDirectionalLight() {
 
@@ -182,50 +204,83 @@ function updateDirectionalLight() {
 
 // LIGHTING SETUP
 
+// INITIALIZE LIGHTS
 function setupMMDLighting() {
-    distanceLight = 20;
-
-    directionalLight.position.set(3.5, 5.0, 4.0);
-    directionalLight.intensity = 2.6;
-    directionalLight.color.setHex(0xFFFFFF);
-    directionalLight.castShadow = false;
-    // VV ambient VV
-    hemisphereLight.intensity = 0;
-    hemisphereLight.color.setHex(0xFFFFFF);
-    hemisphereLight.groundColor.setHex(0x8888AA);
-    
-    fillLight = new THREE.DirectionalLight(0xFFFFFF, 0.3);
-    fillLight.position.set(0, -1, -2);
+    fillLight = new THREE.DirectionalLight(0xffffff, 1);
     scene.add(fillLight);
-    
-    rimLight = new THREE.DirectionalLight(0x8888FF, 0.3);
-    rimLight.position.set(-2, 1, -6);
+
+    rimLight = new THREE.DirectionalLight(0xffffff, 1);
     scene.add(rimLight);
 
-    if (lightDistance) {
-        lightDistance.value = "20";
-        lightDistanceValue.textContent = "20";
+    resetLighting();
+}
+
+function resetLighting() {
+    if (!directionalLight || !hemisphereLight) return;
+
+    const defaults = DEFAULTS.light;
+
+    distanceLight = defaults.distance;
+
+    // Main directional light
+    directionalLight.color.setHex(0xffffff);
+    directionalLight.intensity = defaults.intensity;
+    directionalLight.castShadow = false;
+
+    // Ambient light
+    hemisphereLight.intensity = defaults.ambientIntensity;
+    hemisphereLight.color.setHex(0xffffff);
+    hemisphereLight.groundColor.setHex(0x8888aa);
+
+    if (fillLight) {
+        fillLight.intensity = defaults.fillIntensity;
+        fillLight.position.fromArray(defaults.fillPosition);
+        fillLight.color.setHex(0xffffff);
     }
-    if (lightIntensity) {
-        lightIntensity.value = directionalLight.intensity;
-        lightIntensityValue.textContent = directionalLight.intensity.toFixed(2);
+
+    if (rimLight) {
+        rimLight.intensity = defaults.rimIntensity;
+        rimLight.position.fromArray(defaults.rimPosition);
+        rimLight.color.setHex(defaults.rimColor);
     }
-    if (lightHorizontal) {
-        lightHorizontal.value = "0";
-        lightHorizontalValue.textContent = "0°";
-    }
-    if (lightVertical) {
-        lightVertical.value = "22";
-        lightVerticalValue.textContent = "22°";
-    }
-    if (ambientLight) {
-        ambientLight.value = hemisphereLight.intensity;
-        ambientLightValue.textContent = hemisphereLight.intensity.toFixed(2);
-    }
-    
+
+    lightDistance.value = String(defaults.distance);
+    lightDistanceValue.textContent = defaults.distance.toFixed(2);
+
+    lightIntensity.value = String(defaults.intensity);
+    lightIntensityValue.textContent = defaults.intensity.toFixed(2);
+
+    lightHorizontal.value = String(defaults.horizontal);
+    lightHorizontalValue.textContent = `${defaults.horizontal}°`;
+
+    lightVertical.value = String(defaults.vertical);
+    lightVerticalValue.textContent = `${defaults.vertical}°`;
+
+    ambientLight.value = String(defaults.ambientIntensity);
+    ambientLightValue.textContent = defaults.ambientIntensity.toFixed(2);
+
     updateDirectionalLight();
 }
 
+function resetCamera() {
+    if (!camera || !controls) return;
+
+    if (currentModel) {
+        camera.position.copy(defaultCameraPosition);
+        camera.quaternion.identity();
+
+        frameModel(currentModel);
+    } else {
+        camera.position.copy(defaultCameraPosition);
+        controls.target.copy(defaultCameraTarget);
+        controls.update();
+    }
+}
+
+function resetBackground() {
+    scene.background.set(DEFAULTS.backgroundColor);
+    backgroundColorPicker.value = DEFAULTS.backgroundColor;
+}
 
 
 // LIGHT PANEL
@@ -493,22 +548,19 @@ if (verticalResizeHandle &&sidebar) {
     );
 }
 
+function recreateOrbitControls(target = controls?.target.clone() ?? defaultCameraTarget.clone()) {
+    if (controls) {
+        controls.dispose();
+        controls = null;
+    }
 
-
-// INIT CAM
-const defaultCameraPosition =
-    new THREE.Vector3(
-        0,
-        1,
-        4
-    );
-const defaultCameraTarget =
-    new THREE.Vector3(
-        0,
-        1,
-        0
-    );
-
+    controls = new OrbitControls(camera, renderer.domElement);
+    controls.enableDamping = true;
+    controls.dampingFactor = 0.08;
+    controls.target.copy(target);
+    controls.maxPolarAngle = Math.PI / 1.8;
+    controls.update();
+}
 
 // INIT THREE
 
@@ -523,7 +575,6 @@ function initThree() {
     camera = new THREE.PerspectiveCamera(45, 1, 0.01, 1000);
     camera.position.copy(defaultCameraPosition);
 
-
     renderer = new THREE.WebGLRenderer({
         antialias: true,
         alpha: false
@@ -537,20 +588,13 @@ function initThree() {
 
 
     // POST-PROCESSING
-    
-    composer = new EffectComposer(renderer);
-    const renderPass = new RenderPass(scene, camera);
-    composer.addPass(renderPass);
-
 
     colorCorrectionPass = new ShaderPass(ColorCorrectionShader);
-    
     // R, G, B
-
     colorCorrectionPass.uniforms['powRGB'].value = new THREE.Vector3(
-        0.6,
-        0.6,
-        0.6
+        0.7,
+        0.7,
+        0.7
     );
     colorCorrectionPass.uniforms['mulRGB'].value = new THREE.Vector3(
         1.0,
@@ -563,14 +607,16 @@ function initThree() {
         0.0
     );
     
+    const renderPass = new RenderPass(scene, camera);
+
+    composer = new EffectComposer(renderer);
+    composer.passes = [];
+    
+    composer.addPass(renderPass);
     composer.addPass(colorCorrectionPass);
 
     // Controls
-    controls = new OrbitControls(camera, renderer.domElement);
-    controls.enableDamping = true;
-    controls.dampingFactor = 0.08;
-    controls.target.copy(defaultCameraTarget);
-    controls.maxPolarAngle = Math.PI / 1.8;
+    recreateOrbitControls(defaultCameraTarget);
 
     // Lights
     hemisphereLight = new THREE.HemisphereLight(0xffffff, 0x444444, 2);
@@ -592,35 +638,24 @@ function initThree() {
 // RESIZE VIEWER
 
 function resizeViewer() {
+    if (!renderer || !camera) return;
 
-    if (
-        !viewport ||
-        !renderer ||
-        !camera
-    ) {
-        return;
-    }
+    const canvas = renderer.domElement;
+    const host = canvas.parentElement || viewport;
 
-    const width = viewport.clientWidth;
+    const width = host.clientWidth;
+    const height = host.clientHeight;
 
-    const height = viewport.clientHeight;
-
-    if (
-        width <= 0 ||
-        height <= 0
-    ) {
-        return;
-    }
+    if (width <= 0 || height <= 0) return;
 
     camera.aspect = width / height;
-
     camera.updateProjectionMatrix();
 
-    renderer.setSize(
-        width,
-        height,
-        false
-    );
+    renderer.setSize(width, height, false);
+
+    if (composer) {
+        composer.setSize(width, height);
+    }
 }
 
 
@@ -636,6 +671,9 @@ function animate() {
     } else if (renderer && scene && camera) {
         renderer.render(scene, camera);
     }
+    // if (renderer && scene && camera) {
+    //     renderer.render(scene, camera);
+    // }
 }
 
 
@@ -1379,7 +1417,7 @@ function collectMaterials(object) {
     }
 }
 
-function revertMaterials() {
+function reverseMaterials() {
     if (currentMaterials.length === 0) {
         return;
     }
@@ -1494,22 +1532,6 @@ function frameModel(object) {
     controls.update();
 }
 
-function resetCamera() {
-
-    if (currentModel) {
-
-        frameModel(currentModel);
-        return;
-    }
-
-    camera.position.copy(defaultCameraPosition);
-
-    controls.target.copy(defaultCameraTarget);
-
-    controls.update();
-}
-
-
 function disposeObject(object) {
 
     object.traverse(
@@ -1567,26 +1589,20 @@ function disposeMaterial(material) {
 if (searchInput) {
     searchInput.addEventListener("input", renderModelList);
 }
-
-
 if (resetCameraButton) {
     resetCameraButton.addEventListener("click", resetCamera);
 }
-
-
+if (resetLightButton) {
+    resetLightButton.addEventListener("click", resetLighting);
+}
 if (showAllButton) {
     showAllButton.addEventListener("click", showAllMaterials);
 }
-
-if (revertButton) {
-    revertButton.addEventListener("click", revertMaterials
-    );
+if (reverseButton) {
+    reverseButton.addEventListener("click", reverseMaterials);
 }
-
 if (backgroundColorPicker) {
-
     backgroundColorPicker.addEventListener("input", event => {
-
             if (!scene) {
                 return;
             }
@@ -1614,3 +1630,31 @@ window.addEventListener('popstate', function(event) {
 
 initThree();
 loadData();
+
+window.modelViewerPiPBridge = {
+    moveTo(container) {
+        const target = controls.target.clone();
+
+        controls.dispose();
+        controls = null;
+
+        container.appendChild(renderer.domElement);
+
+        recreateOrbitControls(target);
+        resizeViewer();
+    },
+
+    restore() {
+        const target = controls.target.clone();
+
+        controls.dispose();
+        controls = null;
+
+        viewport.appendChild(renderer.domElement);
+
+        recreateOrbitControls(target);
+        resizeViewer();
+    },
+
+    resize: resizeViewer
+};

@@ -8,8 +8,9 @@
     <link rel="icon" type="image/x-icon" href="./images/favicon.ico">
 
     <link rel="stylesheet" href="./styles/index.css">
-    <link rel="stylesheet" href="./styles/modelViewer.css"
-    >
+    <link rel="stylesheet" href="./styles/modelViewer.css">
+
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" />
 
 </head>
 
@@ -22,15 +23,10 @@
             id="modelSidebar"
             class="model-sidebar"
         >
-
             <section class="model-section">
 
                 <header class="model-list-header">
-
-                    <h1>
-                        ❖ Model List ⏾
-                    </h1>
-
+                    <h1>❖ Model List ⏾</h1>
                     <!-- Search -->
                     <div class="model-search">
                         <svg
@@ -98,9 +94,9 @@
                         </button>
 
                         <button
-                            id="revertMaterials"
+                            id="reverseMaterials"
                             class="material-action"
-                            title="Revert material visibility"
+                            title="reverse material visibility"
                         >
                             R
                         </button>
@@ -156,20 +152,17 @@
              ================ -->
 
         <section class="viewer-area">
-
             <!-- THREE.JS VIEWPORT -->
             <div
                 id="modelViewport"
                 class="model-viewport"
             >
-
                 <div
                     id="viewerLoading"
                     class="viewer-loading hidden"
                 >
                     Loading...
                 </div>
-
 
                 <div
                     id="viewerEmpty"
@@ -180,7 +173,6 @@
 
 
                 <!-- Viewer controls -->
-
                 <div class="viewer-controls">
 
                     <input
@@ -196,7 +188,9 @@
                         class="viewer-button"
                         title="Reset Camera"
                     >
-                        ↻
+                        <span class="material-symbols-outlined">
+                        cameraswitch
+                        </span>
                     </button>
 
                     <button
@@ -204,15 +198,20 @@
                         class="viewer-button"
                         title="Light Settings"
                     >
-                        ☀
+                        <span class="material-symbols-outlined">
+                        light_mode
+                        </span>
                     </button>
                     <div
                         id="lightPanel"
                         class="light-panel"
                     >
 
-                        <div class="light-panel-title">
-                            Light
+                        <div class="panel-header-with-button">
+                            <span>Light Settings</span>
+                            <button id="resetLightButton" title="Reset lighting" class="inline-button material-symbols-outlined">
+                                reset_settings
+                            </button>
                         </div>
 
                         <!-- ishouldvejustusedreactomg -->
@@ -335,6 +334,17 @@
 
                     </div>
 
+                    <button
+                        id="modelViewerPiPButton"
+                        class="viewer-button pip-button"
+                        type="button"
+                        title="Open the 3D viewer in a floating window"
+                    >
+                        <span class="material-symbols-outlined">
+                        pip
+                        </span>
+                    </button>
+
                 </div>
 
             </div>
@@ -351,11 +361,8 @@
         }
     }
     </script>
-
-    <script
-        type="module"
-        src="./scripts/modelViewer.js"
-    ></script>
+    <script type="module" src="./scripts/modelViewer.js"></script>
+    <script type="module" src="./scripts/pipViewer.js"></script>
 
 </body>
 
