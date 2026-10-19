@@ -1,7 +1,9 @@
-import * as THREE from "three";
+// import * as THREE from "three";
+import * as THREE from "../lib/three.module.js";
 import { OrbitControls } from "three/addons/controls/OrbitControls.js";
 // import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
-import { MMDLoader } from "three/addons/loaders/MMDLoader.js";
+// import { MMDLoader } from "three/addons/loaders/MMDLoader.js";
+import { MMDLoader } from "../lib/MMDLoader.js";
 
 import { EffectComposer } from "three/addons/postprocessing/EffectComposer.js";
 import { RenderPass } from "three/addons/postprocessing/RenderPass.js";
@@ -11,37 +13,24 @@ import { ColorCorrectionShader } from "three/addons/shaders/ColorCorrectionShade
 
 
 const originalParseMaterials = MMDLoader.prototype.parseMaterials;
-
 // suppose to override to disable SPH
-MMDLoader.prototype.parseMaterials = function(data) {
 
+MMDLoader.prototype.parseMaterials = function (data) {
     const materials = originalParseMaterials.call(this, data);
-    
 
-    if (materials && Array.isArray(materials)) {
+    if (Array.isArray(materials)) {
         materials.forEach(material => {
 
-            if (material.sphMap) {
-                material.sphMap = null;
-            }
-            if (material.specularMap) {
-                material.specularMap = null;
-            }
-            
-            material.specular = new THREE.Color(0x000000);
-            material.shininess = 0;
-            material.envMap = null;
-            material.envMapIntensity = 0;
-            
+            material.sphMap = null;
+
             if (material.userData) {
                 material.userData.sphEnabled = false;
-                // material.userData.toonEnabled = false;
             }
-            
+
             material.needsUpdate = true;
         });
     }
-    
+
     return materials;
 };
 
@@ -988,12 +977,10 @@ function createModelCard(model) {
         model.version !== undefined &&
         model.version !== null
     ) {
-        name.textContent =
-            `${displayName} v${model.version}`;
+        name.textContent = `${displayName} v${model.version}`;
 
     } else {
-        name.textContent =
-            displayName;
+        name.textContent = displayName;
     }
 
     card.appendChild(name);
@@ -1120,28 +1107,18 @@ function resolveFrontendPath(path) {
 }
 
 
-async function loadModel(
-    model,
-    selectedCard
-) {
+async function loadModel(model, selectedCard) {
 
-    if (
-        !model.modelFile
-    ) {
+    if (!model.modelFile) {
         return;
     }
 
     loadingElement.classList.remove("hidden");
-
     emptyElement.classList.add("hidden");
-
 
     try {
         const loader = new MMDLoader();
-        const path =
-            resolveFrontendPath(
-                model.modelFile
-            );
+        const path = resolveFrontendPath(model.modelFile);
         const modelObj = await loader.loadAsync(path);
 
         // Store current camera position and target
@@ -1248,7 +1225,6 @@ function renderMaterialList() {
         item.className = "material-item";
 
         if (!material.visible) {
-
             item.classList.add("hidden-material");
         }
 
@@ -1277,7 +1253,6 @@ function renderMaterialList() {
         item.appendChild(name);
 
         item.addEventListener("click", () => {
-
                 toggleMaterial(material);
             }
         );
@@ -1480,7 +1455,6 @@ function frameModel(object) {
 
     // Update light target
     if (directionalLight) {
-
         directionalLight.target.position.copy(center);
         directionalLight.target.updateMatrixWorld();
     }
@@ -1506,16 +1480,9 @@ function frameModel(object) {
     direction.applyQuaternion(camera.quaternion);
 
     camera.position.copy(center);
-
-    camera.position.add(
-        direction.multiplyScalar(
-            distance * 1.4
-        )
-    );
-
+    camera.position.add(direction.multiplyScalar(distance * 1.4));
     // Orbit target
     controls.target.copy(center);
-
     // Camera clipping
     camera.near =
         Math.max(
@@ -1586,21 +1553,11 @@ function disposeMaterial(material) {
 
 // EVENTS
 
-if (searchInput) {
-    searchInput.addEventListener("input", renderModelList);
-}
-if (resetCameraButton) {
-    resetCameraButton.addEventListener("click", resetCamera);
-}
-if (resetLightButton) {
-    resetLightButton.addEventListener("click", resetLighting);
-}
-if (showAllButton) {
-    showAllButton.addEventListener("click", showAllMaterials);
-}
-if (reverseButton) {
-    reverseButton.addEventListener("click", reverseMaterials);
-}
+searchInput?.addEventListener("input", renderModelList);
+resetCameraButton?.addEventListener("click", resetCamera);
+resetLightButton?.addEventListener("click", resetLighting);
+showAllButton?.addEventListener("click", showAllMaterials);
+reverseButton?.addEventListener("click", reverseMaterials);
 if (backgroundColorPicker) {
     backgroundColorPicker.addEventListener("input", event => {
             if (!scene) {
