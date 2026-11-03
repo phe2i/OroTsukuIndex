@@ -884,7 +884,7 @@ function renderModelList() {
 function createCategory(groupName, models) {
 
     const category = document.createElement("section");
-    category.className = "model-category";
+    category.className = "char-category";
 
 // Header
     const header =document.createElement("button");

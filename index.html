@@ -5,7 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="./styles/global.css">
     <link rel="stylesheet" href="./styles/index.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" />
 
     <link rel="icon" type="image/x-icon" href="./images/favicon.ico">
     <title>SheYue99</title>
@@ -78,7 +80,7 @@
             
         </div>
 
-        <div id="tsukuCard" class="card">
+        <div id="tsukuCard" class="card glow">
             <img id="tsukuThumb" class="card-thumb">
             <h2 id="tsukuEN" class="card-en"></h2>
             <p id="tsukuCN" class="card-cn"></p>
@@ -90,23 +92,52 @@
     <div id="imageModal"
      class="fixed inset-0 bg-black/70 hidden items-center justify-center z-50">
 
+     <div id="galleryOverlay"
+        class="absolute inset-0 hidden
+            bg-black/80 z-30
+            px-6 overflow-y-auto">
+
+        <div class="sticky top-0 z-40 flex justify-end items-center py-5 mb-5 bg-black/80">
+            <h2 id="galleryHeader" 
+            class="absolute left-1/2 -translate-x-1/2 text-white text-xl font-bold">
+                 Image Gallery
+            </h2>
+
+            <button id="closeGalleryBtn"
+                class="text-white text-2xl">
+                ✕
+            </button>
+
+        </div>
+            <div id="galleryGrid">
+        </div>
+     </div>
+
      <div class="flex flex-col items-center max-w-[90vw] max-h-[95vh]">
         <img id="modalImg"
             class="max-h-[80vh] max-w-[90vw] rounded shadow-lg">
-<!-- 
+
         <button id="prevBtn"
-            class="absolute left-5 text-white text-3xl">❮</button>
+            class="left-5 side-btn">❮</button>
 
         <button id="nextBtn"
-            class="absolute right-5 text-white text-3xl">❯</button> -->
+            class="right-5 side-btn">❯</button>
 
         <p id="modalReleaseDate"
             class="text-white mt-2">
             date
         </p>
 
-        <div id="modalLinks"
-            class="topic-links">
+        <div id="modalLinks" class="topic-links">
+            <button id="viewGalleryBtn"
+                class="small-btn btn1">
+                View Gallery (2)
+            </button>
+            <button id="downloadImgBtn"
+                class="small-btn btn2">
+                <i class="fa-solid fa-download"></i>
+                Download Image
+            </button>
             <!-- <a href="#" class="topic-link-btn btn1">Test1</a>
             <a href="#" class="topic-link-btn btn2">Test2</a> -->
         </div>
@@ -148,18 +179,24 @@
         [&::-webkit-scrollbar-thumb]:bg-violet-600">
 
             <div>
-                <h2 class="char-section"
+                <div class="char-category category-header"
                     onclick="toggleSection('oroSection', this)">
-                    Orochi ▼
-                </h2>
+                    <span class="category-arrow">
+                        ▼
+                    </span>
+                    <span>Orochi</span>
+                </div>
                 <div id="oroSection" class="grid grid-cols-2 md:grid-cols-4 gap-4 m-2"></div>
             </div>
 
             <div>
-                <h2 class="char-section"
+                <div class="char-category category-header"
                     onclick="toggleSection('tsukuSection', this)">
-                    Tsukuyomi ▼
-                </h2>
+                    <span class="category-arrow">
+                        ▼
+                    </span>
+                    <span>Tsukuyomi</span>
+                </div>
                 <div id="tsukuSection" class="grid grid-cols-2 md:grid-cols-4 gap-4 m-2"></div>
             </div>
 
