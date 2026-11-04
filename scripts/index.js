@@ -189,6 +189,9 @@ const closeGalleryBtn = document.getElementById("closeGalleryBtn")
 let currentModalList = []
 let currentModalIndex = 0
 
+let lastTopicKey = null
+let resetGalleryScroll = false
+
 function showModalWithData(data){
     if(!data) return
 
@@ -253,6 +256,19 @@ function getGalleryImages(topic){
     return images
 }
 
+function showGalleryImage(index){
+    if(!currentGalleryImages.length) return
+
+    currentGalleryIndex =
+        (index + currentGalleryImages.length)
+        % currentGalleryImages.length
+
+    const image = currentGalleryImages[currentGalleryIndex]
+
+    modalImg.src = image.src
+    modalImg.alt = image.filename || `Image ${currentGalleryIndex + 1}`
+}
+
 function renderGallery(topic){
     const images = getGalleryImages(topic)
 
@@ -260,6 +276,7 @@ function renderGallery(topic){
     viewGalleryBtn.style.display = images.length > 1 ? "block" : "none"
 
     galleryOverlay.classList.add("hidden")
+
     galleryHeader.textContent = topic.cn + " / " + topic.en || "Image Gallery"
 
     galleryGrid.innerHTML = ""
@@ -278,20 +295,28 @@ function renderGallery(topic){
         item.appendChild(img)
 
         item.addEventListener("click", () => {
-            modalImg.src = image.src
-            modalImg.alt = image.filename || `Image ${index + 1}`
+            currentGalleryImages = images
+            showGalleryImage(index)
 
             galleryOverlay.classList.add("hidden")
         })
 
         galleryGrid.appendChild(item)
     })
+    const topicKey = topic.character + topic.keyname
+    resetGalleryScroll = lastTopicKey !== topicKey
+    lastTopicKey = topicKey
 }
 
 viewGalleryBtn.addEventListener("click", () => {
     if(viewGalleryBtn.classList.contains("hidden")) return
 
     galleryOverlay.classList.remove("hidden")
+
+    if(resetGalleryScroll) {
+        galleryOverlay.scrollTop = 0
+        resetGalleryScroll = false
+    }
 })
 
 closeGalleryBtn.addEventListener("click", () => {
@@ -302,6 +327,9 @@ function updateModalContent(){
     const data = currentModalList[currentModalIndex]
 
     if(!data) return
+
+    currentGalleryImages = getGalleryImages(data)
+    currentGalleryIndex = 0
 
     modalImg.src = data.full || data.thumbnail
     modalImg.alt = data.en || data.cn || "Topic image"
@@ -336,9 +364,12 @@ function updateModalContent(){
         })
     }
 
-    const hasMultipleTopics = currentModalList.length > 1
-    prevBtn.hidden = !hasMultipleTopics
-    nextBtn.hidden = !hasMultipleTopics
+    // const hasMultipleTopics = currentModalList.length > 1
+    // prevBtn.hidden = !hasMultipleTopics
+    // nextBtn.hidden = !hasMultipleTopics
+    const hasMultipleImages = currentGalleryImages.length > 1
+    prevBtn.hidden = !hasMultipleImages
+    nextBtn.hidden = !hasMultipleImages
 }
 
 const downloadImgBtn = document.getElementById("downloadImgBtn")
@@ -375,22 +406,15 @@ downloadImgBtn.addEventListener("click", async () => {
 })
 
 prevBtn.addEventListener("click", () => {
-    if(!currentModalList.length) return
+    if(!currentGalleryImages.length) return
 
-    currentModalIndex =
-        (currentModalIndex - 1 + currentModalList.length)
-        % currentModalList.length
-
-    updateModalContent()
+    showGalleryImage(currentGalleryIndex - 1)
 })
 
 nextBtn.addEventListener("click", () => {
-    if(!currentModalList.length) return
+    if(!currentGalleryImages.length) return
 
-    currentModalIndex =
-        (currentModalIndex + 1) % currentModalList.length
-
-    updateModalContent()
+    showGalleryImage(currentGalleryIndex + 1)
 })
 
 modal.addEventListener("click", (e) => {
