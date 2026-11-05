@@ -1575,12 +1575,12 @@
       "models": [
         {
           "version": 1,
-          "thumbnail": null,
+          "thumbnail": "models/Orochi/神遂幽乡/thumbnail/1.png",
           "modelFile": "models/Orochi/神遂幽乡/神遂幽乡1.pmx"
         },
         {
           "version": 2,
-          "thumbnail": null,
+          "thumbnail": "models/Orochi/神遂幽乡/thumbnail/2.png",
           "modelFile": "models/Orochi/神遂幽乡/神遂幽乡2.pmx"
         }
       ]
@@ -2983,12 +2983,12 @@
       "models": [
         {
           "version": 1,
-          "thumbnail": null,
+          "thumbnail": "models/Tsukuyomi/雁回盈缺/thumbnail/1.png",
           "modelFile": "models/Tsukuyomi/雁回盈缺/雁回盈缺1.pmx"
         },
         {
           "version": 2,
-          "thumbnail": null,
+          "thumbnail": "models/Tsukuyomi/雁回盈缺/thumbnail/2.png",
           "modelFile": "models/Tsukuyomi/雁回盈缺/雁回盈缺2.pmx"
         }
       ]
