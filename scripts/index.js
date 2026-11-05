@@ -1,7 +1,7 @@
 
 let topics = []
-let orochiList = []
-let tsukuList = []
+let orochiFullList = []
+let tsukuFullList = []
 
 let orochiMap = {}
 let tsukuMap = {}
@@ -31,15 +31,15 @@ async function loadData(){
         return safeA - safeB
     })
 
-    orochiList = topics.filter(t => t.character === "Orochi")
-    tsukuList = topics.filter(t => t.character === "Tsukuyomi")
+    orochiFullList = topics.filter(t => t.character === "Orochi")
+    tsukuFullList = topics.filter(t => t.character === "Tsukuyomi")
 
-    for(const o of orochiList){
+    for(const o of orochiFullList){
         if(!orochiMap[o.keyname]) orochiMap[o.keyname] = []
         orochiMap[o.keyname].push(o)
     }
 
-    for(const t of tsukuList){
+    for(const t of tsukuFullList){
         if(!tsukuMap[t.keyname]) tsukuMap[t.keyname] = []
         tsukuMap[t.keyname].push(t)
     }
@@ -76,6 +76,29 @@ function randomL(list){
     return list[Math.floor(Math.random() * list.length)]
 }
 
+function createDailyRandom(){
+    const today = new Date();
+
+    const dateKey = [
+        today.getFullYear(),
+        String(today.getMonth() + 1).padStart(2, "0"),
+        String(today.getDate()).padStart(2, "0")
+    ].join("-");
+
+    let seed = 0;
+    for(let i = 0; i < dateKey.length; i++){
+        seed = (seed * 31 + dateKey.charCodeAt(i)) >>> 0;
+    }
+    
+    // Mulberry32: https://github.com/cprosche/mulberry32
+    return function(){
+        let t = seed + 0x6D2B79F5;
+        t = Math.imul(t ^ t >>> 15, t | 1);
+        t ^= t + Math.imul(t ^ t >>> 7, t | 61);
+        return ((t ^ t >>> 14) >>> 0) / 4294967296;
+    };
+}
+
 function display(card, data){
     if(!data) return
 
@@ -100,18 +123,26 @@ function display(card, data){
 }
 
 function setDefault(){
-    for(let o of orochiList){
-        let match = tsukuList.find(t => t.keyname === o.keyname)
+    let o, t
+    let oroList = orochiFullList
+    let tsuList = tsukuFullList
 
-        if(match){
-            display("orochi", o)
-            display("tsuku", match)
-            return
-        }
-    }
+    const dailyRandom = createDailyRandom();
 
-    randomPair()
+    const pair = pairKeys[Math.floor(dailyRandom() * pairKeys.length)];
+    if (!pair) return;
+    oroList = orochiMap[pair.orochiKey] || [];
+    tsuList = tsukuMap[pair.tsukuKey] || [];
+
+    o = oroList[Math.floor(dailyRandom() * oroList.length)];
+    t = tsuList[Math.floor(dailyRandom() * tsuList.length)];
+
+    if (!o || !t) return;
+
+    display("orochi", o);
+    display("tsuku", t);
 }
+
 
 function animateCard(id){
     const el = document.getElementById(id)
@@ -127,8 +158,8 @@ function randomPair(){
     let o, t
 
     if(mode === "ingame"){
-        const oroList = orochiList.filter(t => games.includes(t.source))
-        const tsuList = tsukuList.filter(t => games.includes(t.source))
+        const oroList = orochiFullList.filter(t => games.includes(t.source))
+        const tsuList = tsukuFullList.filter(t => games.includes(t.source))
 
         o = randomL(oroList)
         t = randomL(tsuList)
@@ -144,19 +175,19 @@ function randomPair(){
         t = randomL(tsuList)
     }
     else if(mode === "diff"){
-        if(!orochiList.length || !tsukuList.length) return
+        if(!orochiFullList.length || !tsukuFullList.length) return
 
-        o = randomL(orochiList)
+        o = randomL(orochiFullList)
 
-        const differentList = tsukuList.filter(
+        const differentList = tsukuFullList.filter(
             item => item.keyname !== o.keyname
         )
 
         t = randomL(differentList)
     }
     else {
-        o = randomL(orochiList)
-        t = randomL(tsukuList)
+        o = randomL(orochiFullList)
+        t = randomL(tsukuFullList)
     }
 
     if(!o || !t) return
