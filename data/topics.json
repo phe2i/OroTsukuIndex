@@ -54,13 +54,13 @@
           "src": "images/Orochi/Dye_DarkBlue/006BsaXygy1goel7hc12wg30kb0jnkjz.gif",
           "filename": "006BsaXygy1goel7hc12wg30kb0jnkjz.gif",
           "sortOrder": 0,
-          "category": "3D Previews"
+          "category": "In-Game Previews"
         },
         {
           "src": "images/Orochi/Dye_DarkBlue/006BsaXygy1goel7ewqvdg30js0j6u0y.gif",
           "filename": "006BsaXygy1goel7ewqvdg30js0j6u0y.gif",
           "sortOrder": 1,
-          "category": "3D Previews"
+          "category": "In-Game Previews"
         },
         {
           "src": "images/Orochi/Dye_DarkBlue/92354452a213a95a6b03b92403dad987.png",
@@ -92,7 +92,7 @@
           "src": "images/Orochi/Dye_DarkBlue_SP/006BsaXygy1h2cao41ojsg30ek0fmx74.gif",
           "filename": "006BsaXygy1h2cao41ojsg30ek0fmx74.gif",
           "sortOrder": 0,
-          "category": "3D Previews"
+          "category": "In-Game Previews"
         }
       ],
       "models": [
@@ -124,7 +124,7 @@
           "src": "images/Orochi/Dye_TrueRed_SP/006BsaXygy1hiz51ebp5ug30gm0gmqvk.gif",
           "filename": "006BsaXygy1hiz51ebp5ug30gm0gmqvk.gif",
           "sortOrder": 1,
-          "category": "3D Previews"
+          "category": "In-Game Previews"
         }
       ],
       "models": [
@@ -179,6 +179,10 @@
         {
           "label": "Source",
           "url": "https://weibo.com/5896401674/LrTtdkpyQ"
+        },
+        {
+          "label": "Yokai Koya",
+          "url": "https://weibo.com/7122851482/Nj5CF7KK1"
         }
       ],
       "otherImages": [
@@ -210,7 +214,7 @@
           "src": "images/Orochi/SP/神堕八岐大蛇-三视图.jpg",
           "filename": "神堕八岐大蛇-三视图.jpg",
           "sortOrder": 4,
-          "category": "Designing Details"
+          "category": "Details"
         },
         {
           "src": "images/Orochi/SP/神堕八岐大蛇-立绘.jpg",
@@ -228,90 +232,96 @@
           "src": "images/Orochi/SP/006r2HqOgy1h22iauvmbwj61hc0u0wna02.jpg",
           "filename": "006r2HqOgy1h22iauvmbwj61hc0u0wna02.jpg",
           "sortOrder": 7,
-          "category": "3D Previews"
+          "category": "In-Game Previews"
         },
         {
           "src": "images/Orochi/SP/006r2HqOgy1h22ibk32uxj61hc0u0n6702.jpg",
           "filename": "006r2HqOgy1h22ibk32uxj61hc0u0n6702.jpg",
           "sortOrder": 8,
-          "category": "3D Previews"
+          "category": "In-Game Previews"
         },
         {
           "src": "images/Orochi/SP/006r2HqOgy1h22ib8owq2j61hc0u0gvt02.jpg",
           "filename": "006r2HqOgy1h22ib8owq2j61hc0u0gvt02.jpg",
           "sortOrder": 9,
-          "category": "3D Previews"
+          "category": "In-Game Previews"
         },
         {
           "src": "images/Orochi/SP/006BsaXygy1h22no8xnhdg30dc0dcb2p.gif",
           "filename": "006BsaXygy1h22no8xnhdg30dc0dcb2p.gif",
           "sortOrder": 10,
-          "category": "3D Previews"
+          "category": "In-Game Previews"
         },
         {
           "src": "images/Orochi/SP/006BsaXygy1h22no6xkuig30dc0dc4r3.gif",
           "filename": "006BsaXygy1h22no6xkuig30dc0dc4r3.gif",
           "sortOrder": 11,
-          "category": "3D Previews"
+          "category": "In-Game Previews"
         },
         {
           "src": "images/Orochi/SP/006BsaXygy1h22no5znsyg30bq0bqu1f.gif",
           "filename": "006BsaXygy1h22no5znsyg30bq0bqu1f.gif",
           "sortOrder": 12,
-          "category": "3D Previews"
+          "category": "In-Game Previews"
         },
         {
           "src": "images/Orochi/SP/006BsaXygy1h22no45879g30dc0dcb2r.gif",
           "filename": "006BsaXygy1h22no45879g30dc0dcb2r.gif",
           "sortOrder": 13,
-          "category": "3D Previews"
+          "category": "In-Game Previews"
+        },
+        {
+          "src": "images/Orochi/SP/007M2L3kgy1hhuvaxwgc8j30lw15o12u.jpg",
+          "filename": "007M2L3kgy1hhuvaxwgc8j30lw15o12u.jpg",
+          "sortOrder": 14,
+          "category": "Misc"
         },
         {
           "src": "images/Orochi/SP/02ff9ee3888dae6b7ef481686b1cba16.png",
           "filename": "02ff9ee3888dae6b7ef481686b1cba16.png",
-          "sortOrder": 14,
+          "sortOrder": 15,
           "category": "Misc"
         },
         {
           "src": "images/Orochi/SP/006BsaXyly1h23ljlc0vlj30p90pc7ai.jpg",
           "filename": "006BsaXyly1h23ljlc0vlj30p90pc7ai.jpg",
-          "sortOrder": 15,
+          "sortOrder": 16,
           "category": "Chibi"
         },
         {
           "src": "images/Orochi/SP/006BsaXyly1h22jr1ct63j30rh0r80ym.jpg",
           "filename": "006BsaXyly1h22jr1ct63j30rh0r80ym.jpg",
-          "sortOrder": 16,
+          "sortOrder": 17,
           "category": "Chibi"
         },
         {
           "src": "images/Orochi/SP/006BsaXygy1h29d1szpayj30ou0hi0x8.jpg",
           "filename": "006BsaXygy1h29d1szpayj30ou0hi0x8.jpg",
-          "sortOrder": 17,
+          "sortOrder": 18,
           "category": "Misc"
         },
         {
           "src": "images/Orochi/SP/231f8bbce09b95ad3e6b534685d60fdc.png",
           "filename": "231f8bbce09b95ad3e6b534685d60fdc.png",
-          "sortOrder": 18,
+          "sortOrder": 19,
           "category": "Misc"
         },
         {
           "src": "images/Orochi/SP/82f1a15eed15b22ace056f67cd0db1f6.png",
           "filename": "82f1a15eed15b22ace056f67cd0db1f6.png",
-          "sortOrder": 19,
+          "sortOrder": 20,
           "category": "Misc"
         },
         {
           "src": "images/Orochi/SP/9ead588a5e624c5df26cc418b1b5aeaf.png",
           "filename": "9ead588a5e624c5df26cc418b1b5aeaf.png",
-          "sortOrder": 20,
+          "sortOrder": 21,
           "category": "Misc"
         },
         {
           "src": "images/Orochi/SP/454de089a3e5ae9c7c89d3983d5f497b.png",
           "filename": "454de089a3e5ae9c7c89d3983d5f497b.png",
-          "sortOrder": 21,
+          "sortOrder": 22,
           "category": "Misc"
         }
       ],
@@ -367,13 +377,13 @@
           "src": "images/Orochi/SSR/八岐大蛇-觉醒前-立绘.jpg",
           "filename": "八岐大蛇-觉醒前-立绘.jpg",
           "sortOrder": 4,
-          "category": "Designing Details"
+          "category": "Details"
         },
         {
           "src": "images/Orochi/SSR/八岐大蛇-觉醒前-三视图.jpg",
           "filename": "八岐大蛇-觉醒前-三视图.jpg",
           "sortOrder": 5,
-          "category": "Designing Details"
+          "category": "Details"
         },
         {
           "src": "images/Orochi/SSR/006r2HqOgy1fy47cpgmfhj31e00rs125.jpg",
@@ -677,11 +687,103 @@
       "cn": "今宵乐尽",
       "en": "",
       "source": "Yokai Koya",
-      "releaseDate": null,
+      "releaseDate": "2023-09-27",
       "thumbnail": "images/Orochi/今宵乐尽/thumb.jpg",
       "full": "images/Orochi/今宵乐尽/full.jpg",
-      "links": [],
-      "otherImages": [],
+      "links": [
+        {
+          "label": "Source",
+          "url": "https://weibo.com/7122851482/Nj5CF7KK1"
+        },
+        {
+          "label": "Detail",
+          "url": "https://weibo.com/7122851482/NkX0Ef91L"
+        },
+        {
+          "label": "Items",
+          "url": "https://weibo.com/7122851482/Nl3ia3JcD"
+        }
+      ],
+      "otherImages": [
+        {
+          "src": "images/Orochi/今宵乐尽/007M2L3kgy1hhuvbc2xuij31hc0u0h11.jpg",
+          "filename": "007M2L3kgy1hhuvbc2xuij31hc0u0h11.jpg",
+          "sortOrder": 0,
+          "category": "Misc"
+        },
+        {
+          "src": "images/Orochi/今宵乐尽/007M2L3kgy1hiq7yu9k7nj30rs0fmq7r.jpg",
+          "filename": "007M2L3kgy1hiq7yu9k7nj30rs0fmq7r.jpg",
+          "sortOrder": 1,
+          "category": "Misc"
+        },
+        {
+          "src": "images/Orochi/今宵乐尽/007M2L3kgy1hqwszzh7o9j30u00u045t.jpg",
+          "filename": "007M2L3kgy1hqwszzh7o9j30u00u045t.jpg",
+          "sortOrder": 2,
+          "category": "Misc"
+        },
+        {
+          "src": "images/Orochi/今宵乐尽/007M2L3kgy1hi91037748g30dw0dw7wk.gif",
+          "filename": "007M2L3kgy1hi91037748g30dw0dw7wk.gif",
+          "sortOrder": 3,
+          "category": "Misc"
+        },
+        {
+          "src": "images/Orochi/今宵乐尽/007M2L3kgy1hi9102itykj30qe2f81fq.jpg",
+          "filename": "007M2L3kgy1hi9102itykj30qe2f81fq.jpg",
+          "sortOrder": 4,
+          "category": "Misc"
+        },
+        {
+          "src": "images/Orochi/今宵乐尽/007M2L3kgy1hi91030lgij30qe2ym1kx.jpg",
+          "filename": "007M2L3kgy1hi91030lgij30qe2ym1kx.jpg",
+          "sortOrder": 5,
+          "category": "Misc"
+        },
+        {
+          "src": "images/Orochi/今宵乐尽/007M2L3kgy1hi93nk0mabj30qe1zbk95.jpg",
+          "filename": "007M2L3kgy1hi93nk0mabj30qe1zbk95.jpg",
+          "sortOrder": 6,
+          "category": "Misc"
+        },
+        {
+          "src": "images/Orochi/今宵乐尽/007M2L3kgy1hi9rlvmnvgj30j60okdkp.jpg",
+          "filename": "007M2L3kgy1hi9rlvmnvgj30j60okdkp.jpg",
+          "sortOrder": 7,
+          "category": "Misc"
+        },
+        {
+          "src": "images/Orochi/今宵乐尽/007M2L3kgy1hiqdt7btpng30go0go7wi.gif",
+          "filename": "007M2L3kgy1hiqdt7btpng30go0go7wi.gif",
+          "sortOrder": 8,
+          "category": "In-Game Previews"
+        },
+        {
+          "src": "images/Orochi/今宵乐尽/007M2L3kgy1hiqdt1kxfqg30go0goqva.gif",
+          "filename": "007M2L3kgy1hiqdt1kxfqg30go0goqva.gif",
+          "sortOrder": 9,
+          "category": "In-Game Previews"
+        },
+        {
+          "src": "images/Orochi/今宵乐尽/007M2L3kgy1hiqdt7k28cg30go0gou0y.gif",
+          "filename": "007M2L3kgy1hiqdt7k28cg30go0gou0y.gif",
+          "sortOrder": 10,
+          "category": "Misc"
+        },
+        {
+          "src": "images/Orochi/今宵乐尽/007M2L3kgy1hiqdtcyc7wg30go0gokjm.gif",
+          "filename": "007M2L3kgy1hiqdtcyc7wg30go0gokjm.gif",
+          "sortOrder": 11,
+          "category": "In-Game Previews"
+        },
+        {
+          "src": "images/Orochi/今宵乐尽/007M2L3kgy1hiqdtdm5xzg30go0gob2f.gif",
+          "filename": "007M2L3kgy1hiqdtdm5xzg30go0gob2f.gif",
+          "sortOrder": 12,
+          "category": "In-Game Previews"
+        }
+      ],
       "models": []
     },
     {
@@ -690,11 +792,73 @@
       "cn": "八俣夷医",
       "en": "",
       "source": "Yokai Koya",
-      "releaseDate": null,
+      "releaseDate": "2022-10-12",
       "thumbnail": "images/Orochi/八俣夷医/thumb.jpg",
       "full": "images/Orochi/八俣夷医/full.jpg",
-      "links": [],
-      "otherImages": [],
+      "links": [
+        {
+          "label": "Source",
+          "url": "https://weibo.com/7122851482/M87tjAYJZ"
+        },
+        {
+          "label": "Update",
+          "url": "https://weibo.com/7122851482/M9Qs7fVkJ"
+        },
+        {
+          "label": "Items",
+          "url": "https://weibo.com/7122851482/Ma61LsPVy"
+        }
+      ],
+      "otherImages": [
+        {
+          "src": "images/Orochi/八俣夷医/007M2L3kgy1h71eezrktpj30rr0fmjwq.jpg",
+          "filename": "007M2L3kgy1h71eezrktpj30rr0fmjwq.jpg",
+          "sortOrder": 0,
+          "category": "Misc"
+        },
+        {
+          "src": "images/Orochi/八俣夷医/007M2L3kgy1h6ofv1a0a0g30dw0dw7wh.gif",
+          "filename": "007M2L3kgy1h6ofv1a0a0g30dw0dw7wh.gif",
+          "sortOrder": 1,
+          "category": "Misc"
+        },
+        {
+          "src": "images/Orochi/八俣夷医/007M2L3kgy1h6ofv3pxj6g30go0go1l2.gif",
+          "filename": "007M2L3kgy1h6ofv3pxj6g30go0go1l2.gif",
+          "sortOrder": 2,
+          "category": "In-Game Previews"
+        },
+        {
+          "src": "images/Orochi/八俣夷医/007M2L3kgy1h6ofv2geztg30go0gonpf.gif",
+          "filename": "007M2L3kgy1h6ofv2geztg30go0gonpf.gif",
+          "sortOrder": 3,
+          "category": "In-Game Previews"
+        },
+        {
+          "src": "images/Orochi/八俣夷医/007M2L3kgy1h6ofv25gvig30go0gohdu.gif",
+          "filename": "007M2L3kgy1h6ofv25gvig30go0gohdu.gif",
+          "sortOrder": 4,
+          "category": "In-Game Previews"
+        },
+        {
+          "src": "images/Orochi/八俣夷医/007M2L3kgy1h6ofv38afag30go0go4qs.gif",
+          "filename": "007M2L3kgy1h6ofv38afag30go0go4qs.gif",
+          "sortOrder": 5,
+          "category": "In-Game Previews"
+        },
+        {
+          "src": "images/Orochi/八俣夷医/007M2L3kgy1h6ofv1ym52g30go0gohdu.gif",
+          "filename": "007M2L3kgy1h6ofv1ym52g30go0gohdu.gif",
+          "sortOrder": 6,
+          "category": "In-Game Previews"
+        },
+        {
+          "src": "images/Orochi/八俣夷医/007M2L3kgy1h6ofv4m54sj30qe7dxe82.jpg",
+          "filename": "007M2L3kgy1h6ofv4m54sj30qe7dxe82.jpg",
+          "sortOrder": 7,
+          "category": "Details"
+        }
+      ],
       "models": []
     },
     {
@@ -741,25 +905,25 @@
           "src": "images/Orochi/冷夜暗影/006r2HqOgy1gyfnyuzj5aj61i80sh0zw02.jpg",
           "filename": "006r2HqOgy1gyfnyuzj5aj61i80sh0zw02.jpg",
           "sortOrder": 4,
-          "category": "3D Previews"
+          "category": "In-Game Previews"
         },
         {
           "src": "images/Orochi/冷夜暗影/006r2HqOgy1gyfnzz7wf0j61et0shtjt02.jpg",
           "filename": "006r2HqOgy1gyfnzz7wf0j61et0shtjt02.jpg",
           "sortOrder": 5,
-          "category": "3D Previews"
+          "category": "In-Game Previews"
         },
         {
           "src": "images/Orochi/冷夜暗影/006BsaXygy1gyfo6t20lig30dc0dcb2n.gif",
           "filename": "006BsaXygy1gyfo6t20lig30dc0dcb2n.gif",
           "sortOrder": 6,
-          "category": "3D Previews"
+          "category": "In-Game Previews"
         },
         {
           "src": "images/Orochi/冷夜暗影/006BsaXygy1gyfo6qxvrsg30dc0dcqvl.gif",
           "filename": "006BsaXygy1gyfo6qxvrsg30dc0dcqvl.gif",
           "sortOrder": 7,
-          "category": "3D Previews"
+          "category": "In-Game Previews"
         },
         {
           "src": "images/Orochi/冷夜暗影/006BsaXyly1gyfsd060gwj30oq0piwiv.jpg",
@@ -816,13 +980,13 @@
           "src": "images/Orochi/四相行藏/bafkreifj76vtmzcxkclsuvee75ombttkqg2e2xes3wog3m44ybj7q2q7gy.webp",
           "filename": "bafkreifj76vtmzcxkclsuvee75ombttkqg2e2xes3wog3m44ybj7q2q7gy.webp",
           "sortOrder": 2,
-          "category": "3D Previews"
+          "category": "In-Game Previews"
         },
         {
           "src": "images/Orochi/四相行藏/006r2HqOly1ihwble254bj63341mcu1002.jpg",
           "filename": "006r2HqOly1ihwble254bj63341mcu1002.jpg",
           "sortOrder": 3,
-          "category": "3D Previews"
+          "category": "In-Game Previews"
         },
         {
           "src": "images/Orochi/四相行藏/profile.gif",
@@ -858,49 +1022,49 @@
           "src": "images/Orochi/四相行藏/006r2HqOly1ihwcz5i2kpj60rs1qn1kx02.jpg",
           "filename": "006r2HqOly1ihwcz5i2kpj60rs1qn1kx02.jpg",
           "sortOrder": 9,
-          "category": "Designing Details"
+          "category": "Details"
         },
         {
           "src": "images/Orochi/四相行藏/006r2HqOly1ihwcz6afadj60rs26m7wh02.jpg",
           "filename": "006r2HqOly1ihwcz6afadj60rs26m7wh02.jpg",
           "sortOrder": 10,
-          "category": "Designing Details"
+          "category": "Details"
         },
         {
           "src": "images/Orochi/四相行藏/006r2HqOly1ihwcz76uflj60rs11jtrp02.jpg",
           "filename": "006r2HqOly1ihwcz76uflj60rs11jtrp02.jpg",
           "sortOrder": 11,
-          "category": "Designing Details"
+          "category": "Details"
         },
         {
           "src": "images/Orochi/四相行藏/006BsaXygy1ihwc1jln8pg30dc0dckjv.gif",
           "filename": "006BsaXygy1ihwc1jln8pg30dc0dckjv.gif",
           "sortOrder": 12,
-          "category": "3D Previews"
+          "category": "In-Game Previews"
         },
         {
           "src": "images/Orochi/四相行藏/006BsaXygy1ihwc1lm5xvg30dc0dcu1b.gif",
           "filename": "006BsaXygy1ihwc1lm5xvg30dc0dcu1b.gif",
           "sortOrder": 13,
-          "category": "3D Previews"
+          "category": "In-Game Previews"
         },
         {
           "src": "images/Orochi/四相行藏/006BsaXygy1ihwc1peg3dg30dc0dce88.gif",
           "filename": "006BsaXygy1ihwc1peg3dg30dc0dce88.gif",
           "sortOrder": 14,
-          "category": "3D Previews"
+          "category": "In-Game Previews"
         },
         {
           "src": "images/Orochi/四相行藏/006BsaXygy1ihwc1nvrrrg30dc0dchdz.gif",
           "filename": "006BsaXygy1ihwc1nvrrrg30dc0dchdz.gif",
           "sortOrder": 15,
-          "category": "3D Previews"
+          "category": "In-Game Previews"
         },
         {
           "src": "images/Orochi/四相行藏/006BsaXygy1ihwc1h5x97g30dc0dckjn.gif",
           "filename": "006BsaXygy1ihwc1h5x97g30dc0dckjn.gif",
           "sortOrder": 16,
-          "category": "3D Previews"
+          "category": "In-Game Previews"
         },
         {
           "src": "images/Orochi/四相行藏/b64904e333f804e5bb88dbc5e046c1c4.png",
@@ -1125,25 +1289,25 @@
           "src": "images/Orochi/檀樱倚梦/006r2HqOgy1ht2hvi833yj63341mcnpg02.jpg",
           "filename": "006r2HqOgy1ht2hvi833yj63341mcnpg02.jpg",
           "sortOrder": 4,
-          "category": "3D Previews"
+          "category": "In-Game Previews"
         },
         {
           "src": "images/Orochi/檀樱倚梦/006r2HqOgy1ht2hvrpl75j63341mcb2e02.jpg",
           "filename": "006r2HqOgy1ht2hvrpl75j63341mcb2e02.jpg",
           "sortOrder": 5,
-          "category": "3D Previews"
+          "category": "In-Game Previews"
         },
         {
           "src": "images/Orochi/檀樱倚梦/006BsaXygy1ht2i1wp067g30cw0cwe8s.gif",
           "filename": "006BsaXygy1ht2i1wp067g30cw0cwe8s.gif",
           "sortOrder": 6,
-          "category": "3D Previews"
+          "category": "In-Game Previews"
         },
         {
           "src": "images/Orochi/檀樱倚梦/006BsaXygy1ht2i1a3lemg30fn0fnnq3.gif",
           "filename": "006BsaXygy1ht2i1a3lemg30fn0fnnq3.gif",
           "sortOrder": 7,
-          "category": "3D Previews"
+          "category": "In-Game Previews"
         },
         {
           "src": "images/Orochi/檀樱倚梦/006BsaXyly1ht2vaig96zj30jg0jg41r.jpg",
@@ -1258,25 +1422,25 @@
           "src": "images/Orochi/玄夜神隐/006r2HqOgy1h2bii0pgq7j61l50u0ain02.jpg",
           "filename": "006r2HqOgy1h2bii0pgq7j61l50u0ain02.jpg",
           "sortOrder": 2,
-          "category": "3D Previews"
+          "category": "In-Game Previews"
         },
         {
           "src": "images/Orochi/玄夜神隐/006r2HqOgy1h2bihjqr9ij61l50u0q9s02.jpg",
           "filename": "006r2HqOgy1h2bihjqr9ij61l50u0q9s02.jpg",
           "sortOrder": 3,
-          "category": "3D Previews"
+          "category": "In-Game Previews"
         },
         {
           "src": "images/Orochi/玄夜神隐/006BsaXygy1h2bjg6o033g30dc0dcb2k.gif",
           "filename": "006BsaXygy1h2bjg6o033g30dc0dcb2k.gif",
           "sortOrder": 4,
-          "category": "3D Previews"
+          "category": "In-Game Previews"
         },
         {
           "src": "images/Orochi/玄夜神隐/006BsaXygy1h2bip4uvi2g30dc0dcheb.gif",
           "filename": "006BsaXygy1h2bip4uvi2g30dc0dcheb.gif",
           "sortOrder": 5,
-          "category": "3D Previews"
+          "category": "In-Game Previews"
         },
         {
           "src": "images/Orochi/玄夜神隐/006BsaXyly1h2bqmi1fkxj30m70mi0v9.jpg",
@@ -1359,19 +1523,19 @@
           "src": "images/Orochi/琉璃愿境/006r2HqOgy1hs4tk3o8muj63341mce8402.jpg",
           "filename": "006r2HqOgy1hs4tk3o8muj63341mce8402.jpg",
           "sortOrder": 6,
-          "category": "3D Previews"
+          "category": "In-Game Previews"
         },
         {
           "src": "images/Orochi/琉璃愿境/006r2HqOgy1hs4tjmhr1gj63341mcu0y02.jpg",
           "filename": "006r2HqOgy1hs4tjmhr1gj63341mcu0y02.jpg",
           "sortOrder": 7,
-          "category": "3D Previews"
+          "category": "In-Game Previews"
         },
         {
           "src": "images/Orochi/琉璃愿境/006r2HqOgy1hs4w3049rej60rs57s4px02.jpg",
           "filename": "006r2HqOgy1hs4w3049rej60rs57s4px02.jpg",
           "sortOrder": 8,
-          "category": "Designing Details"
+          "category": "Details"
         },
         {
           "src": "images/Orochi/琉璃愿境/006r2HqOgy1hs4tlcebanj61jk1jk4gd02.jpg",
@@ -1383,13 +1547,13 @@
           "src": "images/Orochi/琉璃愿境/006BsaXygy1hs4vghnz8dg30hs0hskk7.gif",
           "filename": "006BsaXygy1hs4vghnz8dg30hs0hskk7.gif",
           "sortOrder": 10,
-          "category": "3D Previews"
+          "category": "In-Game Previews"
         },
         {
           "src": "images/Orochi/琉璃愿境/006r2HqOgy1hs4wcbhiiij61hc0u0qjz02.jpg",
           "filename": "006r2HqOgy1hs4wcbhiiij61hc0u0qjz02.jpg",
           "sortOrder": 11,
-          "category": "3D Previews"
+          "category": "In-Game Previews"
         }
       ],
       "models": [
@@ -1484,13 +1648,13 @@
           "src": "images/Orochi/神迹/c02af43bgy1i2bkxx1jrzj24at4x61kz.jpg",
           "filename": "c02af43bgy1i2bkxx1jrzj24at4x61kz.jpg",
           "sortOrder": 0,
-          "category": "Designing Details"
+          "category": "Details"
         },
         {
           "src": "images/Orochi/神迹/c02af43bgy1i2bkxvxfdgj23x21ww4qp.jpg",
           "filename": "c02af43bgy1i2bkxvxfdgj23x21ww4qp.jpg",
           "sortOrder": 1,
-          "category": "Designing Details"
+          "category": "Details"
         },
         {
           "src": "images/Orochi/神迹/490541295_1302362271392494_3367411930654836105_n.jpg",
@@ -1551,19 +1715,19 @@
           "src": "images/Orochi/神遂幽乡/006BsaXygy1hft051pxwbg30dc0dc7ws.gif",
           "filename": "006BsaXygy1hft051pxwbg30dc0dc7ws.gif",
           "sortOrder": 4,
-          "category": "3D Previews"
+          "category": "In-Game Previews"
         },
         {
           "src": "images/Orochi/神遂幽乡/006BsaXygy1hft05136agg30bo0bo4r7.gif",
           "filename": "006BsaXygy1hft05136agg30bo0bo4r7.gif",
           "sortOrder": 5,
-          "category": "3D Previews"
+          "category": "In-Game Previews"
         },
         {
           "src": "images/Orochi/神遂幽乡/006BsaXygy1hft053jwj4g30dc0dcb2m.gif",
           "filename": "006BsaXygy1hft053jwj4g30dc0dcb2m.gif",
           "sortOrder": 6,
-          "category": "3D Previews"
+          "category": "In-Game Previews"
         },
         {
           "src": "images/Orochi/神遂幽乡/006BsaXygy1hft0f92o52j32qv1jkkjm.jpg",
@@ -1693,13 +1857,13 @@
           "src": "images/Orochi/终焉神主1/006r2HqOgy1hmbqccrji2j63341mcx6r02.jpg",
           "filename": "006r2HqOgy1hmbqccrji2j63341mcx6r02.jpg",
           "sortOrder": 5,
-          "category": "3D Previews"
+          "category": "In-Game Previews"
         },
         {
           "src": "images/Orochi/终焉神主1/006r2HqOgy1hmbrjn1fofg60ku0rsnpg02.gif",
           "filename": "006r2HqOgy1hmbrjn1fofg60ku0rsnpg02.gif",
           "sortOrder": 6,
-          "category": "Designing Details"
+          "category": "Details"
         },
         {
           "src": "images/Orochi/终焉神主1/006r2HqOgy1hmbrjmx48pg60p00qob2c02.gif",
@@ -1820,13 +1984,13 @@
           "src": "images/Orochi/终焉神主2/006BsaXygy1i84vw6g3s6g313e0x84rh.gif",
           "filename": "006BsaXygy1i84vw6g3s6g313e0x84rh.gif",
           "sortOrder": 2,
-          "category": "3D Previews"
+          "category": "In-Game Previews"
         },
         {
           "src": "images/Orochi/终焉神主2/006BsaXygy1i84vw4pyllg30nm0jxx7f.gif",
           "filename": "006BsaXygy1i84vw4pyllg30nm0jxx7f.gif",
           "sortOrder": 3,
-          "category": "3D Previews"
+          "category": "In-Game Previews"
         },
         {
           "src": "images/Orochi/终焉神主2/4aa7508136ab8149cc9c0f618921a7c6.png",
@@ -1911,13 +2075,13 @@
           "src": "images/Orochi/蛇游幻影/006BsaXygy1hjdai3xi9mg30dc0dcb2l.gif",
           "filename": "006BsaXygy1hjdai3xi9mg30dc0dcb2l.gif",
           "sortOrder": 2,
-          "category": "3D Previews"
+          "category": "In-Game Previews"
         },
         {
           "src": "images/Orochi/蛇游幻影/006BsaXygy1hjdai7p9skg30dc0dchea.gif",
           "filename": "006BsaXygy1hjdai7p9skg30dc0dchea.gif",
           "sortOrder": 3,
-          "category": "3D Previews"
+          "category": "In-Game Previews"
         },
         {
           "src": "images/Orochi/蛇游幻影/006BsaXygy1hjdappql45j30og0nlq7y.jpg",
@@ -1935,13 +2099,13 @@
           "src": "images/Orochi/蛇游幻影/006BsaXyly1hjdaknlz86j30rs5e1u0x.jpg",
           "filename": "006BsaXyly1hjdaknlz86j30rs5e1u0x.jpg",
           "sortOrder": 6,
-          "category": "Designing Details"
+          "category": "Details"
         },
         {
           "src": "images/Orochi/蛇游幻影/006BsaXygy1hjda99xhvyj30rs6jlqv5.jpg",
           "filename": "006BsaXygy1hjda99xhvyj30rs6jlqv5.jpg",
           "sortOrder": 7,
-          "category": "Designing Details"
+          "category": "Details"
         }
       ],
       "models": [
@@ -1971,16 +2135,61 @@
       "cn": "赤冕临祀",
       "en": "Crimson Crowned Ritual",
       "source": "Arena",
-      "releaseDate": "2025-04-02",
+      "releaseDate": "2025-04-03",
       "thumbnail": "images/Orochi/赤冕临祀/thumb.jpg",
       "full": "images/Orochi/赤冕临祀/full.jpg",
       "links": [
         {
           "label": "Source",
-          "url": "https://weibo.com/6299431693/Plnze8fFD"
+          "url": "https://weibo.com/6299431693/Pl5kwFFca"
+        },
+        {
+          "label": "Update",
+          "url": "https://weibo.com/6299431693/Plgeb8RcO"
+        },
+        {
+          "label": "Preview",
+          "url": "https://weibo.com/6299431693/PloFskG6Y"
+        },
+        {
+          "label": "Detail",
+          "url": "https://weibo.com/6299431693/Plp5Zgydo"
+        },
+        {
+          "label": "Patch Note",
+          "url": "https://weibo.com/ttarticle/p/show?id=2309405151301985239091"
+        },
+        {
+          "label": "Rerun",
+          "url": "https://weibo.com/6299431693/QwkJHDjSr"
         }
       ],
-      "otherImages": [],
+      "otherImages": [
+        {
+          "src": "images/Orochi/赤冕临祀/006SjLWZly1ib8n6opbttj31hc0u0wsa.jpg",
+          "filename": "006SjLWZly1ib8n6opbttj31hc0u0wsa.jpg",
+          "sortOrder": 0,
+          "category": "Misc"
+        },
+        {
+          "src": "images/Orochi/赤冕临祀/006SjLWZly1i03ft5yy71j30rr0fmtdn.jpg",
+          "filename": "006SjLWZly1i03ft5yy71j30rr0fmtdn.jpg",
+          "sortOrder": 1,
+          "category": "Misc"
+        },
+        {
+          "src": "images/Orochi/赤冕临祀/006SjLWZly1i03nlypelkj32ae3h0npg.jpg",
+          "filename": "006SjLWZly1i03nlypelkj32ae3h0npg.jpg",
+          "sortOrder": 2,
+          "category": "Misc"
+        },
+        {
+          "src": "images/Orochi/赤冕临祀/006SjLWZly1i03plazdarj30u076nkjo.jpg",
+          "filename": "006SjLWZly1i03plazdarj30u076nkjo.jpg",
+          "sortOrder": 3,
+          "category": "Details"
+        }
+      ],
       "models": [
         {
           "version": 1,
@@ -2130,6 +2339,24 @@
           "modelFile": "models/Orochi/锻厄缚因/锻厄缚因2.pmx"
         }
       ]
+    },
+    {
+      "character": "Tsukuyomi",
+      "keyname": "Cardcaptor",
+      "cn": "魔卡少女樱",
+      "en": "Cardcaptor Sakura Collab",
+      "source": "Illustration",
+      "releaseDate": "2025-08-13",
+      "thumbnail": "images/Tsukuyomi/temp5/thumb.jpg",
+      "full": "images/Tsukuyomi/temp5/full.jpg",
+      "links": [
+        {
+          "label": "Source",
+          "url": "https://weibo.com/5896401674/PF9Ta858z"
+        }
+      ],
+      "otherImages": [],
+      "models": []
     },
     {
       "character": "Tsukuyomi",
@@ -2342,13 +2569,13 @@
           "src": "images/Tsukuyomi/SSR/月读-觉醒前-立绘.jpg",
           "filename": "月读-觉醒前-立绘.jpg",
           "sortOrder": 6,
-          "category": "Designing Details"
+          "category": "Details"
         },
         {
           "src": "images/Tsukuyomi/SSR/月读-觉醒前-三视图.jpg",
           "filename": "月读-觉醒前-三视图.jpg",
           "sortOrder": 7,
-          "category": "Designing Details"
+          "category": "Details"
         },
         {
           "src": "images/Tsukuyomi/SSR/006r2HqOgy1h9vacusb9fj63341mcx6q02.jpg",
@@ -2516,19 +2743,19 @@
           "src": "images/Tsukuyomi/SSR_evo/月读-觉醒后-三视图.jpg",
           "filename": "月读-觉醒后-三视图.jpg",
           "sortOrder": 3,
-          "category": "Designing Details"
+          "category": "Details"
         },
         {
           "src": "images/Tsukuyomi/SSR_evo/006r2HqOgy1h9vae1m676j63341mcu0y02.jpg",
           "filename": "006r2HqOgy1h9vae1m676j63341mcu0y02.jpg",
           "sortOrder": 4,
-          "category": "3D Previews"
+          "category": "In-Game Previews"
         },
         {
           "src": "images/Tsukuyomi/SSR_evo/006r2HqOgy1h9vaejaeu3j63341mc4qr02.jpg",
           "filename": "006r2HqOgy1h9vaejaeu3j63341mc4qr02.jpg",
           "sortOrder": 5,
-          "category": "3D Previews"
+          "category": "In-Game Previews"
         },
         {
           "src": "images/Tsukuyomi/SSR_evo/008vKd5Jgy1ha39lfumfdj30u00u0jye.jpg",
@@ -2550,19 +2777,6 @@
           "modelFile": "models/Tsukuyomi/SSR_evo/SSR_evo1.pmx"
         }
       ]
-    },
-    {
-      "character": "Tsukuyomi",
-      "keyname": "temp5",
-      "cn": "",
-      "en": "",
-      "source": "temp",
-      "releaseDate": null,
-      "thumbnail": "images/Tsukuyomi/temp5/thumb.jpg",
-      "full": "images/Tsukuyomi/temp5/full.jpg",
-      "links": [],
-      "otherImages": [],
-      "models": []
     },
     {
       "character": "Tsukuyomi",
@@ -2604,13 +2818,13 @@
           "src": "images/Tsukuyomi/堇云月华/006BsaXygy1hrppwfvwtkg30g20g2qvw.gif",
           "filename": "006BsaXygy1hrppwfvwtkg30g20g2qvw.gif",
           "sortOrder": 2,
-          "category": "3D Previews"
+          "category": "In-Game Previews"
         },
         {
           "src": "images/Tsukuyomi/堇云月华/006BsaXygy1hrppwhvfj7g30g20g2kkd.gif",
           "filename": "006BsaXygy1hrppwhvfj7g30g20g2kkd.gif",
           "sortOrder": 3,
-          "category": "3D Previews"
+          "category": "In-Game Previews"
         },
         {
           "src": "images/Tsukuyomi/堇云月华/008vKd5Jgy1hrq79mfeg7j33341qinpf.jpg",
@@ -2622,13 +2836,13 @@
           "src": "images/Tsukuyomi/堇云月华/006r2HqOgy1hrpphszu2nj63341mcu0z02.jpg",
           "filename": "006r2HqOgy1hrpphszu2nj63341mcu0z02.jpg",
           "sortOrder": 5,
-          "category": "3D Previews"
+          "category": "In-Game Previews"
         },
         {
           "src": "images/Tsukuyomi/堇云月华/006r2HqOgy1hrppi2csyfj63341mcx6r02.jpg",
           "filename": "006r2HqOgy1hrppi2csyfj63341mcx6r02.jpg",
           "sortOrder": 6,
-          "category": "3D Previews"
+          "category": "In-Game Previews"
         },
         {
           "src": "images/Tsukuyomi/堇云月华/008vKd5Jgy1hrrahp18edj30rs0rswuf.jpg",
@@ -2640,25 +2854,25 @@
           "src": "images/Tsukuyomi/堇云月华/006BsaXygy1hrppvga1bjg30p00f0qva.gif",
           "filename": "006BsaXygy1hrppvga1bjg30p00f0qva.gif",
           "sortOrder": 8,
-          "category": "3D Previews"
+          "category": "In-Game Previews"
         },
         {
           "src": "images/Tsukuyomi/堇云月华/006BsaXygy1hrppvh1666g30p00f0u13.gif",
           "filename": "006BsaXygy1hrppvh1666g30p00f0u13.gif",
           "sortOrder": 9,
-          "category": "3D Previews"
+          "category": "In-Game Previews"
         },
         {
           "src": "images/Tsukuyomi/堇云月华/006BsaXygy1hrppvkfiljg30p00f0kjv.gif",
           "filename": "006BsaXygy1hrppvkfiljg30p00f0kjv.gif",
           "sortOrder": 10,
-          "category": "3D Previews"
+          "category": "In-Game Previews"
         },
         {
           "src": "images/Tsukuyomi/堇云月华/006BsaXygy1hrppvm7teog30p00f01l9.gif",
           "filename": "006BsaXygy1hrppvm7teog30p00f01l9.gif",
           "sortOrder": 11,
-          "category": "3D Previews"
+          "category": "In-Game Previews"
         },
         {
           "src": "images/Tsukuyomi/堇云月华/006BsaXygy1hrpqt20p3cg30i20i21kx.gif",
@@ -2877,7 +3091,7 @@
       "character": "Tsukuyomi",
       "keyname": "雁回盈缺",
       "cn": "雁回盈缺",
-      "en": "",
+      "en": "Moonlit Return",
       "source": "Turn-Based",
       "releaseDate": "2026-10-01",
       "thumbnail": "images/Tsukuyomi/雁回盈缺/thumb.jpg",

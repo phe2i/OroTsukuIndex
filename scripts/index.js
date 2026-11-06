@@ -10,6 +10,7 @@ let pairKeys = []
 let customPairs = []
 
 const games = ["Turn-Based", "The Card Game", "Arena", "Yokai Koya"]
+const games3D = ["Turn-Based", "Arena"]
 
 let currentOrochiData = null
 let currentTsukuData = null
@@ -376,6 +377,26 @@ function updateModalContent(){
     const links = document.getElementById("modalLinks")
 
     links.querySelectorAll(".topic-link-btn").forEach(el => el.remove());
+    let topicBtnNum = 0
+
+    if(games3D.includes(data.source)){
+        const modelBtn = document.createElement("a")
+
+        const params = new URLSearchParams({
+            character: data.character,
+            keyname: data.keyname,
+            version: "1",
+            from: "gallery"
+        });
+        modelBtn.href = `modelViewer.html?${params.toString()}`;
+        modelBtn.target = "_blank"
+        modelBtn.rel = "noopener noreferrer"
+        modelBtn.innerText = "Model Viewer"
+        modelBtn.className = "small-btn topic-link-btn btn1"
+
+        topicBtnNum += 1
+        links.appendChild(modelBtn)
+    }
 
     if(data.links && data.links.length > 0){
         data.links.forEach((link, index) => {
@@ -388,9 +409,9 @@ function updateModalContent(){
             btn.className = "small-btn topic-link-btn"
 
             btn.classList.add(
-                index % 2 === 0 ? "btn1" : "btn2"
+                topicBtnNum % 2 === 0 ? "btn1" : "btn2"
             )
-
+            topicBtnNum += 1
             links.appendChild(btn)
         })
     }
@@ -525,7 +546,19 @@ function renderAllCards(){
     oroSection.innerHTML = ""
     tsukuSection.innerHTML = ""
 
-    for(const t of topics){
+    const sortedTopics = [...topics].sort((a, b) => {
+        const sourceA = games.indexOf(a.source)
+        const sourceB = games.indexOf(b.source)
+
+        if(sourceA !== sourceB){
+            return  (sourceA === -1 ? Infinity : sourceA) -
+                    (sourceB === -1 ? Infinity : sourceB)
+        }
+        return (Date.parse(b.releaseDate) || 0) -
+               (Date.parse(a.releaseDate) || 0)
+    })
+
+    for(const t of sortedTopics){
         const card = createCard(t)
 
         if(t.character === "Orochi"){

@@ -1001,7 +1001,8 @@ function getUrlParams() {
     return {
         character: params.get('character'),
         keyname: params.get('keyname'),
-        version: params.get('version')
+        version: params.get('version'),
+        from: params.get('from')
     };
 }
 
@@ -1082,9 +1083,10 @@ function checkUrlParams() {
                 // Load the model
                 loadModel(model, targetCard);
             } else {
-                // Card not found in current view - load model anyway
                 loadModel(model, null);
             }
+        } else if (params.from === "gallery") {
+            emptyElement.textContent = "Coming Soon";
         }
     }
 }
