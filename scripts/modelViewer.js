@@ -50,7 +50,7 @@ const pinnedBar = document.getElementById("pinnedBar");
 const pinnedModels = new Map();
 let pipPinnedBar = null;
 
-function getModelPinKey(model) {
+function getModelKey(model) {
     return [
         model.character || "",
         model.keyname || model.name || "",
@@ -60,11 +60,11 @@ function getModelPinKey(model) {
 }
 
 function isModelPinned(model) {
-    return pinnedModels.has(getModelPinKey(model));
+    return pinnedModels.has(getModelKey(model));
 }
 
 function togglePinnedModel(model) {
-    const key = getModelPinKey(model);
+    const key = getModelKey(model);
 
     if (pinnedModels.has(key)) {
         pinnedModels.delete(key);
@@ -85,15 +85,29 @@ function createPinnedBar(container, isPiP = false) {
     if (!container) return null;
 
     const bar = document.createElement("aside");
+    const barClass = isPiP? "scroll-x" : "";
     bar.className = "pinned-bar";
     bar.innerHTML = `
         <div class="pinned-bar-header">
             <button type="button" class="pinned-clear-button">clear all</button>
         </div>
-        <div class="pinned-model-list" aria-label="Pinned models"></div>
+        <div class="pinned-model-list colourScroll ${barClass}" 
+            aria-label="Pinned models">
+        </div>
     `;
 
     bar.querySelector(".pinned-clear-button").addEventListener("click", clearPinnedModels);
+
+    if (isPiP){
+        const scrollList = bar.querySelector(".scroll-x");
+        scrollList.addEventListener('wheel', (event) => {
+            // translate scroll it to horizontal
+            if (event.deltaY !== 0) {
+                event.preventDefault();
+                scrollList.scrollLeft += event.deltaY / 1.5;
+            }
+        });
+    }
     container.appendChild(bar);
     return bar;
 }
@@ -104,7 +118,7 @@ function renderPinnedBar(bar) {
     const modelsContainer = bar.querySelector(".pinned-model-list");
     const models = Array.from(pinnedModels.values());
 
-    bar.classList.toggle("has-pinned-models", models.length > 0);
+    bar.classList.toggle("has-pinned", models.length > 0);
     modelsContainer.innerHTML = "";
 
     for (const model of models) {
@@ -1033,7 +1047,7 @@ function createModelCard(model) {
     card.className = "model-card";
 
     card.dataset.modelFile = model.modelFile || "";
-    card.dataset.pinKey = getModelPinKey(model);
+    card.dataset.pinKey = getModelKey(model);
 
     // for URL sharing
     card.dataset.character = model.character || "";
@@ -1262,7 +1276,7 @@ async function loadModel(model, selectedCard) {
         currentModel = modelObj;
 
         scene.add(currentModel);
-        collectMaterials(currentModel);
+        collectMaterials(currentModel, getModelKey(model));
 
         renderMaterialList();
 
@@ -1386,56 +1400,14 @@ function getEyeIcon(visible) {
 
     if (visible) {
         return `
-            <svg
-                viewBox="0 0 24 24"
-                aria-hidden="true"
-            >
-                <path
-                    d="M2 12
-                       C5 7 8 5 12 5
-                       C16 5 19 7 22 12
-                       C19 17 16 19 12 19
-                       C8 19 5 17 2 12Z"
-                ></path>
-
-                <circle
-                    cx="12"
-                    cy="12"
-                    r="3"
-                ></circle>
-            </svg>
+            <span class="material-symbols-outlined">visibility</span>
         `;
     }
 
     return `
-        <svg
-            viewBox="0 0 24 24"
-            aria-hidden="true"
-        >
-            <path
-                d="M3 3L21 21"
-            ></path>
-
-            <path
-                d="M10.6 5.2
-                   C11.05 5.07 11.52 5 12 5
-                   C16 5 19 7 22 12
-                   C20.95 13.75 19.85 15.1 18.6 16.1"
-            ></path>
-
-            <path
-                d="M6.25 6.25
-                   C4.65 7.25 3.25 9
-                   2 12
-                   C5 17 8 19 12 19
-                   C13.4 19 14.7 18.7 15.9 18.15"
-            ></path>
-        </svg>
+        <span class="material-symbols-outlined">visibility_off</span>
     `;
 }
-
-
-
 
 function showAllMaterials() {
     // Show all materials
@@ -1447,8 +1419,21 @@ function showAllMaterials() {
     materialStates.visible = new Set(currentMaterials.map(m => m.uuid));
     materialStates.hidden = new Set();
 
+    saveCurrentMaterialVisibility();
     renderMaterialList();
 }
+
+const materialVisibilityByModel = new Map();
+
+let currentModelVisibilityKey = null;
+let currentMaterialKeys = new Map();
+
+// switch hide-unhide
+let materialStates = {
+    visible: new Set(),
+    hidden: new Set()
+};
+
 
 function toggleMaterial(material) {
     if (!material) {
@@ -1467,24 +1452,20 @@ function toggleMaterial(material) {
         materialStates.hidden.add(uuid);
         materialStates.visible.delete(uuid);
     }
-
+    saveCurrentMaterialVisibility();
     renderMaterialList();
 }
 
-// switch hide-unhide
-let materialStates = {
-    visible: new Set(),
-    hidden: new Set()
-};
+function collectMaterials(object, modelKey) {
 
-function collectMaterials(object) {
     currentMaterials = [];
     previousMaterialVisibility = new Map();
+    currentMaterialKeys = new Map();
     const materialMap = new Map();
 
     object.traverse(child => {
         if (!child.isMesh) return;
-        
+
         const materials = Array.isArray(child.material)
             ? child.material
             : [child.material];
@@ -1499,17 +1480,61 @@ function collectMaterials(object) {
 
     currentMaterials = Array.from(materialMap.values());
 
+    currentModelVisibilityKey = modelKey;
+    const savedVisibility =
+        materialVisibilityByModel.get(modelKey);
+
     materialStates.visible = new Set();
     materialStates.hidden = new Set();
-    
+
+    // Handle materials with dupe names
+    const nameCounts = new Map();
+
     for (const material of currentMaterials) {
-        previousMaterialVisibility.set(material.uuid, material.visible);
+
+        const name = material.name || "Unnamed Material";
+
+        const occurrence = nameCounts.get(name) || 0;
+        nameCounts.set(name, occurrence + 1);
+
+        const materialKey = `${name}::${occurrence}`;
+
+        currentMaterialKeys.set(material.uuid, materialKey);
+
+        if (savedVisibility?.has(materialKey)) {
+            material.visible = savedVisibility.get(materialKey);
+        }
+
+        previousMaterialVisibility.set(
+            material.uuid,
+            material.visible
+        );
+
         if (material.visible) {
             materialStates.visible.add(material.uuid);
         } else {
             materialStates.hidden.add(material.uuid);
         }
     }
+
+    saveCurrentMaterialVisibility();
+}
+
+function saveCurrentMaterialVisibility() {
+    if (!currentModelVisibilityKey) return;
+    const visibilityMap = new Map();
+
+    for (const material of currentMaterials) {
+        const key = currentMaterialKeys.get(material.uuid);
+
+        if (key !== undefined) {
+            visibilityMap.set(key, material.visible);
+        }
+    }
+    materialVisibilityByModel.set(
+        currentModelVisibilityKey,
+        visibilityMap
+    );
 }
 
 function reverseMaterials() {
@@ -1546,6 +1571,7 @@ function reverseMaterials() {
     materialStates.visible = materialStates.hidden;
     materialStates.hidden = temp;
 
+    saveCurrentMaterialVisibility();
     renderMaterialList();
 }
 

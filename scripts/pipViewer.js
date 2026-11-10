@@ -33,15 +33,18 @@ async function openPiP() {
         const doc = pipWindow.document;
         doc.title = "Model Viewer";
 
-        const stylesheet_model = doc.createElement("link");
-        stylesheet_model.rel = "stylesheet";
-        stylesheet_model.href = new URL("../styles/modelViewer.css", import.meta.url).href;
-        doc.head.appendChild(stylesheet_model);
+        const stylesheets = [
+            "../styles/global.css",
+            "../styles/modelViewer.css",
+            "../styles/pipViewer.css"
+        ];
 
-        const stylesheet = doc.createElement("link");
-        stylesheet.rel = "stylesheet";
-        stylesheet.href = new URL("../styles/pipViewer.css", import.meta.url).href;
-        doc.head.appendChild(stylesheet);
+        stylesheets.forEach(path => {
+            const link = doc.createElement("link");
+            link.rel = "stylesheet";
+            link.href = new URL(path, import.meta.url).href;
+            doc.head.appendChild(link);
+        });
         
         window.modelViewerPiPBridge.moveTo(doc.body);
 

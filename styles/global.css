@@ -15,7 +15,7 @@
   --secondary-header:#cad2df;
   --tertiary-header: #9ca3af;
 
-  -accent: #7e7e99;
+  --accent: #7e7e99;
 
   --indigo: oklch(35.9% 0.144 278.697);
   --violet: oklch(54.1% 0.281 293.009);
@@ -36,6 +36,11 @@
 
 .colourScroll {
     overflow-y: auto;
+    overflow-x: hidden;
+}
+.scroll-x {
+    overflow-y: hidden;
+    overflow-x: auto;
 }
 
 /* [&::-webkit-scrollbar]:w-2 */
