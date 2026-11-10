@@ -20,6 +20,8 @@
     --controller-panel: calc(var(--controller-size) + 20%);
 
     --resize-size: 6px;
+
+    --model-section-padding: 0 0 16px 16px;
 }
 
 body {
@@ -67,7 +69,7 @@ body {
 
     height: 100%;
 
-    background: var(--sidebar-bg);
+    background: var(--light);
 
     display: grid;
     grid-template-rows:
@@ -97,6 +99,9 @@ body {
     container-type: inline-size;
 }
 
+.model-list {
+    background: var(--sidebar-bg);
+}
 .model-list-header {
     flex-shrink: 0;
 
@@ -172,7 +177,7 @@ body {
     overflow-y: auto;
     overflow-x: hidden;
 
-    padding: 0px 8px;
+    margin: var(--model-section-padding);
 
     box-sizing: border-box;
 }
@@ -212,7 +217,7 @@ body {
 
     gap: 10px;
 
-    padding: 10px 4px 4px;
+    padding: 10px 10px 4px;
 
     box-sizing: border-box;
 }
@@ -241,6 +246,7 @@ body {
     display: flex;
     flex-direction: column;
     align-items: stretch;
+    position: relative;
 
     border: none;
     border-radius: 8px;
@@ -321,6 +327,173 @@ body {
     line-height: 1.3;
 }
 
+#pinnedBar {
+    position: absolute;
+    z-index: 20;
+    top: 50%;
+    left: 12px;
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    width: 58px;
+    max-height: min(72%, 560px);
+    min-height: 0;
+    padding: 10px 5px;
+    overflow: hidden;
+    transform: translateY(-50%);
+    color: #fff;
+    background: rgba(32, 32, 39, 0.82);
+    border: 1px solid rgba(255, 255, 255, 0.16);
+    border-radius: 12px;
+    box-shadow: 0 5px 22px rgba(0, 0, 0, 0.28);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+}
+
+#pinnedBar.has-pinned-models {
+    display: flex;
+    flex-direction: column;
+}
+
+.pinned-bar-header {
+    color: var(--secondary-header);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    width: 100%;
+    flex: 0 0 auto;
+}
+
+.pinned-bar-symbol {
+    font-size: 21px;
+    line-height: 1;
+    font-variation-settings: "FILL" 1;
+}
+
+.pinned-clear-button {
+    border: 0;
+    padding: 3px 4px;
+    color: inherit;
+    background: transparent;
+
+    font: inherit;
+    font-size: 18px;
+    
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    
+    min-width: 100px;
+    height: 30px;
+    box-sizing: border-box;
+
+    cursor: pointer;
+    opacity: 0.75;
+}
+
+.pinned-clear-button:hover {
+    opacity: 1;
+    text-decoration: underline;
+}
+
+.pinned-model-list {
+    display: flex;
+    flex: 1 1 auto;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    width: 100%;
+    min-height: 0;
+    overflow-x: hidden;
+    overflow-y: auto;
+    scrollbar-width: thin;
+}
+
+.pinned-model-item {
+    display: grid;
+    place-items: center;
+    flex: 0 0 55px;
+    width: 55px;
+    height: 55px;
+    padding: 0;
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 7px;
+    background: rgba(255, 255, 255, 0.07);
+    cursor: pointer;
+}
+
+.pinned-model-item:hover {
+    border-color: rgba(255, 255, 255, 0.75);
+    transform: translateY(-1px);
+}
+
+.pinned-model-item img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.non-icon {
+    /* object-position: top; */
+    object-position: 0 -2px;
+    transform: scale(2.5);
+    transform-origin: top center;
+}
+
+.pinned-model-placeholder {
+    font-size: 16px;
+    opacity: 0.6;
+}
+
+.model-pin-button {
+    position: absolute;
+    z-index: 2;
+    top: 10px;
+    right: 10px;
+    display: grid;
+    place-items: center;
+    width: 27px;
+    height: 27px;
+    border-radius: 50%;
+    color: var(--tertiary-header);
+    background: rgba(20, 20, 25, 0.72);
+    font-size: 19px;
+    line-height: 1;
+    font-variation-settings: "FILL" 0;
+    opacity: 0;
+    cursor: pointer;
+    transition: opacity 120ms ease, background 120ms ease;
+}
+
+.model-card:hover .model-pin-button,
+.model-card:focus-visible .model-pin-button,
+.model-pin-button:focus-visible,
+.model-pin-button.is-pinned {
+    opacity: 1;
+}
+
+.model-pin-button.is-pinned {
+    color: #fff;
+    background: rgba(20, 20, 25, 0.82);
+    font-variation-settings: "FILL" 1;
+}
+
+.model-pin-button:hover {
+    background: rgba(20, 20, 25, 0.95);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .model-pin-button,
+    .pinned-model-item {
+        transition: none;
+        transform: none;
+    }
+}
 
 /* 
    VERTICAL RESIZE HANDLE
@@ -398,12 +571,12 @@ body {
     width: 42px;
     height: 42px;
 
-    border: 1px solid var(--accent);
+    border: 1px solid var(--section-bg);
     border-radius: 50%;
 
     background: var(--light);
 
-    color: var(--accent);
+    color: var(--section-bg);
 
     font-family: inherit;
     font-size: 24px;
@@ -429,9 +602,9 @@ body {
     overflow-y: auto;
     overflow-x: hidden;
 
-    margin: 0 16px 16px;
+    /* margin: 0 0 16px; */
 
-    padding: 6px;
+    margin: var(--model-section-padding);
 
     background: var(--sidebar-bg);
 

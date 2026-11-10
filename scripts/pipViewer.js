@@ -1,5 +1,3 @@
-
-const viewport = document.getElementById("modelViewport");
 const pipButton = document.getElementById("modelViewerPiPButton");
 
 if (pipButton) {
@@ -15,11 +13,10 @@ async function openPiP() {
     }
 
     if (!("documentPictureInPicture" in window)) {
-        alert(
-            "Picture-in-Picture is not supported in this browser."
-        );
+        alert("Picture-in-Picture is not supported in this browser.");
         return;
     }
+
     if (window.documentPictureInPicture.window) {
         window.documentPictureInPicture.window.focus();
         return;
@@ -28,15 +25,18 @@ async function openPiP() {
     let pipWindow;
 
     try {
-        pipWindow =
-            await window.documentPictureInPicture.requestWindow({
-                width: 480,
-                height: 560,
-            });
+        pipWindow = await window.documentPictureInPicture.requestWindow({
+            width: 480,
+            height: 600,
+        });
 
         const doc = pipWindow.document;
-
         doc.title = "Model Viewer";
+
+        const stylesheet_model = doc.createElement("link");
+        stylesheet_model.rel = "stylesheet";
+        stylesheet_model.href = new URL("../styles/modelViewer.css", import.meta.url).href;
+        doc.head.appendChild(stylesheet_model);
 
         const stylesheet = doc.createElement("link");
         stylesheet.rel = "stylesheet";
@@ -46,14 +46,14 @@ async function openPiP() {
         window.modelViewerPiPBridge.moveTo(doc.body);
 
         bridge.moveTo(doc.body);
+        bridge.mountPinnedBar(doc.body);
 
-        const observer = new ResizeObserver(() => {
-            bridge.resize();
-        });
+        const observer = new ResizeObserver(() => bridge.resize());
         observer.observe(doc.body);
 
         pipWindow.addEventListener("pagehide", () => {
             observer.disconnect();
+            bridge.unmountPinnedBar();
             bridge.restore();
         }, { once: true });
 
@@ -62,11 +62,10 @@ async function openPiP() {
 
         if (pipWindow && !pipWindow.closed) {
             try {
+                bridge.unmountPinnedBar();
                 bridge.restore();
-            } catch (e) {
-                console.error(
-                    "[PiP] Failed to restore viewer:", e
-                );
+            } catch (restoreError) {
+                console.error("[PiP] Failed to restore viewer:", restoreError);
             }
         }
 

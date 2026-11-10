@@ -13,7 +13,12 @@
   --btn-text: rgb(0, 0, 0);
   --primary-header: white;
   --secondary-header:#cad2df;
-  --tertiary-header: #9ca3af; 
+  --tertiary-header: #9ca3af;
+
+  -accent: #7e7e99;
+
+  --indigo: oklch(35.9% 0.144 278.697);
+  --violet: oklch(54.1% 0.281 293.009);
 }
 
 .material-symbols-outlined {
@@ -27,6 +32,26 @@
 .glow:hover{
   transform:translateY(-4px);
   box-shadow:0 10px 20px rgba(255, 255, 255, 0.12);
+}
+
+.colourScroll {
+    overflow-y: auto;
+}
+
+/* [&::-webkit-scrollbar]:w-2 */
+.colourScroll::-webkit-scrollbar {
+    width: 0.5rem;
+}
+
+/* [&::-webkit-scrollbar-track]:bg-indigo-900 */
+.colourScroll::-webkit-scrollbar-track {
+    background-color: var(--indigo);
+}
+
+/* [&::-webkit-scrollbar-thumb]:bg-violet-600 */
+.colourScroll::-webkit-scrollbar-thumb {
+    background-color: var(--violet);
+    border-radius: 4px;
 }
 
 .char-category {

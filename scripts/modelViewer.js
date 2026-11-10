@@ -45,7 +45,131 @@ const showAllButton = document.getElementById("showAllMaterials");
 const reverseButton = document.getElementById("reverseMaterials");
 const loadingElement = document.getElementById("viewerLoading");
 const emptyElement = document.getElementById("viewerEmpty");
+const pinnedBar = document.getElementById("pinnedBar");
 
+const pinnedModels = new Map();
+let pipPinnedBar = null;
+
+function getModelPinKey(model) {
+    return [
+        model.character || "",
+        model.keyname || model.name || "",
+        model.version ?? "",
+        model.modelFile || ""
+    ].join("::");
+}
+
+function isModelPinned(model) {
+    return pinnedModels.has(getModelPinKey(model));
+}
+
+function togglePinnedModel(model) {
+    const key = getModelPinKey(model);
+
+    if (pinnedModels.has(key)) {
+        pinnedModels.delete(key);
+    } else {
+        pinnedModels.set(key, model);
+    }
+    renderPinnedBars();
+    updatePinButtons();
+}
+
+function clearPinnedModels() {
+    pinnedModels.clear();
+    renderPinnedBars();
+    updatePinButtons();
+}
+
+function createPinnedBar(container, isPiP = false) {
+    if (!container) return null;
+
+    const bar = document.createElement("aside");
+    bar.className = "pinned-bar";
+    bar.innerHTML = `
+        <div class="pinned-bar-header">
+            <button type="button" class="pinned-clear-button">clear all</button>
+        </div>
+        <div class="pinned-model-list" aria-label="Pinned models"></div>
+    `;
+
+    bar.querySelector(".pinned-clear-button").addEventListener("click", clearPinnedModels);
+    container.appendChild(bar);
+    return bar;
+}
+
+function renderPinnedBar(bar) {
+    if (!bar) return;
+
+    const modelsContainer = bar.querySelector(".pinned-model-list");
+    const models = Array.from(pinnedModels.values());
+
+    bar.classList.toggle("has-pinned-models", models.length > 0);
+    modelsContainer.innerHTML = "";
+
+    for (const model of models) {
+        const item = document.createElement("button");
+        item.type = "button";
+        item.className = "pinned-model-item";
+        item.title = [model.name || model.keyname || "Model",
+            model.version != null ? `v${model.version}` : ""].filter(Boolean).join(" ");
+
+        const itemImage = model.icon || model.thumbnail;
+
+        if (itemImage) {
+            const image = document.createElement("img");
+
+            image.src = new URL( resolveFrontendPath(itemImage), window.location.href).href;
+            image.alt = item.title;
+            image.loading = "lazy";
+
+            if (!model.icon) {
+                image.className = "non-icon";
+            }
+
+            item.appendChild(image);
+        } else {
+            const placeholder = document.createElement("span");
+            placeholder.className = "pinned-model-placeholder";
+            placeholder.textContent = "—";
+            item.appendChild(placeholder);
+        }
+
+        item.addEventListener("click", () => {
+            if (model.modelFile) loadModel(model, null);
+        });
+        modelsContainer.appendChild(item);
+    }
+}
+
+function renderPinnedBars() {
+    renderPinnedBar(pinnedBar);
+    renderPinnedBar(pipPinnedBar);
+}
+
+pinnedBar?.querySelector(".pinned-clear-button")
+    ?.addEventListener("click", clearPinnedModels);
+
+function updatePinButtons() {
+    document.querySelectorAll(".model-card").forEach(card => {
+
+        const pinButton = card.querySelector(".model-pin-button");
+
+        if (!pinButton) return;
+
+        const isPinned = pinnedModels.has(card.dataset.pinKey);
+        pinButton.classList.toggle("is-pinned", isPinned);
+
+        pinButton.setAttribute(
+            "aria-label",
+            isPinned ? "Unpin model" : "Pin model"
+        );
+        pinButton.setAttribute(
+            "title",
+            isPinned ? "Unpin model" : "Pin model"
+        );
+    });
+}
 
 // PANEL RESIZING
 
@@ -669,33 +793,17 @@ function animate() {
 async function loadData() {
 
     try {
+        const response = await fetch(DATA_URL);
 
-        const response =
-            await fetch(
-                DATA_URL
-            );
-
-
-        if (
-            !response.ok
-        ) {
-
-            throw new Error(
-                `Failed to load ${DATA_URL}`
-            );
+        if (!response.ok){
+            throw new Error(`Failed to load ${DATA_URL}`);
         }
+        const data = await response.json();
 
-
-        const data =
-            await response.json();
-
-
-        buildModelData(
-            data
-        );
-
+        buildModelData(data);
 
         renderModelList();
+        renderPinnedBars();
 
         // Check for URL parameters after loading
         checkUrlParams();
@@ -722,28 +830,20 @@ function buildModelData(data) {
     allModels = [];
     if (data &&Array.isArray(data.topics)) {
 
-        topics =
-            data.topics;
+        topics = data.topics;
 
-        for (
-            const topic of topics
-        ) {
-
-            if (
-                !Array.isArray(
-                    topic.models
-                )
-            ) {
+        for (const topic of topics) {
+            if (!Array.isArray(topic.models)) {
                 continue;
             }
+            const uiIcon = topic.otherImages?.find(
+                image => image.category === "UI Icon"
+            )?.src || null;
 
 
-            for (
-                const model of topic.models
-            ) {
+            for (const model of topic.models) {
 
                 allModels.push({
-
                     ...model,
                     // Parent topic information
                     character: topic.character,
@@ -751,7 +851,7 @@ function buildModelData(data) {
                     cn: topic.cn,
                     en: topic.en,
                     source: topic.source,
-
+                    icon: model.icon || uiIcon || null,
                     thumbnail:
                         model.thumbnail ||
                         topic.thumbnail ||
@@ -933,6 +1033,7 @@ function createModelCard(model) {
     card.className = "model-card";
 
     card.dataset.modelFile = model.modelFile || "";
+    card.dataset.pinKey = getModelPinKey(model);
 
     // for URL sharing
     card.dataset.character = model.character || "";
@@ -945,7 +1046,7 @@ function createModelCard(model) {
 
         const image = document.createElement("img");
         image.className = "model-thumbnail";
-        image.src = resolveFrontendPath(model.thumbnail);
+        image.src = new URL(resolveFrontendPath(model.thumbnail), window.location.href).href;
         image.alt =
             model.name ||
             model.keyname ||
@@ -984,14 +1085,31 @@ function createModelCard(model) {
     }
 
     card.appendChild(name);
+
+    const pinButton = document.createElement("span");
+    pinButton.className = "model-pin-button material-symbols-outlined";
+    pinButton.textContent = isModelPinned(model) ? "keep" : "keep";
+    pinButton.setAttribute("role", "button");
+    pinButton.setAttribute("tabindex", "0");
+    pinButton.setAttribute("aria-label", isModelPinned(model) ? "Unpin model" : "Pin model");
+    pinButton.setAttribute("title", isModelPinned(model) ? "Unpin model" : "Pin model");
+    pinButton.classList.toggle("is-pinned", isModelPinned(model));
+
+    const handlePin = event => {
+        event.preventDefault();
+        event.stopPropagation();
+        togglePinnedModel(model);
+    };
+
+    pinButton.addEventListener("click", handlePin);
+    pinButton.addEventListener("keydown", event => {
+        if (event.key === "Enter" || event.key === " ") handlePin(event);
+    });
+    card.appendChild(pinButton);
+
     card.addEventListener("click", () => {
-
-            if (model.modelFile) {
-
-                loadModel(model, card);
-            }
-        }
-    );
+        if (model.modelFile) loadModel(model, card);
+    });
     return card;
 }
 
@@ -1590,6 +1708,8 @@ window.addEventListener('popstate', function(event) {
 initThree();
 loadData();
 
+let pipViewerStage = null;
+
 window.modelViewerPiPBridge = {
     moveTo(container) {
         const target = controls.target.clone();
@@ -1597,7 +1717,10 @@ window.modelViewerPiPBridge = {
         controls.dispose();
         controls = null;
 
-        container.appendChild(renderer.domElement);
+        pipViewerStage = document.createElement("div");
+        pipViewerStage.className = "pip-viewer-stage";
+        pipViewerStage.appendChild(renderer.domElement);
+        container.appendChild(pipViewerStage);
 
         recreateOrbitControls(target);
         resizeViewer();
@@ -1610,9 +1733,22 @@ window.modelViewerPiPBridge = {
         controls = null;
 
         viewport.appendChild(renderer.domElement);
+        pipViewerStage?.remove();
+        pipViewerStage = null;
 
         recreateOrbitControls(target);
         resizeViewer();
+    },
+
+    mountPinnedBar(container) {
+        if (pipPinnedBar) pipPinnedBar.remove();
+        pipPinnedBar = createPinnedBar(container, true);
+        renderPinnedBar(pipPinnedBar);
+    },
+
+    unmountPinnedBar() {
+        pipPinnedBar?.remove();
+        pipPinnedBar = null;
     },
 
     resize: resizeViewer

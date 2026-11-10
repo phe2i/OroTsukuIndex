@@ -45,10 +45,15 @@
       "cn": "绀色",
       "en": "Dark Blue",
       "source": "Turn-Based",
-      "releaseDate": null,
+      "releaseDate": "2021-03-10",
       "thumbnail": "images/Orochi/Dye_DarkBlue/thumb.jpg",
       "full": "images/Orochi/Dye_DarkBlue/full.jpg",
-      "links": [],
+      "links": [
+        {
+          "label": "Summon",
+          "url": "https://weibo.com/6050236740/K5viCgHhg"
+        }
+      ],
       "otherImages": [
         {
           "src": "images/Orochi/Dye_DarkBlue/006BsaXygy1goel7hc12wg30kb0jnkjz.gif",
@@ -66,14 +71,15 @@
           "src": "images/Orochi/Dye_DarkBlue/92354452a213a95a6b03b92403dad987.png",
           "filename": "92354452a213a95a6b03b92403dad987.png",
           "sortOrder": 2,
-          "category": "Misc"
+          "category": "UI Icon"
         }
       ],
       "models": [
         {
           "version": 1,
           "thumbnail": null,
-          "modelFile": "models/Orochi/Dye_DarkBlue/Dye_DarkBlue1.pmx"
+          "modelFile": "models/Orochi/Dye_DarkBlue/Dye_DarkBlue1.pmx",
+          "icon": null
         }
       ]
     },
@@ -99,7 +105,8 @@
         {
           "version": 1,
           "thumbnail": null,
-          "modelFile": "models/Orochi/Dye_DarkBlue_SP/Dye_DarkBlue_SP1.pmx"
+          "modelFile": "models/Orochi/Dye_DarkBlue_SP/Dye_DarkBlue_SP1.pmx",
+          "icon": null
         }
       ]
     },
@@ -131,7 +138,8 @@
         {
           "version": 1,
           "thumbnail": null,
-          "modelFile": "models/Orochi/Dye_TrueRed_SP/Dye_TrueRed_SP1.pmx"
+          "modelFile": "models/Orochi/Dye_TrueRed_SP/Dye_TrueRed_SP1.pmx",
+          "icon": null
         }
       ]
     },
@@ -183,6 +191,18 @@
         {
           "label": "Yokai Koya",
           "url": "https://weibo.com/7122851482/Nj5CF7KK1"
+        },
+        {
+          "label": "Bio JP",
+          "url": "https://weibo.com/6050236740/LzVUEm3mp"
+        },
+        {
+          "label": "Voicelines JP",
+          "url": "https://weibo.com/6050236740/LySYouhCw"
+        },
+        {
+          "label": "Figure",
+          "url": "https://weibo.com/6050236740/LxGFWo6X2"
         }
       ],
       "otherImages": [
@@ -202,13 +222,13 @@
           "src": "images/Orochi/SP/db6360f17fef734470ecee2efd864ca9.png",
           "filename": "db6360f17fef734470ecee2efd864ca9.png",
           "sortOrder": 2,
-          "category": "Misc"
+          "category": "UI Misc"
         },
         {
           "src": "images/Orochi/SP/d613b96501e41fa303544780791d26b6.png",
           "filename": "d613b96501e41fa303544780791d26b6.png",
           "sortOrder": 3,
-          "category": "Misc"
+          "category": "UI Icon"
         },
         {
           "src": "images/Orochi/SP/神堕八岐大蛇-三视图.jpg",
@@ -280,7 +300,7 @@
           "src": "images/Orochi/SP/02ff9ee3888dae6b7ef481686b1cba16.png",
           "filename": "02ff9ee3888dae6b7ef481686b1cba16.png",
           "sortOrder": 15,
-          "category": "Misc"
+          "category": "UI Misc"
         },
         {
           "src": "images/Orochi/SP/006BsaXyly1h23ljlc0vlj30p90pc7ai.jpg",
@@ -304,32 +324,33 @@
           "src": "images/Orochi/SP/231f8bbce09b95ad3e6b534685d60fdc.png",
           "filename": "231f8bbce09b95ad3e6b534685d60fdc.png",
           "sortOrder": 19,
-          "category": "Misc"
+          "category": "UI Misc"
         },
         {
           "src": "images/Orochi/SP/82f1a15eed15b22ace056f67cd0db1f6.png",
           "filename": "82f1a15eed15b22ace056f67cd0db1f6.png",
           "sortOrder": 20,
-          "category": "Misc"
+          "category": "UI Misc"
         },
         {
           "src": "images/Orochi/SP/9ead588a5e624c5df26cc418b1b5aeaf.png",
           "filename": "9ead588a5e624c5df26cc418b1b5aeaf.png",
           "sortOrder": 21,
-          "category": "Misc"
+          "category": "UI Misc"
         },
         {
           "src": "images/Orochi/SP/454de089a3e5ae9c7c89d3983d5f497b.png",
           "filename": "454de089a3e5ae9c7c89d3983d5f497b.png",
           "sortOrder": 22,
-          "category": "Misc"
+          "category": "UI Misc"
         }
       ],
       "models": [
         {
           "version": 1,
           "thumbnail": null,
-          "modelFile": "models/Orochi/SP/SP1.pmx"
+          "modelFile": "models/Orochi/SP/SP1.pmx",
+          "icon": null
         }
       ]
     },
@@ -368,195 +389,207 @@
           "category": "UI Profile"
         },
         {
+          "src": "images/Orochi/SSR/006BsaXygy1i2zgx4yjrig30az0aenq0.gif",
+          "filename": "006BsaXygy1i2zgx4yjrig30az0aenq0.gif",
+          "sortOrder": 3,
+          "category": "Misc"
+        },
+        {
           "src": "images/Orochi/SSR/006r2HqOly1i36fswrrquj60rs112kjl02.jpg",
           "filename": "006r2HqOly1i36fswrrquj60rs112kjl02.jpg",
-          "sortOrder": 3,
+          "sortOrder": 4,
           "category": "Misc"
         },
         {
           "src": "images/Orochi/SSR/八岐大蛇-觉醒前-立绘.jpg",
           "filename": "八岐大蛇-觉醒前-立绘.jpg",
-          "sortOrder": 4,
+          "sortOrder": 5,
           "category": "Details"
         },
         {
           "src": "images/Orochi/SSR/八岐大蛇-觉醒前-三视图.jpg",
           "filename": "八岐大蛇-觉醒前-三视图.jpg",
-          "sortOrder": 5,
+          "sortOrder": 6,
           "category": "Details"
         },
         {
           "src": "images/Orochi/SSR/006r2HqOgy1fy47cpgmfhj31e00rs125.jpg",
           "filename": "006r2HqOgy1fy47cpgmfhj31e00rs125.jpg",
-          "sortOrder": 6,
+          "sortOrder": 7,
           "category": "Misc"
         },
         {
           "src": "images/Orochi/SSR/006r2HqOgy1fy2zz7yld4j31e00rsb29.jpg",
           "filename": "006r2HqOgy1fy2zz7yld4j31e00rsb29.jpg",
-          "sortOrder": 7,
+          "sortOrder": 8,
           "category": "Misc"
         },
         {
           "src": "images/Orochi/SSR/D2s5wfVXgAAmI77.png",
           "filename": "D2s5wfVXgAAmI77.png",
-          "sortOrder": 8,
+          "sortOrder": 9,
           "category": "Misc"
         },
         {
           "src": "images/Orochi/SSR/006r2HqOgy1fyjbzzzbpxj31900u0b2l.jpg",
           "filename": "006r2HqOgy1fyjbzzzbpxj31900u0b2l.jpg",
-          "sortOrder": 9,
+          "sortOrder": 10,
           "category": "Misc"
         },
         {
           "src": "images/Orochi/SSR/D7RJk7FWsAAr8sd.png",
           "filename": "D7RJk7FWsAAr8sd.png",
-          "sortOrder": 10,
+          "sortOrder": 11,
           "category": "Misc"
         },
         {
           "src": "images/Orochi/SSR/006r2HqOgy1fy47crajuvj30mi0u0e1x.jpg",
           "filename": "006r2HqOgy1fy47crajuvj30mi0u0e1x.jpg",
-          "sortOrder": 11,
+          "sortOrder": 12,
           "category": "Misc"
         },
         {
           "src": "images/Orochi/SSR/006r2HqOgy1g8pi3ui3q3j30go0i3n4l.jpg",
           "filename": "006r2HqOgy1g8pi3ui3q3j30go0i3n4l.jpg",
-          "sortOrder": 12,
+          "sortOrder": 13,
           "category": "Misc"
         },
         {
           "src": "images/Orochi/SSR/309968047_1536461056790830_4806162397768564512_n.jpg",
           "filename": "309968047_1536461056790830_4806162397768564512_n.jpg",
-          "sortOrder": 13,
+          "sortOrder": 14,
           "category": "Misc"
         },
         {
           "src": "images/Orochi/SSR/006r2HqOly1hwxb4oi6hmj60u01t0tpz02.jpg",
           "filename": "006r2HqOly1hwxb4oi6hmj60u01t0tpz02.jpg",
-          "sortOrder": 14,
+          "sortOrder": 15,
           "category": "Misc"
         },
         {
           "src": "images/Orochi/SSR/006r2HqOly1hx2y0gvmjaj61400u0qcg02.jpg",
           "filename": "006r2HqOly1hx2y0gvmjaj61400u0qcg02.jpg",
-          "sortOrder": 15,
+          "sortOrder": 16,
           "category": "Misc"
         },
         {
           "src": "images/Orochi/SSR/006r2HqOly1hwxb4oj3vlj61hc0u07mr02.jpg",
           "filename": "006r2HqOly1hwxb4oj3vlj61hc0u07mr02.jpg",
-          "sortOrder": 16,
+          "sortOrder": 17,
           "category": "Misc"
         },
         {
           "src": "images/Orochi/SSR/006r2HqOgy1hwn1cguj6yj63uw1oie8602.jpg",
           "filename": "006r2HqOgy1hwn1cguj6yj63uw1oie8602.jpg",
-          "sortOrder": 17,
+          "sortOrder": 18,
           "category": "Birthday"
         },
         {
           "src": "images/Orochi/SSR/006r2HqOly1i8kmf07h0pj60u01t0tsg02.jpg",
           "filename": "006r2HqOly1i8kmf07h0pj60u01t0tsg02.jpg",
-          "sortOrder": 18,
+          "sortOrder": 19,
           "category": "Misc"
         },
         {
           "src": "images/Orochi/SSR/006r2HqOly1i8kmezfvw6j61o0190e5t02.jpg",
           "filename": "006r2HqOly1i8kmezfvw6j61o0190e5t02.jpg",
-          "sortOrder": 19,
+          "sortOrder": 20,
           "category": "Misc"
         },
         {
           "src": "images/Orochi/SSR/006r2HqOly1i8kmeyo3tjj61gu0u0dxo02.jpg",
           "filename": "006r2HqOly1i8kmeyo3tjj61gu0u0dxo02.jpg",
-          "sortOrder": 20,
+          "sortOrder": 21,
           "category": "Misc"
         },
         {
           "src": "images/Orochi/SSR/006r2HqOly1i8282su9okj63uw1oikjm02.jpg",
           "filename": "006r2HqOly1i8282su9okj63uw1oikjm02.jpg",
-          "sortOrder": 21,
+          "sortOrder": 22,
           "category": "Birthday"
         },
         {
           "src": "images/Orochi/SSR/FyuZ-BPaAAEGw5x.jpg",
           "filename": "FyuZ-BPaAAEGw5x.jpg",
-          "sortOrder": 22,
+          "sortOrder": 23,
+          "category": "Misc"
+        },
+        {
+          "src": "images/Orochi/SSR/006r2HqOgy1fyjb14ji5pg30rs0rswma.gif",
+          "filename": "006r2HqOgy1fyjb14ji5pg30rs0rswma.gif",
+          "sortOrder": 24,
           "category": "Misc"
         },
         {
           "src": "images/Orochi/SSR/006r2HqOgy1fyj2ko5stuj30rs0rsn70.jpg",
           "filename": "006r2HqOgy1fyj2ko5stuj30rs0rsn70.jpg",
-          "sortOrder": 23,
+          "sortOrder": 25,
           "category": "Misc"
         },
         {
           "src": "images/Orochi/SSR/006r2HqOgy1g8qn89v675j30u00u078b.jpg",
           "filename": "006r2HqOgy1g8qn89v675j30u00u078b.jpg",
-          "sortOrder": 24,
+          "sortOrder": 26,
           "category": "Misc"
         },
         {
           "src": "images/Orochi/SSR/007BKkSugy1ho8bb5gescj31hc0u0dld.jpg",
           "filename": "007BKkSugy1ho8bb5gescj31hc0u0dld.jpg",
-          "sortOrder": 25,
+          "sortOrder": 27,
           "category": "Misc"
         },
         {
           "src": "images/Orochi/SSR/007BKkSugy1hoa1wz589kj31hc0u07bz.jpg",
           "filename": "007BKkSugy1hoa1wz589kj31hc0u07bz.jpg",
-          "sortOrder": 26,
+          "sortOrder": 28,
           "category": "Misc"
         },
         {
           "src": "images/Orochi/SSR/8cea8c4fbd0cb7524fff51f321b94a7c.png",
           "filename": "8cea8c4fbd0cb7524fff51f321b94a7c.png",
-          "sortOrder": 27,
+          "sortOrder": 29,
           "category": "UI Misc"
         },
         {
           "src": "images/Orochi/SSR/08b11e3984cd08a87a7ef03f6398a329.png",
           "filename": "08b11e3984cd08a87a7ef03f6398a329.png",
-          "sortOrder": 28,
+          "sortOrder": 30,
           "category": "UI Misc"
         },
         {
           "src": "images/Orochi/SSR/9006fffe9d5b75a219daf27c61dec427.png",
           "filename": "9006fffe9d5b75a219daf27c61dec427.png",
-          "sortOrder": 29,
+          "sortOrder": 31,
           "category": "UI Misc"
         },
         {
           "src": "images/Orochi/SSR/539254d8d6f74a486347bd1902cb0380.png",
           "filename": "539254d8d6f74a486347bd1902cb0380.png",
-          "sortOrder": 30,
+          "sortOrder": 32,
           "category": "UI Misc"
         },
         {
           "src": "images/Orochi/SSR/6c54db0237a545499e9c24ce72a28462.png",
           "filename": "6c54db0237a545499e9c24ce72a28462.png",
-          "sortOrder": 31,
+          "sortOrder": 33,
           "category": "UI Misc"
         },
         {
           "src": "images/Orochi/SSR/74b8935d7b598c9c9b1adb05ce361cad.png",
           "filename": "74b8935d7b598c9c9b1adb05ce361cad.png",
-          "sortOrder": 32,
+          "sortOrder": 34,
           "category": "UI Misc"
         },
         {
           "src": "images/Orochi/SSR/ddcf73d6c32538fe6824660b0df80d82.png",
           "filename": "ddcf73d6c32538fe6824660b0df80d82.png",
-          "sortOrder": 33,
+          "sortOrder": 35,
           "category": "UI Misc"
         },
         {
           "src": "images/Orochi/SSR/5d536847c94b6de515c8a4448360e72b.png",
           "filename": "5d536847c94b6de515c8a4448360e72b.png",
-          "sortOrder": 34,
+          "sortOrder": 36,
           "category": "UI Misc"
         }
       ],
@@ -564,7 +597,8 @@
         {
           "version": 1,
           "thumbnail": null,
-          "modelFile": "models/Orochi/SSR/SSR1.pmx"
+          "modelFile": "models/Orochi/SSR/SSR1.pmx",
+          "icon": null
         }
       ]
     },
@@ -625,7 +659,8 @@
         {
           "version": 1,
           "thumbnail": null,
-          "modelFile": "models/Orochi/SSR_evo/SSR_evo1.pmx"
+          "modelFile": "models/Orochi/SSR_evo/SSR_evo1.pmx",
+          "icon": null
         }
       ]
     },
@@ -867,7 +902,7 @@
       "cn": "冷夜暗影",
       "en": "Shivering Shadow",
       "source": "Turn-Based",
-      "releaseDate": "2025-07-30",
+      "releaseDate": "2022-01-26",
       "thumbnail": "images/Orochi/冷夜暗影/thumb.jpg",
       "full": "images/Orochi/冷夜暗影/full.jpg",
       "links": [
@@ -899,7 +934,7 @@
           "src": "images/Orochi/冷夜暗影/9f755faa046e3162714a76069ef24023.png",
           "filename": "9f755faa046e3162714a76069ef24023.png",
           "sortOrder": 3,
-          "category": "UI Misc"
+          "category": "UI Icon"
         },
         {
           "src": "images/Orochi/冷夜暗影/006r2HqOgy1gyfnyuzj5aj61i80sh0zw02.jpg",
@@ -936,7 +971,8 @@
         {
           "version": 1,
           "thumbnail": null,
-          "modelFile": "models/Orochi/冷夜暗影/冷夜暗影1.pmx"
+          "modelFile": "models/Orochi/冷夜暗影/冷夜暗影1.pmx",
+          "icon": null
         }
       ]
     },
@@ -1076,7 +1112,7 @@
           "src": "images/Orochi/四相行藏/e6429fe112842d2b.png",
           "filename": "e6429fe112842d2b.png",
           "sortOrder": 18,
-          "category": "UI Misc"
+          "category": "UI Icon"
         },
         {
           "src": "images/Orochi/四相行藏/647554062cc4a9320e34b54dee7e7e4d.png",
@@ -1113,7 +1149,8 @@
         {
           "version": 1,
           "thumbnail": null,
-          "modelFile": "models/Orochi/四相行藏/四相行藏1.pmx"
+          "modelFile": "models/Orochi/四相行藏/四相行藏1.pmx",
+          "icon": null
         }
       ]
     },
@@ -1163,7 +1200,14 @@
       "thumbnail": "images/Orochi/店长/thumb.jpg",
       "full": "images/Orochi/店长/full.jpg",
       "links": [],
-      "otherImages": [],
+      "otherImages": [
+        {
+          "src": "images/Orochi/店长/007NA8ougy1ggwimrrajbj30xa0isqv5.jpg",
+          "filename": "007NA8ougy1ggwimrrajbj30xa0isqv5.jpg",
+          "sortOrder": 0,
+          "category": "Misc"
+        }
+      ],
       "models": []
     },
     {
@@ -1283,7 +1327,7 @@
           "src": "images/Orochi/檀樱倚梦/a0731c3ffc31cb9b1dac8683273a7060.png",
           "filename": "a0731c3ffc31cb9b1dac8683273a7060.png",
           "sortOrder": 3,
-          "category": "UI Misc"
+          "category": "UI Icon"
         },
         {
           "src": "images/Orochi/檀樱倚梦/006r2HqOgy1ht2hvi833yj63341mcnpg02.jpg",
@@ -1338,7 +1382,8 @@
         {
           "version": 1,
           "thumbnail": null,
-          "modelFile": "models/Orochi/檀樱倚梦/檀樱倚梦1.pmx"
+          "modelFile": "models/Orochi/檀樱倚梦/檀樱倚梦1.pmx",
+          "icon": null
         }
       ]
     },
@@ -1459,7 +1504,8 @@
         {
           "version": 1,
           "thumbnail": null,
-          "modelFile": "models/Orochi/玄夜神隐/玄夜神隐1.pmx"
+          "modelFile": "models/Orochi/玄夜神隐/玄夜神隐1.pmx",
+          "icon": null
         }
       ]
     },
@@ -1511,13 +1557,13 @@
           "src": "images/Orochi/琉璃愿境/b1fdca87bf3a918b7adbf86204404d3d.png",
           "filename": "b1fdca87bf3a918b7adbf86204404d3d.png",
           "sortOrder": 4,
-          "category": "UI Misc"
+          "category": "UI Icon"
         },
         {
           "src": "images/Orochi/琉璃愿境/a03c49b3e46a1f6d97bd22ba9c67181d.png",
           "filename": "a03c49b3e46a1f6d97bd22ba9c67181d.png",
           "sortOrder": 5,
-          "category": "UI Misc"
+          "category": "UI Icon"
         },
         {
           "src": "images/Orochi/琉璃愿境/006r2HqOgy1hs4tk3o8muj63341mce8402.jpg",
@@ -1560,7 +1606,8 @@
         {
           "version": 1,
           "thumbnail": null,
-          "modelFile": "models/Orochi/琉璃愿境/琉璃愿境1.pmx"
+          "modelFile": "models/Orochi/琉璃愿境/琉璃愿境1.pmx",
+          "icon": null
         }
       ]
     },
@@ -1603,7 +1650,8 @@
         {
           "version": 1,
           "thumbnail": null,
-          "modelFile": "models/Orochi/白绯觅影/白绯觅影1.pmx"
+          "modelFile": "models/Orochi/白绯觅影/白绯觅影1.pmx",
+          "icon": null
         }
       ]
     },
@@ -1709,7 +1757,7 @@
           "src": "images/Orochi/神遂幽乡/91f40943a31c6300016e34f487ab78d3.png",
           "filename": "91f40943a31c6300016e34f487ab78d3.png",
           "sortOrder": 3,
-          "category": "UI Misc"
+          "category": "UI Icon"
         },
         {
           "src": "images/Orochi/神遂幽乡/006BsaXygy1hft051pxwbg30dc0dc7ws.gif",
@@ -1740,12 +1788,14 @@
         {
           "version": 1,
           "thumbnail": "models/Orochi/神遂幽乡/thumbnail/1.png",
-          "modelFile": "models/Orochi/神遂幽乡/神遂幽乡1.pmx"
+          "modelFile": "models/Orochi/神遂幽乡/神遂幽乡1.pmx",
+          "icon": null
         },
         {
           "version": 2,
           "thumbnail": "models/Orochi/神遂幽乡/thumbnail/2.png",
-          "modelFile": "models/Orochi/神遂幽乡/神遂幽乡2.pmx"
+          "modelFile": "models/Orochi/神遂幽乡/神遂幽乡2.pmx",
+          "icon": null
         }
       ]
     },
@@ -1770,14 +1820,15 @@
           "src": "images/Orochi/祸隐狭间/191606c79974ab37c200907f82d7d0d8.png",
           "filename": "191606c79974ab37c200907f82d7d0d8.png",
           "sortOrder": 1,
-          "category": "UI Misc"
+          "category": "UI Icon"
         }
       ],
       "models": [
         {
           "version": 1,
           "thumbnail": null,
-          "modelFile": "models/Orochi/祸隐狭间/祸隐狭间1.pmx"
+          "modelFile": "models/Orochi/祸隐狭间/祸隐狭间1.pmx",
+          "icon": null
         }
       ]
     },
@@ -1839,7 +1890,7 @@
           "src": "images/Orochi/终焉神主1/58725540a540c8ce097be84fe99251c1.png",
           "filename": "58725540a540c8ce097be84fe99251c1.png",
           "sortOrder": 2,
-          "category": "UI Misc"
+          "category": "UI Icon"
         },
         {
           "src": "images/Orochi/终焉神主1/ddcf973faded9e2feaae4c042659375b.png",
@@ -1896,51 +1947,105 @@
           "category": "Misc"
         },
         {
+          "src": "images/Orochi/终焉神主1/006BsaXygy1hmbqqkq1l6g30dc0dc1ld.gif",
+          "filename": "006BsaXygy1hmbqqkq1l6g30dc0dc1ld.gif",
+          "sortOrder": 12,
+          "category": "Misc"
+        },
+        {
+          "src": "images/Orochi/终焉神主1/006BsaXygy1hmbqqg46o4g30dc0dcqvn.gif",
+          "filename": "006BsaXygy1hmbqqg46o4g30dc0dcqvn.gif",
+          "sortOrder": 13,
+          "category": "In-Game Previews"
+        },
+        {
+          "src": "images/Orochi/终焉神主1/006BsaXygy1hmbrlub8dxg30hs0a04rh.gif",
+          "filename": "006BsaXygy1hmbrlub8dxg30hs0a04rh.gif",
+          "sortOrder": 14,
+          "category": "In-Game Previews"
+        },
+        {
+          "src": "images/Orochi/终焉神主1/006BsaXygy1hmbrlv6xn1g30hs0a0u1i.gif",
+          "filename": "006BsaXygy1hmbrlv6xn1g30hs0a0u1i.gif",
+          "sortOrder": 15,
+          "category": "In-Game Previews"
+        },
+        {
+          "src": "images/Orochi/终焉神主1/006BsaXygy1hmbrlljvg2g30hs0a0b2n.gif",
+          "filename": "006BsaXygy1hmbrlljvg2g30hs0a0b2n.gif",
+          "sortOrder": 16,
+          "category": "In-Game Previews"
+        },
+        {
+          "src": "images/Orochi/终焉神主1/006BsaXygy1hmbqqk5ajtg30hs0a0x7e.gif",
+          "filename": "006BsaXygy1hmbqqk5ajtg30hs0a0x7e.gif",
+          "sortOrder": 17,
+          "category": "In-Game Previews"
+        },
+        {
+          "src": "images/Orochi/终焉神主1/006r2HqOgy1hmbst21qskj63341mc1l002.jpg",
+          "filename": "006r2HqOgy1hmbst21qskj63341mc1l002.jpg",
+          "sortOrder": 18,
+          "category": "In-Game Previews"
+        },
+        {
+          "src": "images/Orochi/终焉神主1/006r2HqOgy1hmbsr52qdkj63341mcu1002.jpg",
+          "filename": "006r2HqOgy1hmbsr52qdkj63341mcu1002.jpg",
+          "sortOrder": 19,
+          "category": "In-Game Previews"
+        },
+        {
           "src": "images/Orochi/终焉神主1/006r2HqOgy1hmbrjndqgxj60rs4h4e8102.jpg",
           "filename": "006r2HqOgy1hmbrjndqgxj60rs4h4e8102.jpg",
-          "sortOrder": 12,
+          "sortOrder": 20,
           "category": "Misc"
         },
         {
           "src": "images/Orochi/终焉神主1/006r2HqOgy1hmbrjnxxb1j60rs9lax6p02.jpg",
           "filename": "006r2HqOgy1hmbrjnxxb1j60rs9lax6p02.jpg",
-          "sortOrder": 13,
+          "sortOrder": 21,
           "category": "Misc"
         },
         {
-          "src": "images/Orochi/终焉神主1/006r2HqOgy1hmbsr52qdkj63341mcu1002.jpg",
-          "filename": "006r2HqOgy1hmbsr52qdkj63341mcu1002.jpg",
-          "sortOrder": 14,
-          "category": "Misc"
+          "src": "images/Orochi/终焉神主1/006BsaXygy1hmbr4fkt1zg30hs0ao4qv.gif",
+          "filename": "006BsaXygy1hmbr4fkt1zg30hs0ao4qv.gif",
+          "sortOrder": 22,
+          "category": "In-Game Previews"
         },
         {
-          "src": "images/Orochi/终焉神主1/006r2HqOgy1hmbst21qskj63341mc1l002.jpg",
-          "filename": "006r2HqOgy1hmbst21qskj63341mc1l002.jpg",
-          "sortOrder": 15,
-          "category": "Misc"
+          "src": "images/Orochi/终焉神主1/006BsaXygy1hmbr4y3ugng30hs0aokjy.gif",
+          "filename": "006BsaXygy1hmbr4y3ugng30hs0aokjy.gif",
+          "sortOrder": 23,
+          "category": "In-Game Previews"
+        },
+        {
+          "src": "images/Orochi/终焉神主1/006BsaXygy1hmbr4f8n5gg30hs0ao1l9.gif",
+          "filename": "006BsaXygy1hmbr4f8n5gg30hs0ao1l9.gif",
+          "sortOrder": 24,
+          "category": "In-Game Previews"
         },
         {
           "src": "images/Orochi/终焉神主1/9943e8407366babeecb8fe312d4f560b.png",
           "filename": "9943e8407366babeecb8fe312d4f560b.png",
-          "sortOrder": 16,
+          "sortOrder": 25,
           "category": "UI Misc"
         },
         {
           "src": "images/Orochi/终焉神主1/68620a55a686e3356e05e602cb4bd85b.png",
           "filename": "68620a55a686e3356e05e602cb4bd85b.png",
-          "sortOrder": 17,
+          "sortOrder": 26,
           "category": "UI Misc"
         },
         {
           "src": "images/Orochi/终焉神主1/174f9db06a8563c6119972c6697177f4.png",
           "filename": "174f9db06a8563c6119972c6697177f4.png",
-          "sortOrder": 18,
+          "sortOrder": 27,
           "category": "UI Misc"
         },
         {
           "src": "images/Orochi/终焉神主1/865ab9193bb1ccef334ea9feafad85aa.png",
           "filename": "865ab9193bb1ccef334ea9feafad85aa.png",
-          "sortOrder": 19,
+          "sortOrder": 28,
           "category": "UI Misc"
         }
       ],
@@ -1948,7 +2053,8 @@
         {
           "version": 1,
           "thumbnail": null,
-          "modelFile": "models/Orochi/终焉神主1/终焉神主11.pmx"
+          "modelFile": "models/Orochi/终焉神主1/终焉神主11.pmx",
+          "icon": null
         }
       ]
     },
@@ -2002,7 +2108,7 @@
           "src": "images/Orochi/终焉神主2/cac3674e07517cdb3d2b0202a272a8b3.png",
           "filename": "cac3674e07517cdb3d2b0202a272a8b3.png",
           "sortOrder": 5,
-          "category": "UI Misc"
+          "category": "UI Icon"
         },
         {
           "src": "images/Orochi/终焉神主2/a66f4f0677d947fa3d8cad977bc6e8ba.png",
@@ -2015,13 +2121,32 @@
           "filename": "abbf3d30da41ae21944b004dbfd18ac5.png",
           "sortOrder": 7,
           "category": "UI Misc"
+        },
+        {
+          "src": "images/Orochi/终焉神主2/006BsaXygy1i3vw1dl01kj30zk0k01kx.jpg",
+          "filename": "006BsaXygy1i3vw1dl01kj30zk0k01kx.jpg",
+          "sortOrder": 8,
+          "category": "Details"
+        },
+        {
+          "src": "images/Orochi/终焉神主2/006BsaXygy1i3vw1djtxxj30zk0k04qp.jpg",
+          "filename": "006BsaXygy1i3vw1djtxxj30zk0k04qp.jpg",
+          "sortOrder": 9,
+          "category": "Details"
+        },
+        {
+          "src": "images/Orochi/终焉神主2/006BsaXygy1i3vw1dk37dj30zk0k04qp.jpg",
+          "filename": "006BsaXygy1i3vw1dk37dj30zk0k04qp.jpg",
+          "sortOrder": 10,
+          "category": "Details"
         }
       ],
       "models": [
         {
           "version": 1,
           "thumbnail": null,
-          "modelFile": "models/Orochi/终焉神主2/终焉神主21.pmx"
+          "modelFile": "models/Orochi/终焉神主2/终焉神主21.pmx",
+          "icon": null
         }
       ]
     },
@@ -2112,7 +2237,8 @@
         {
           "version": 1,
           "thumbnail": null,
-          "modelFile": "models/Orochi/蛇游幻影/蛇游幻影1.pmx"
+          "modelFile": "models/Orochi/蛇游幻影/蛇游幻影1.pmx",
+          "icon": null
         }
       ]
     },
@@ -2194,7 +2320,8 @@
         {
           "version": 1,
           "thumbnail": null,
-          "modelFile": "models/Orochi/赤冕临祀/赤冕临祀1.pmx"
+          "modelFile": "models/Orochi/赤冕临祀/赤冕临祀1.pmx",
+          "icon": null
         }
       ]
     },
@@ -2234,7 +2361,7 @@
           "src": "images/Orochi/锻厄缚因/a9bb977d0b8e5b91ecc634829091cc0a.png",
           "filename": "a9bb977d0b8e5b91ecc634829091cc0a.png",
           "sortOrder": 2,
-          "category": "UI Misc"
+          "category": "UI Icon"
         },
         {
           "src": "images/Orochi/锻厄缚因/006r2HqOgy1i1jwcb3t60j63341mcu1002.jpg",
@@ -2331,12 +2458,14 @@
         {
           "version": 1,
           "thumbnail": null,
-          "modelFile": "models/Orochi/锻厄缚因/锻厄缚因1.pmx"
+          "modelFile": "models/Orochi/锻厄缚因/锻厄缚因1.pmx",
+          "icon": null
         },
         {
           "version": 2,
           "thumbnail": null,
-          "modelFile": "models/Orochi/锻厄缚因/锻厄缚因2.pmx"
+          "modelFile": "models/Orochi/锻厄缚因/锻厄缚因2.pmx",
+          "icon": null
         }
       ]
     },
@@ -2386,12 +2515,14 @@
         {
           "version": 1,
           "thumbnail": null,
-          "modelFile": "models/Tsukuyomi/Dye_DarkBlue/Dye_DarkBlue1.pmx"
+          "modelFile": "models/Tsukuyomi/Dye_DarkBlue/Dye_DarkBlue1.pmx",
+          "icon": null
         },
         {
           "version": 2,
           "thumbnail": null,
-          "modelFile": "models/Tsukuyomi/Dye_DarkBlue/Dye_DarkBlue2.pmx"
+          "modelFile": "models/Tsukuyomi/Dye_DarkBlue/Dye_DarkBlue2.pmx",
+          "icon": null
         }
       ]
     },
@@ -2441,7 +2572,8 @@
         {
           "version": 1,
           "thumbnail": null,
-          "modelFile": "models/Tsukuyomi/NPC_God/NPC_God1.pmx"
+          "modelFile": "models/Tsukuyomi/NPC_God/NPC_God1.pmx",
+          "icon": null
         }
       ]
     },
@@ -2509,7 +2641,8 @@
         {
           "version": 1,
           "thumbnail": null,
-          "modelFile": "models/Tsukuyomi/NPC_Goddess/NPC_Goddess1.pmx"
+          "modelFile": "models/Tsukuyomi/NPC_Goddess/NPC_Goddess1.pmx",
+          "icon": null
         }
       ]
     },
@@ -2563,7 +2696,7 @@
           "src": "images/Tsukuyomi/SSR/660a0f2d3857197ed67b15115fb52f1e.png",
           "filename": "660a0f2d3857197ed67b15115fb52f1e.png",
           "sortOrder": 5,
-          "category": "UI Misc"
+          "category": "UI Icon"
         },
         {
           "src": "images/Tsukuyomi/SSR/月读-觉醒前-立绘.jpg",
@@ -2696,12 +2829,14 @@
         {
           "version": 1,
           "thumbnail": null,
-          "modelFile": "models/Tsukuyomi/SSR/SSR1.pmx"
+          "modelFile": "models/Tsukuyomi/SSR/SSR1.pmx",
+          "icon": null
         },
         {
           "version": 2,
           "thumbnail": null,
-          "modelFile": "models/Tsukuyomi/SSR/SSR2.pmx"
+          "modelFile": "models/Tsukuyomi/SSR/SSR2.pmx",
+          "icon": null
         }
       ]
     },
@@ -2731,7 +2866,7 @@
           "src": "images/Tsukuyomi/SSR_evo/7229f44bdc49f9174fdcb82f4b4459b0.png",
           "filename": "7229f44bdc49f9174fdcb82f4b4459b0.png",
           "sortOrder": 1,
-          "category": "UI Misc"
+          "category": "UI Icon"
         },
         {
           "src": "images/Tsukuyomi/SSR_evo/月读-觉醒后-立绘.jpg",
@@ -2774,7 +2909,8 @@
         {
           "version": 1,
           "thumbnail": null,
-          "modelFile": "models/Tsukuyomi/SSR_evo/SSR_evo1.pmx"
+          "modelFile": "models/Tsukuyomi/SSR_evo/SSR_evo1.pmx",
+          "icon": null
         }
       ]
     },
@@ -2812,7 +2948,7 @@
           "src": "images/Tsukuyomi/堇云月华/c16abd2fe8a3738145942b64c768ebf9.png",
           "filename": "c16abd2fe8a3738145942b64c768ebf9.png",
           "sortOrder": 1,
-          "category": "UI Misc"
+          "category": "UI Icon"
         },
         {
           "src": "images/Tsukuyomi/堇云月华/006BsaXygy1hrppwfvwtkg30g20g2qvw.gif",
@@ -2897,7 +3033,8 @@
         {
           "version": 1,
           "thumbnail": null,
-          "modelFile": "models/Tsukuyomi/堇云月华/堇云月华1.pmx"
+          "modelFile": "models/Tsukuyomi/堇云月华/堇云月华1.pmx",
+          "icon": null
         }
       ]
     },
@@ -2989,7 +3126,7 @@
           "src": "images/Tsukuyomi/月落银桂/f1185e58dcc22b3a53d7662b7142af0b.png",
           "filename": "f1185e58dcc22b3a53d7662b7142af0b.png",
           "sortOrder": 1,
-          "category": "UI Misc"
+          "category": "UI Icon"
         },
         {
           "src": "images/Tsukuyomi/月落银桂/006r2HqOgy1hhkptnn1tzj63341mc1l002.jpg",
@@ -3026,7 +3163,8 @@
         {
           "version": 1,
           "thumbnail": null,
-          "modelFile": "models/Tsukuyomi/月落银桂/月落银桂1.pmx"
+          "modelFile": "models/Tsukuyomi/月落银桂/月落银桂1.pmx",
+          "icon": null
         }
       ]
     },
@@ -3119,13 +3257,13 @@
           "src": "images/Tsukuyomi/雁回盈缺/40b4de6ade8c2ee0.png",
           "filename": "40b4de6ade8c2ee0.png",
           "sortOrder": 2,
-          "category": "UI Misc"
+          "category": "UI Icon"
         },
         {
           "src": "images/Tsukuyomi/雁回盈缺/5e35616def7325cfa26f0e23c2173bf7.png",
           "filename": "5e35616def7325cfa26f0e23c2173bf7.png",
           "sortOrder": 3,
-          "category": "UI Misc"
+          "category": "UI Icon"
         },
         {
           "src": "images/Tsukuyomi/雁回盈缺/04c678e957832f11.png",
@@ -3198,12 +3336,14 @@
         {
           "version": 1,
           "thumbnail": "models/Tsukuyomi/雁回盈缺/thumbnail/1.png",
-          "modelFile": "models/Tsukuyomi/雁回盈缺/雁回盈缺1.pmx"
+          "modelFile": "models/Tsukuyomi/雁回盈缺/雁回盈缺1.pmx",
+          "icon": "images/Tsukuyomi/雁回盈缺/5e35616def7325cfa26f0e23c2173bf7.png"
         },
         {
           "version": 2,
           "thumbnail": "models/Tsukuyomi/雁回盈缺/thumbnail/2.png",
-          "modelFile": "models/Tsukuyomi/雁回盈缺/雁回盈缺2.pmx"
+          "modelFile": "models/Tsukuyomi/雁回盈缺/雁回盈缺2.pmx",
+          "icon": null
         }
       ]
     }

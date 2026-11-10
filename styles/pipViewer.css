@@ -11,7 +11,20 @@ body {
 }
 
 body {
+    display: flex;
+    flex-direction: column;
     background: #202027;
+    color: #f2f2f2;
+    font-family: Arial, sans-serif;
+}
+
+.pip-viewer-stage {
+    position: relative;
+    flex: 1 1 auto;
+    width: 100%;
+    min-width: 0;
+    min-height: 0;
+    overflow: hidden;
 }
 
 canvas {
@@ -20,4 +33,72 @@ canvas {
     height: 100% !important;
     outline: none;
     touch-action: none;
+}
+
+.pinned-bar {
+    position: absolute;
+    bottom: 0px;
+    z-index: 20;
+
+    display: none;
+    flex: 0 0 72px;
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+    height: 72px;
+    padding: 8px 10px;
+    overflow: hidden;
+    background: #292930;
+    border-top: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.has-pinned-models {
+    display: flex;
+}
+
+.pinned-bar-header {
+    width: auto;
+    flex: 0 0 auto;
+    justify-content: flex-start;
+    gap: 6px;
+}
+
+.pinned-bar-symbol {
+    font-size: 20px;
+}
+
+.pinned-clear-button {
+    max-width: min-content;
+    min-width: 30px;
+
+    font-size: 16px;
+
+    display: inline-flex;
+    flex-direction: row;
+    align-items: center;
+    text-align: center;
+}
+
+.pinned-model-list {
+    flex: 1 1 auto;
+    flex-direction: row;
+    align-items: center;
+    gap: 7px;
+    width: auto;
+    height: 100%;
+    min-width: 0;
+    overflow-x: auto;
+    overflow-y: hidden;
+    scrollbar-width: thin;
+}
+
+/* .pinned-model-item {
+    flex: 0 0 48px;
+    width: 48px;
+    height: 48px;
+} */
+
+.pinned-model-placeholder {
+    color: #fff;
 }
