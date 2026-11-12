@@ -877,6 +877,26 @@ function buildModelData(data) {
         }
     }
 
+    // for models that do not have a Topic record yet
+    if (data && Array.isArray(data.characterModels)) {
+        for (const group of data.characterModels) {
+            if (!Array.isArray(group.models)) continue;
+
+            for (const model of group.models) {
+                allModels.push({
+                    ...model,
+                    character: group.character,
+                    keyname: group.keyname,
+                    cn: null,
+                    en: null,
+                    source: null,
+                    icon: model.icon || null,
+                    thumbnail: model.thumbnail || null,
+                    type: "character"
+                });
+            }
+        }
+    }
 
     // Qcostume
     if (data && Array.isArray(data.Qcostume)) {

@@ -3348,6 +3348,68 @@
       ]
     }
   ],
+  "characterModels": [
+    {
+      "character": "Orochi",
+      "keyname": "paperdoll",
+      "models": [
+        {
+          "version": 1,
+          "thumbnail": "models/Orochi/paperdoll/thumbnail/1.png",
+          "modelFile": "models/Orochi/paperdoll/paperdoll1.pmx",
+          "icon": "models/Orochi/paperdoll/icon/5d536847c94b6de515c8a4448360e72b.png"
+        }
+      ]
+    },
+    {
+      "character": "Orochi",
+      "keyname": "QQ SP",
+      "models": [
+        {
+          "version": 1,
+          "thumbnail": "models/Orochi/QQ SP/thumbnail/1.png",
+          "modelFile": "models/Orochi/QQ SP/QQ SP1.pmx",
+          "icon": "models/Orochi/QQ SP/icon/9a97335e97670c21848b1a82b09564ae.png"
+        }
+      ]
+    },
+    {
+      "character": "Orochi",
+      "keyname": "QQ SSR",
+      "models": [
+        {
+          "version": 1,
+          "thumbnail": "models/Orochi/QQ SSR/thumbnail/1.png",
+          "modelFile": "models/Orochi/QQ SSR/QQ SSR1.pmx",
+          "icon": "models/Orochi/QQ SSR/icon/04d71347ec4d05a19814dd7898b1dffd.png"
+        }
+      ]
+    },
+    {
+      "character": "Tsukuyomi",
+      "keyname": "paperdoll",
+      "models": [
+        {
+          "version": 1,
+          "thumbnail": "models/Tsukuyomi/paperdoll/thumbnail/1.png",
+          "modelFile": "models/Tsukuyomi/paperdoll/paperdoll1.pmx",
+          "icon": "models/Tsukuyomi/paperdoll/icon/67d189061825ecc2b72f40b4f6e0f30e.png"
+        }
+      ]
+    },
+    {
+      "character": "Tsukuyomi",
+      "keyname": "QQ SSR",
+      "models": [
+        {
+          "version": 1,
+          "thumbnail": "models/Tsukuyomi/QQ SSR/thumbnail/1.png",
+          "modelFile": "models/Tsukuyomi/QQ SSR/QQ SSR1.pmx",
+          "icon": "models/Tsukuyomi/QQ SSR/icon/5577f5b9eb8b3a391b18a11273c3ad05.png"
+        }
+      ]
+    }
+  ],
   "customPair": [
     {
       "name": "Talisman Pass",
