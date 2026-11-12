@@ -1,0 +1,12 @@
+models/*
+images/*
+
+!models/Orochi/
+!models/Tsukuyomi/
+
+!images/Orochi/
+!images/Tsukuyomi/
+
+data/model.json
+scripts/modelViewer_all.js
+onmyojiViewer.html
