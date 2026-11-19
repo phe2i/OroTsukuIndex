@@ -3435,6 +3435,24 @@
   "characterModels": [
     {
       "character": "Orochi",
+      "keyname": "Baby",
+      "models": [
+        {
+          "version": 1,
+          "thumbnail": "models/Orochi/Baby/thumbnail/1.png",
+          "modelFile": "models/Orochi/Baby/Baby1.pmx",
+          "icon": "models/Orochi/Baby/icon/ddcf73d6c32538fe6824660b0df80d82.png"
+        },
+        {
+          "version": 2,
+          "thumbnail": "models/Orochi/Baby/thumbnail/2.png",
+          "modelFile": "models/Orochi/Baby/Baby2.pmx",
+          "icon": "models/Orochi/Baby/icon/ddcf73d6c32538fe6824660b0df80d82_1.png"
+        }
+      ]
+    },
+    {
+      "character": "Orochi",
       "keyname": "paperdoll",
       "models": [
         {

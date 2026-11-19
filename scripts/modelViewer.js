@@ -1039,7 +1039,7 @@ function createCategory(groupName, models) {
     header.addEventListener("click", () => {
         
         category.classList.toggle("collapsed");
-
+        header.scrollIntoView()
         }
     );
 
