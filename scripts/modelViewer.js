@@ -2,8 +2,8 @@
 import * as THREE from "../lib/three.module.js";
 import { OrbitControls } from "three/addons/controls/OrbitControls.js";
 // import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
-// import { MMDLoader } from "three/addons/loaders/MMDLoader.js";
-import { MMDLoader } from "../lib/MMDLoader.js";
+import { MMDLoader } from "three/addons/loaders/MMDLoader.js";
+// import { MMDLoader } from "../lib/MMDLoader.js";
 
 import { EffectComposer } from "three/addons/postprocessing/EffectComposer.js";
 import { RenderPass } from "three/addons/postprocessing/RenderPass.js";
@@ -11,31 +11,34 @@ import { ShaderPass } from "three/addons/postprocessing/ShaderPass.js";
 import { ColorCorrectionShader } from "three/addons/shaders/ColorCorrectionShader.js";
 // import { distance } from "three/src/nodes/math/MathNode.js";
 
+const DEFAULTS = {
+    backgroundColor: "rgb(145,145,145)",
 
-const originalParseMaterials = MMDLoader.prototype.parseMaterials;
-// suppose to override to disable SPH
+    cameraPosition: [0, 1, 4],
+    cameraTarget: [0, 1, 0],
 
-MMDLoader.prototype.parseMaterials = function (data) {
-    const materials = originalParseMaterials.call(this, data);
+    light: {
+        distance: 20,
+        intensity: 3,
+        horizontal: 0,
+        vertical: 7,
+        ambientIntensity: 0,
 
-    if (Array.isArray(materials)) {
-        materials.forEach(material => {
+        fillIntensity: 0.3,
+        fillPosition: [0, -1, -2],
 
-            material.sphMap = null;
+        rimIntensity: 0,
+        rimColor: 0x8888ff,
+        rimPosition: [-2, 1, -6],
+    },
 
-            if (material.userData) {
-                material.userData.sphEnabled = false;
-            }
-
-            material.needsUpdate = true;
-        });
+    matConfig: {
+        disable_sph: true,
+        use_custom_emissive: true,
+        custom_emissive: [0, 0, 0],
+        EMISSIVE_FACTOR: 1.0,
     }
-
-    return materials;
 };
-
-
-const DATA_URL = "./data/topics.json";
 
 const viewport = document.getElementById("modelViewport");
 const modelList = document.getElementById("modelList");
@@ -50,141 +53,6 @@ const pinnedBar = document.getElementById("pinnedBar");
 const pinnedModels = new Map();
 let pipPinnedBar = null;
 
-function getModelKey(model) {
-    return [
-        model.character || "",
-        model.keyname || model.name || "",
-        model.version ?? "",
-        model.modelFile || ""
-    ].join("::");
-}
-
-function isModelPinned(model) {
-    return pinnedModels.has(getModelKey(model));
-}
-
-function togglePinnedModel(model) {
-    const key = getModelKey(model);
-
-    if (pinnedModels.has(key)) {
-        pinnedModels.delete(key);
-    } else {
-        pinnedModels.set(key, model);
-    }
-    renderPinnedBars();
-    updatePinButtons();
-}
-
-function clearPinnedModels() {
-    pinnedModels.clear();
-    renderPinnedBars();
-    updatePinButtons();
-}
-
-function createPinnedBar(container, isPiP = false) {
-    if (!container) return null;
-
-    const bar = document.createElement("aside");
-    const barClass = isPiP? "scroll-x" : "";
-    bar.className = "pinned-bar";
-    bar.innerHTML = `
-        <div class="pinned-bar-header">
-            <button type="button" class="pinned-clear-button">clear all</button>
-        </div>
-        <div class="pinned-model-list colourScroll ${barClass}" 
-            aria-label="Pinned models">
-        </div>
-    `;
-
-    bar.querySelector(".pinned-clear-button").addEventListener("click", clearPinnedModels);
-
-    if (isPiP){
-        const scrollList = bar.querySelector(".scroll-x");
-        scrollList.addEventListener('wheel', (event) => {
-            // translate scroll it to horizontal
-            if (event.deltaY !== 0) {
-                event.preventDefault();
-                scrollList.scrollLeft += event.deltaY / 1.5;
-            }
-        });
-    }
-    container.appendChild(bar);
-    return bar;
-}
-
-function renderPinnedBar(bar) {
-    if (!bar) return;
-
-    const modelsContainer = bar.querySelector(".pinned-model-list");
-    const models = Array.from(pinnedModels.values());
-
-    bar.classList.toggle("has-pinned", models.length > 0);
-    modelsContainer.innerHTML = "";
-
-    for (const model of models) {
-        const item = document.createElement("button");
-        item.type = "button";
-        item.className = "pinned-model-item";
-        item.title = [model.name || model.keyname || "Model",
-            model.version != null ? `v${model.version}` : ""].filter(Boolean).join(" ");
-
-        const itemImage = model.icon || model.thumbnail;
-
-        if (itemImage) {
-            const image = document.createElement("img");
-
-            image.src = new URL( resolveFrontendPath(itemImage), window.location.href).href;
-            image.alt = item.title;
-            image.loading = "lazy";
-
-            if (!model.icon) {
-                image.className = "non-icon";
-            }
-
-            item.appendChild(image);
-        } else {
-            const placeholder = document.createElement("span");
-            placeholder.className = "pinned-model-placeholder";
-            placeholder.textContent = "—";
-            item.appendChild(placeholder);
-        }
-
-        item.addEventListener("click", () => {
-            if (model.modelFile) loadModel(model, null);
-        });
-        modelsContainer.appendChild(item);
-    }
-}
-
-function renderPinnedBars() {
-    renderPinnedBar(pinnedBar);
-    renderPinnedBar(pipPinnedBar);
-}
-
-pinnedBar?.querySelector(".pinned-clear-button")
-    ?.addEventListener("click", clearPinnedModels);
-
-function updatePinButtons() {
-    document.querySelectorAll(".model-card").forEach(card => {
-
-        const pinButton = card.querySelector(".model-pin-button");
-
-        if (!pinButton) return;
-
-        const isPinned = pinnedModels.has(card.dataset.pinKey);
-        pinButton.classList.toggle("is-pinned", isPinned);
-
-        pinButton.setAttribute(
-            "aria-label",
-            isPinned ? "Unpin model" : "Pin model"
-        );
-        pinButton.setAttribute(
-            "title",
-            isPinned ? "Unpin model" : "Pin model"
-        );
-    });
-}
-
 // PANEL RESIZING
 
 const root = document.documentElement;
@@ -195,6 +63,7 @@ const horizontalResizeHandle = document.getElementById("horizontalResizeHandle")
 // VIEWER CTRL
 
 const backgroundColorPicker = document.getElementById("backgroundColor");
+backgroundColorPicker.value = DEFAULTS.backgroundColor;
 
 const resetCameraButton = document.getElementById("resetCamera");
 const resetLightButton = document.getElementById("resetLightButton");
@@ -234,44 +103,443 @@ let fillLight;
 let rimLight;
 
 let currentModel = null;
-
 let currentMaterials = [];
+let previousMaterialVisibility = new Map();
 
-let previousMaterialVisibility =
-    new Map();
+async function loadData() {
 
-// !!!!!!!!!!!!!!
-// LIGHT SETTINGS
-// !!!!!!!!!!!!!!
-const DEFAULTS = {
-    backgroundColor: "#c3c3c3",
+    try {
+        const data = await fetchData();
+        buildModelData(data);
 
-    cameraPosition: [0, 1, 4],
-    cameraTarget: [0, 1, 0],
+        renderModelList();
+        renderPinnedBars();
+        checkUrlParams();
 
-    light: {
-        distance: 20,
-        intensity: 2.6,
-        horizontal: 0,
-        vertical: 22,
-        ambientIntensity: 0,
+    } catch (error) {
+        console.error("Failed to load model data:", error);
 
-        fillIntensity: 0.3,
-        fillPosition: [0, -1, -2],
+        modelList.innerHTML =
+            `<div class="material-empty">
+                Failed to load model data.
+            </div>`;
+    }
+}
 
-        rimIntensity: 0.3,
-        rimColor: 0x8888ff,
-        rimPosition: [-2, 1, -6],
-    },
+function configureMMDLoader(loader) {
+    const materialBuilder = loader.meshBuilder.materialBuilder;
+    const originalBuild = materialBuilder.build;
+
+    const disable_sph = DEFAULTS.matConfig.disable_sph;
+    const use_custom_emissive = DEFAULTS.matConfig.use_custom_emissive;
+    const custom_emissive = new THREE.Color().setRGB(
+        DEFAULTS.matConfig.custom_emissive[0],
+        DEFAULTS.matConfig.custom_emissive[1],
+        DEFAULTS.matConfig.custom_emissive[2],
+        THREE.SRGBColorSpace
+    );
+    const EMISSIVE_FACTOR = 1.0;
+
+    materialBuilder.build = function (data, geometry, onProgress, onError) {
+        const isPMD = data.metadata.format === 'pmd';
+        const originalFileNames = [];
+
+        if (disable_sph && isPMD) {
+            for (const material of data.materials) {
+                originalFileNames.push(material.fileName);
+
+                if (material.fileName && material.fileName.includes('*')) {
+                    const diffuseFile = material.fileName.split('*')[0];
+                    material.fileName = diffuseFile || undefined;
+                }
+            }
+        }
+
+        let materials;
+
+        try {
+            materials = originalBuild.call(this, data, geometry, onProgress, onError);
+        } finally {
+            if (disable_sph && isPMD) {
+                data.materials.forEach((material, i) => {
+                    material.fileName = originalFileNames[i];
+                });
+            }
+        }
+
+        materials.forEach((material, i) => {
+            if (use_custom_emissive) {
+                material.emissive.copy(custom_emissive);
+            } else {
+                const ambient = data.materials[i].ambient;
+
+                if (ambient) {
+                    material.emissive.setRGB(
+                        ambient[0],
+                        ambient[1],
+                        ambient[2],
+                        THREE.SRGBColorSpace
+                    );
+                }
+            }
+
+            material.emissive.multiplyScalar(EMISSIVE_FACTOR);
+
+            material.sphereMap = null;
+            material.sphereMapType = 0;
+            material.envMap = null;
+            material.envMapIntensity = 0;
+            material.specularMap = null;
+
+            if (material.specular) {
+                material.specular.setRGB(0, 0, 0);
+            }
+
+            material.shininess = 0;
+            material.reflectivity = 0;
+
+            if ("metalness" in material) {
+                material.metalness = 0;
+            }
+            if ("roughness" in material) {
+                material.roughness = 1;
+            }
+
+            material.needsUpdate = true;
+        });
+
+        return materials;
+    };
+
+    return loader;
+}
+
+async function loadModel(model, selectedCard) {
+
+    if (!model.modelFile) {
+        return;
+    }
+
+    loadingElement.classList.remove("hidden");
+    emptyElement.classList.add("hidden");
+
+    try {
+        // const loader = new MMDLoader();
+        const loader = configureMMDLoader(new MMDLoader());
+
+        const path = resolveFrontendPath(model.modelFile);
+        const modelObj = await loader.loadAsync(path);
+
+        // Store current camera position and target
+        const currentCameraPos = camera.position.clone();
+        const currentTarget = controls.target.clone();
+        const isFirstModel = !currentModel;
+
+        if (currentModel) {
+            scene.remove(currentModel);
+            disposeObject(currentModel);
+            currentModel = null;
+        }
+        // currentModel = modelObj.scene;
+        currentModel = modelObj;
+
+        scene.add(currentModel);
+        collectMaterials(currentModel, getModelKey(model));
+
+        renderMaterialList();
+
+        // Only frame the model if it's the first model
+        if (isFirstModel) {
+            frameModel(currentModel);
+        } else {
+            // Restore camera position
+            camera.position.copy(currentCameraPos);
+            controls.target.copy(currentTarget);
+            controls.update();
+            
+            // Update light target for the new model
+            if (directionalLight) {
+                const box = new THREE.Box3().setFromObject(currentModel);
+                const center = box.getCenter(new THREE.Vector3());
+                directionalLight.target.position.copy(center);
+                directionalLight.target.updateMatrixWorld();
+            }
+        }
+
+        document
+            .querySelectorAll(".model-card.selected")
+            .forEach(
+                card =>
+                    card.classList.remove(
+                        "selected"
+                    )
+            );
+
+        if (selectedCard) {
+            selectedCard.classList.add("selected");
+        }
+        
+        if (model.character && model.keyname) {
+            updateUrlParams(
+                model.character,
+                model.keyname,
+                model.version
+            );
+        }
+
+    } catch (error) {
+        console.error("Failed to load model:", error);
+
+        alert(
+            `Failed to load model:\n${model.modelFile}`
+        );
+
+    } finally {
+        loadingElement.classList.add("hidden");
+    }
+}
+
+function renderMaterialList() {
+    materialList.innerHTML = "";
+
+    if (currentMaterials.length === 0) {
+
+        materialList.innerHTML =
+            `<div class="material-empty">
+                No materials
+            </div>`;
+
+        return;
+    }
+
+
+    for (const material of currentMaterials) {
+
+        const item = document.createElement("button");
+        item.type = "button";
+        item.className = "material-item";
+
+        if (!material.visible) {
+            item.classList.add("hidden-material");
+        }
+
+        const visibility =document.createElement("span");
+        visibility.className = "material-visibility";
+
+        visibility.innerHTML = getEyeIcon(material.visible);
+
+        visibility.addEventListener("click", event => {
+
+                event.stopPropagation();
+                toggleMaterial(material);
+
+            }
+        );
+
+
+        const name = document.createElement("span");
+        name.className = "material-name";
+        name.textContent =
+            material.name ||
+            "Unnamed Material";
+
+        item.appendChild(visibility);
+
+        item.appendChild(name);
+
+        item.addEventListener("click", () => {
+                toggleMaterial(material);
+            }
+        );
+
+        materialList.appendChild(item);
+    }
+}
+
+function showAllMaterials() {
+    // Show all materials
+    for (const material of currentMaterials) {
+        material.visible = true;
+    }
+
+    // Update state: everything is visible, nothing is hidden
+    materialStates.visible = new Set(currentMaterials.map(m => m.uuid));
+    materialStates.hidden = new Set();
+
+    saveCurrentMaterialVisibility();
+    renderMaterialList();
+}
+
+function getEyeIcon(visible) {
+
+    if (visible) {
+        return `
+            <span class="material-symbols-outlined">visibility</span>
+        `;
+    }
+
+    return `
+        <span class="material-symbols-outlined">visibility_off</span>
+    `;
+}
+
+const materialVisibilityByModel = new Map();
+
+let currentModelVisibilityKey = null;
+let currentMaterialKeys = new Map();
+
+// switch hide-unhide
+let materialStates = {
+    visible: new Set(),
+    hidden: new Set()
 };
 
+
+function toggleMaterial(material) {
+    if (!material) {
+        return;
+    }
+    // Toggle visibility
+    material.visible = !material.visible;
+
+    // Update state sets
+    const uuid = material.uuid;
+    if (material.visible) {
+        materialStates.visible.add(uuid);
+        materialStates.hidden.delete(uuid);
+    } else {
+        materialStates.hidden.add(uuid);
+        materialStates.visible.delete(uuid);
+    }
+    saveCurrentMaterialVisibility();
+    renderMaterialList();
+}
+
+function collectMaterials(object, modelKey) {
+
+    currentMaterials = [];
+    previousMaterialVisibility = new Map();
+    currentMaterialKeys = new Map();
+    const materialMap = new Map();
+
+    object.traverse(child => {
+        if (!child.isMesh) return;
+
+        const materials = Array.isArray(child.material)
+            ? child.material
+            : [child.material];
+
+        for (const material of materials) {
+            if (!material) continue;
+            if (!materialMap.has(material.uuid)) {
+                materialMap.set(material.uuid, material);
+            }
+        }
+    });
+
+    currentMaterials = Array.from(materialMap.values());
+
+    currentModelVisibilityKey = modelKey;
+    const savedVisibility =
+        materialVisibilityByModel.get(modelKey);
+
+    materialStates.visible = new Set();
+    materialStates.hidden = new Set();
+
+    // Handle materials with dupe names
+    const nameCounts = new Map();
+
+    for (const material of currentMaterials) {
+
+        const name = material.name || "Unnamed Material";
+
+        const occurrence = nameCounts.get(name) || 0;
+        nameCounts.set(name, occurrence + 1);
+
+        const materialKey = `${name}::${occurrence}`;
+
+        currentMaterialKeys.set(material.uuid, materialKey);
+
+        if (savedVisibility?.has(materialKey)) {
+            material.visible = savedVisibility.get(materialKey);
+        }
+
+        previousMaterialVisibility.set(
+            material.uuid,
+            material.visible
+        );
+
+        if (material.visible) {
+            materialStates.visible.add(material.uuid);
+        } else {
+            materialStates.hidden.add(material.uuid);
+        }
+    }
+
+    saveCurrentMaterialVisibility();
+}
+
+function saveCurrentMaterialVisibility() {
+    if (!currentModelVisibilityKey) return;
+    const visibilityMap = new Map();
+
+    for (const material of currentMaterials) {
+        const key = currentMaterialKeys.get(material.uuid);
+
+        if (key !== undefined) {
+            visibilityMap.set(key, material.visible);
+        }
+    }
+    materialVisibilityByModel.set(
+        currentModelVisibilityKey,
+        visibilityMap
+    );
+}
+
+function reverseMaterials() {
+    if (currentMaterials.length === 0) {
+        return;
+    }
+
+    // Safety check - if states are empty, rebuild them
+    if (materialStates.visible.size === 0 && materialStates.hidden.size === 0) {
+        for (const material of currentMaterials) {
+            if (material.visible) {
+                materialStates.visible.add(material.uuid);
+            } else {
+                materialStates.hidden.add(material.uuid);
+            }
+        }
+        renderMaterialList();
+        return;
+    }
+
+    // Toggle visibility
+    for (const material of currentMaterials) {
+        const uuid = material.uuid;
+        
+        if (materialStates.visible.has(uuid)) {
+            material.visible = false;
+        } else if (materialStates.hidden.has(uuid)) {
+            material.visible = true;
+        }
+    }
+
+    // Swap the sets
+    const temp = materialStates.visible;
+    materialStates.visible = materialStates.hidden;
+    materialStates.hidden = temp;
+
+    saveCurrentMaterialVisibility();
+    renderMaterialList();
+}
+
+// NOTE: LIGHT SETTINGS
 let distanceLight = DEFAULTS.light.distance;
 
-const defaultCameraPosition =
-    new THREE.Vector3(...DEFAULTS.cameraPosition);
+const defaultCameraPosition = new THREE.Vector3(...DEFAULTS.cameraPosition);
 
-const defaultCameraTarget =
-    new THREE.Vector3(...DEFAULTS.cameraTarget);
+const defaultCameraTarget = new THREE.Vector3(...DEFAULTS.cameraTarget);
 
 function updateDirectionalLight() {
 
@@ -499,182 +767,6 @@ if (ambientLight) {
     );
 }
 
-
-// !! HORIZONTAL RESIZE
-// Sidebar <-> viewer
-
-if (horizontalResizeHandle && sidebar) {
-
-    let resizing = false;
-
-    horizontalResizeHandle.addEventListener("pointerdown", event => {
-
-            event.preventDefault();
-            resizing = true;
-
-            horizontalResizeHandle.setPointerCapture(
-                event.pointerId
-            );
-
-            document.body.style.cursor = "col-resize";
-
-            document.body.style.userSelect = "none";
-        }
-    );
-    horizontalResizeHandle.addEventListener("pointermove", event => {
-
-            if (!resizing) {
-                return;
-            }
-            const minWidth = 280;
-            const maxWidth =
-                Math.floor(
-                    window.innerWidth *
-                    0.7
-                );
-
-            const newWidth =
-                Math.max(
-                    minWidth,
-                    Math.min(event.clientX, maxWidth)
-                );
-
-
-            root.style.setProperty(
-                "--sidebar-width",
-                `${newWidth}px`
-            );
-
-            resizeViewer();
-        }
-    );
-    horizontalResizeHandle.addEventListener("pointerup", event => {
-
-            resizing = false;
-
-            try {
-                horizontalResizeHandle.releasePointerCapture(
-                    event.pointerId
-                );
-
-            } catch (_) {}
-
-            document.body.style.cursor = "";
-            document.body.style.userSelect = "";
-            resizeViewer();
-        }
-    );
-    horizontalResizeHandle.addEventListener("pointercancel", () => {
-
-            resizing = false;
-            document.body.style.cursor = "";
-            document.body.style.userSelect = "";
-            resizeViewer();
-        }
-    );
-}
-
-
-// !! VERTICAL RESIZE
-// Model list <-> material list
-
-if (verticalResizeHandle &&sidebar) {
-    let resizing = false;
-
-    verticalResizeHandle.addEventListener("pointerdown", event => {
-
-            event.preventDefault();
-            resizing = true;
-
-            verticalResizeHandle.setPointerCapture(
-                event.pointerId
-            );
-
-
-            document.body.style.cursor = "row-resize";
-            document.body.style.userSelect = "none";
-        }
-    );
-
-
-    verticalResizeHandle.addEventListener("pointermove", event => {
-
-            if (!resizing) {
-                return;
-            }
-
-            const rect = sidebar.getBoundingClientRect();
-
-            const relativeY = event.clientY - rect.top;
-
-            const minModelHeight = 150;
-            const minMaterialHeight = 120;
-
-            const maxModelHeight = rect.height - minMaterialHeight;
-
-            const modelHeight =
-                Math.max(
-                    minModelHeight,
-                    Math.min(
-                        relativeY,
-                        maxModelHeight
-                    )
-                );
-
-
-            const percentage =
-                (
-                    modelHeight /
-                    rect.height
-                ) * 100;
-
-
-            root.style.setProperty(
-                "--model-list-height",
-                `${percentage}%`
-            );
-
-            resizeViewer();
-        }
-    );
-
-    verticalResizeHandle.addEventListener(
-        "pointerup",
-        event => {
-
-            resizing = false;
-
-
-            try {
-
-                verticalResizeHandle.releasePointerCapture(
-                    event.pointerId
-                );
-
-            } catch (_) {}
-
-
-            document.body.style.cursor = "";
-
-            document.body.style.userSelect = "";
-
-
-            resizeViewer();
-        }
-    );
-
-
-    verticalResizeHandle.addEventListener("pointercancel", () => {
-
-            resizing = false;
-            document.body.style.cursor = "";
-            document.body.style.userSelect = "";
-
-            resizeViewer();
-        }
-    );
-}
-
 function recreateOrbitControls(target = controls?.target.clone() ?? defaultCameraTarget.clone()) {
     if (controls) {
         controls.dispose();
@@ -689,14 +781,14 @@ function recreateOrbitControls(target = controls?.target.clone() ?? defaultCamer
     controls.update();
 }
 
-// INIT THREE
+// NOTE: INIT THREE
 
 let composer;
 let colorCorrectionPass;
 
 function initThree() {
     scene = new THREE.Scene();
-    scene.background = new THREE.Color(0xC3C3C3);
+    scene.background = new THREE.Color(DEFAULTS.backgroundColor);
 
 
     camera = new THREE.PerspectiveCamera(45, 1, 0.01, 1000);
@@ -708,7 +800,8 @@ function initThree() {
     });
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
     renderer.setSize(viewport.clientWidth, viewport.clientHeight);
-    renderer.outputColorSpace = THREE.LinearSRGBColorSpace;
+    // renderer.outputColorSpace = THREE.LinearSRGBColorSpace;
+    renderer.outputColorSpace = THREE.SRGBColorSpace;
     renderer.toneMapping = THREE.NoToneMapping;
     renderer.toneMappingExposure = 1.0;
     viewport.appendChild(renderer.domElement);
@@ -719,9 +812,9 @@ function initThree() {
     colorCorrectionPass = new ShaderPass(ColorCorrectionShader);
     // R, G, B
     colorCorrectionPass.uniforms['powRGB'].value = new THREE.Vector3(
-        0.7,
-        0.7,
-        0.7
+        0.6,
+        0.6,
+        0.6
     );
     colorCorrectionPass.uniforms['mulRGB'].value = new THREE.Vector3(
         1.0,
@@ -762,8 +855,7 @@ function initThree() {
 }
 
 
-// RESIZE VIEWER
-
+// NOTE: RESIZE VIEWER
 function resizeViewer() {
     if (!renderer || !camera) return;
 
@@ -785,7 +877,6 @@ function resizeViewer() {
     }
 }
 
-
 function animate() {
     requestAnimationFrame(animate);
 
@@ -803,41 +894,111 @@ function animate() {
     // }
 }
 
+function frameModel(object) {
 
-async function loadData() {
+    const box = new THREE.Box3().setFromObject(object);
 
-    try {
-        const response = await fetch(DATA_URL);
+    const size = box.getSize(new THREE.Vector3());
+    const center = box.getCenter(new THREE.Vector3());
 
-        if (!response.ok){
-            throw new Error(`Failed to load ${DATA_URL}`);
-        }
-        const data = await response.json();
-
-        buildModelData(data);
-
-        renderModelList();
-        renderPinnedBars();
-
-        // Check for URL parameters after loading
-        checkUrlParams();
-
-
-    } catch (error) {
-
-        console.error(
-            "Failed to load model data:",
-            error
+    const maxSize =
+        Math.max(
+            size.x,
+            size.y,
+            size.z
         );
 
-
-        modelList.innerHTML =
-            `<div class="material-empty">
-                Failed to load model data.
-            </div>`;
+    if (
+        !isFinite(maxSize) ||
+        maxSize <= 0
+    ) {
+        return;
     }
+
+    // Update light target
+    if (directionalLight) {
+        directionalLight.target.position.copy(center);
+        directionalLight.target.updateMatrixWorld();
+    }
+
+    const distance =
+        maxSize /
+        (
+            2 *
+            Math.tan(
+                THREE.MathUtils.degToRad(
+                    camera.fov / 2
+                )
+            )
+        );
+
+    const direction =
+        new THREE.Vector3(
+            0,
+            0,
+            1
+        );
+
+    direction.applyQuaternion(camera.quaternion);
+
+    camera.position.copy(center);
+    camera.position.add(direction.multiplyScalar(distance * 1.4));
+    // Orbit target
+    controls.target.copy(center);
+    // Camera clipping
+    camera.near =
+        Math.max(
+            maxSize / 1000,
+            0.001
+        );
+    camera.far =
+        Math.max(
+            maxSize * 100,
+            1000
+        );
+
+    camera.updateProjectionMatrix();
+    controls.update();
 }
 
+function disposeObject(object) {
+
+    object.traverse(
+        child => {
+
+            if (!child.isMesh) {
+                return;
+            }
+            if (child.geometry) {
+                child.geometry.dispose();
+            }
+            if (child.material
+            ) {
+                const materials = Array.isArray(child.material) ? child.material : [child.material];
+
+                materials.forEach( material => disposeMaterial(material));
+            }
+        }
+    );
+}
+
+function disposeMaterial(material) {
+
+    if (!material) {
+        return;
+    }
+
+    for (const key in material) {
+
+        const value = material[key];
+
+        if (value && value.isTexture) {
+            value.dispose();
+        }
+    }
+
+    material.dispose();
+}
 
 function buildModelData(data) {
 
@@ -906,7 +1067,6 @@ function buildModelData(data) {
         ) {
 
             allModels.push({
-
                 ...costume,
                 character: "Qcostume",
                 keyname: costume.name,
@@ -917,14 +1077,13 @@ function buildModelData(data) {
     }
 }
 
-// SEARCH
+// NOTE: MODEL LIST PANEL
 
 function matchesSearch(model, query) {
 
     if (!query) {
         return true;
     }
-
     const searchText = [
         model.character,
         model.keyname,
@@ -937,12 +1096,10 @@ function matchesSearch(model, query) {
         .join(" ")
         .toLowerCase();
 
-
     return searchText.includes(
         query.toLowerCase()
     );
 }
-
 
 function groupModels(models) {
 
@@ -959,16 +1116,13 @@ function groupModels(models) {
         if (!groups.has(groupName)) {
             groups.set(groupName, []);
         }
-
+        
         groups
             .get(groupName)
             .push(model);
     }
-
-
     return groups;
 }
-
 
 function renderModelList() {
 
@@ -981,7 +1135,6 @@ function renderModelList() {
                     query
                 )
         );
-
 
     modelList.innerHTML = "";
 
@@ -1012,8 +1165,6 @@ function renderModelList() {
         modelList.appendChild( category);
     }
 }
-
-
 
 function createCategory(groupName, models) {
 
@@ -1074,7 +1225,6 @@ function createModelCard(model) {
     card.dataset.keyname = model.keyname || "";
     card.dataset.version = model.version || "";
 
-
 // Thumbnail
     if (model.thumbnail) {
 
@@ -1098,7 +1248,6 @@ function createModelCard(model) {
 
         card.appendChild(placeholder);
     }
-
 
     const name = document.createElement("span");
     name.className = "model-name";
@@ -1146,7 +1295,6 @@ function createModelCard(model) {
     });
     return card;
 }
-
 
 function getUrlParams() {
     const params = new URLSearchParams(window.location.search);
@@ -1261,463 +1409,299 @@ function resolveFrontendPath(path) {
 }
 
 
-async function loadModel(model, selectedCard) {
-
-    if (!model.modelFile) {
-        return;
-    }
-
-    loadingElement.classList.remove("hidden");
-    emptyElement.classList.add("hidden");
-
-    try {
-        const loader = new MMDLoader();
-        const path = resolveFrontendPath(model.modelFile);
-        const modelObj = await loader.loadAsync(path);
-
-        // Store current camera position and target
-        const currentCameraPos = camera.position.clone();
-        const currentTarget = controls.target.clone();
-        const isFirstModel = !currentModel;
-
-        if (currentModel) {
-
-            scene.remove(
-                currentModel
-            );
-            disposeObject(
-                currentModel
-            );
-            currentModel =
-                null;
-        }
-
-        // currentModel = modelObj.scene;
-        currentModel = modelObj;
-
-        scene.add(currentModel);
-        collectMaterials(currentModel, getModelKey(model));
-
-        renderMaterialList();
-
-        // Only frame the model if it's the first model
-        if (isFirstModel) {
-            frameModel(currentModel);
-        } else {
-            // Restore camera position
-            camera.position.copy(currentCameraPos);
-            controls.target.copy(currentTarget);
-            controls.update();
-            
-            // Update light target for the new model
-            if (directionalLight) {
-                const box = new THREE.Box3().setFromObject(currentModel);
-                const center = box.getCenter(new THREE.Vector3());
-                directionalLight.target.position.copy(center);
-                directionalLight.target.updateMatrixWorld();
-            }
-        }
-
-        document
-            .querySelectorAll(".model-card.selected")
-            .forEach(
-                card =>
-                    card.classList.remove(
-                        "selected"
-                    )
-            );
-
-
-        if (selectedCard) {
-            selectedCard.classList.add("selected");
-        }
-        
-        if (model.character && model.keyname) {
-            updateUrlParams(
-                model.character,
-                model.keyname,
-                model.version
-            );
-        }
-
-
-    } catch (error) {
-
-        console.error(
-            "Failed to load model:",
-            error
-        );
-
-        alert(
-            `Failed to load model:\n${model.modelFile}`
-        );
-
-
-    } finally {
-        loadingElement.classList.add("hidden");
-    }
+// NOTE: PINS
+function getModelKey(model) {
+    return [
+        model.character || "",
+        model.keyname || model.name || "",
+        model.version ?? "",
+        model.modelFile || ""
+    ].join("::");
 }
 
-function renderMaterialList() {
-    materialList.innerHTML = "";
+function isModelPinned(model) {
+    return pinnedModels.has(getModelKey(model));
+}
 
-    if (currentMaterials.length === 0) {
+function togglePinnedModel(model) {
+    const key = getModelKey(model);
 
-        materialList.innerHTML =
-            `<div class="material-empty">
-                No materials
-            </div>`;
-
-        return;
+    if (pinnedModels.has(key)) {
+        pinnedModels.delete(key);
+    } else {
+        pinnedModels.set(key, model);
     }
+    renderPinnedBars();
+    updatePinButtons();
+}
 
+function clearPinnedModels() {
+    pinnedModels.clear();
+    renderPinnedBars();
+    updatePinButtons();
+}
 
-    for (const material of currentMaterials) {
+function createPinnedBar(container, isPiP = false) {
+    if (!container) return null;
 
+    const bar = document.createElement("aside");
+    const barClass = isPiP? "scroll-x" : "";
+    bar.className = "pinned-bar";
+    bar.innerHTML = `
+        <div class="pinned-bar-header">
+            <button type="button" class="pinned-clear-button">clear all</button>
+        </div>
+        <div class="pinned-model-list colourScroll ${barClass}" 
+            aria-label="Pinned models">
+        </div>
+    `;
+
+    bar.querySelector(".pinned-clear-button").addEventListener("click", clearPinnedModels);
+
+    if (isPiP){
+        const scrollList = bar.querySelector(".scroll-x");
+        scrollList.addEventListener('wheel', (event) => {
+            // translate scroll it to horizontal
+            if (event.deltaY !== 0) {
+                event.preventDefault();
+                scrollList.scrollLeft += event.deltaY / 1.5;
+            }
+        });
+    }
+    container.appendChild(bar);
+    return bar;
+}
+
+function renderPinnedBar(bar) {
+    if (!bar) return;
+
+    const modelsContainer = bar.querySelector(".pinned-model-list");
+    const models = Array.from(pinnedModels.values());
+
+    bar.classList.toggle("has-pinned", models.length > 0);
+    modelsContainer.innerHTML = "";
+
+    for (const model of models) {
         const item = document.createElement("button");
         item.type = "button";
-        item.className = "material-item";
+        item.className = "pinned-model-item";
+        item.title = [model.name || model.keyname || "Model",
+            model.version != null ? `v${model.version}` : ""].filter(Boolean).join(" ");
 
-        if (!material.visible) {
-            item.classList.add("hidden-material");
-        }
+        const itemImage = model.icon || model.thumbnail;
 
-        const visibility =document.createElement("span");
-        visibility.className = "material-visibility";
+        if (itemImage) {
+            const image = document.createElement("img");
 
-        visibility.innerHTML = getEyeIcon(material.visible);
+            image.src = new URL( resolveFrontendPath(itemImage), window.location.href).href;
+            image.alt = item.title;
+            image.loading = "lazy";
 
-        visibility.addEventListener("click", event => {
-
-                event.stopPropagation();
-                toggleMaterial(material);
-
+            if (!model.icon) {
+                image.className = "non-icon";
             }
-        );
 
-
-        const name = document.createElement("span");
-        name.className = "material-name";
-        name.textContent =
-            material.name ||
-            "Unnamed Material";
-
-        item.appendChild(visibility);
-
-        item.appendChild(name);
+            item.appendChild(image);
+        } else {
+            const placeholder = document.createElement("span");
+            placeholder.className = "pinned-model-placeholder";
+            placeholder.textContent = "—";
+            item.appendChild(placeholder);
+        }
 
         item.addEventListener("click", () => {
-                toggleMaterial(material);
-            }
+            if (model.modelFile) loadModel(model, null);
+        });
+        modelsContainer.appendChild(item);
+    }
+}
+
+function renderPinnedBars() {
+    renderPinnedBar(pinnedBar);
+    renderPinnedBar(pipPinnedBar);
+}
+
+pinnedBar?.querySelector(".pinned-clear-button")
+    ?.addEventListener("click", clearPinnedModels);
+
+function updatePinButtons() {
+    document.querySelectorAll(".model-card").forEach(card => {
+
+        const pinButton = card.querySelector(".model-pin-button");
+
+        if (!pinButton) return;
+
+        const isPinned = pinnedModels.has(card.dataset.pinKey);
+        pinButton.classList.toggle("is-pinned", isPinned);
+
+        pinButton.setAttribute(
+            "aria-label",
+            isPinned ? "Unpin model" : "Pin model"
         );
-
-        materialList.appendChild(item);
-    }
-}
-
-// FIGMA ICON
-function getEyeIcon(visible) {
-
-    if (visible) {
-        return `
-            <span class="material-symbols-outlined">visibility</span>
-        `;
-    }
-
-    return `
-        <span class="material-symbols-outlined">visibility_off</span>
-    `;
-}
-
-function showAllMaterials() {
-    // Show all materials
-    for (const material of currentMaterials) {
-        material.visible = true;
-    }
-
-    // Update state: everything is visible, nothing is hidden
-    materialStates.visible = new Set(currentMaterials.map(m => m.uuid));
-    materialStates.hidden = new Set();
-
-    saveCurrentMaterialVisibility();
-    renderMaterialList();
-}
-
-const materialVisibilityByModel = new Map();
-
-let currentModelVisibilityKey = null;
-let currentMaterialKeys = new Map();
-
-// switch hide-unhide
-let materialStates = {
-    visible: new Set(),
-    hidden: new Set()
-};
-
-
-function toggleMaterial(material) {
-    if (!material) {
-        return;
-    }
-
-    // Toggle visibility
-    material.visible = !material.visible;
-
-    // Update state sets
-    const uuid = material.uuid;
-    if (material.visible) {
-        materialStates.visible.add(uuid);
-        materialStates.hidden.delete(uuid);
-    } else {
-        materialStates.hidden.add(uuid);
-        materialStates.visible.delete(uuid);
-    }
-    saveCurrentMaterialVisibility();
-    renderMaterialList();
-}
-
-function collectMaterials(object, modelKey) {
-
-    currentMaterials = [];
-    previousMaterialVisibility = new Map();
-    currentMaterialKeys = new Map();
-    const materialMap = new Map();
-
-    object.traverse(child => {
-        if (!child.isMesh) return;
-
-        const materials = Array.isArray(child.material)
-            ? child.material
-            : [child.material];
-
-        for (const material of materials) {
-            if (!material) continue;
-            if (!materialMap.has(material.uuid)) {
-                materialMap.set(material.uuid, material);
-            }
-        }
+        pinButton.setAttribute(
+            "title",
+            isPinned ? "Unpin model" : "Pin model"
+        );
     });
-
-    currentMaterials = Array.from(materialMap.values());
-
-    currentModelVisibilityKey = modelKey;
-    const savedVisibility =
-        materialVisibilityByModel.get(modelKey);
-
-    materialStates.visible = new Set();
-    materialStates.hidden = new Set();
-
-    // Handle materials with dupe names
-    const nameCounts = new Map();
-
-    for (const material of currentMaterials) {
-
-        const name = material.name || "Unnamed Material";
-
-        const occurrence = nameCounts.get(name) || 0;
-        nameCounts.set(name, occurrence + 1);
-
-        const materialKey = `${name}::${occurrence}`;
-
-        currentMaterialKeys.set(material.uuid, materialKey);
-
-        if (savedVisibility?.has(materialKey)) {
-            material.visible = savedVisibility.get(materialKey);
-        }
-
-        previousMaterialVisibility.set(
-            material.uuid,
-            material.visible
-        );
-
-        if (material.visible) {
-            materialStates.visible.add(material.uuid);
-        } else {
-            materialStates.hidden.add(material.uuid);
-        }
-    }
-
-    saveCurrentMaterialVisibility();
 }
 
-function saveCurrentMaterialVisibility() {
-    if (!currentModelVisibilityKey) return;
-    const visibilityMap = new Map();
+// NOTE: HORIZONTAL RESIZE
+// Sidebar <-> viewer
 
-    for (const material of currentMaterials) {
-        const key = currentMaterialKeys.get(material.uuid);
+if (horizontalResizeHandle && sidebar) {
 
-        if (key !== undefined) {
-            visibilityMap.set(key, material.visible);
+    let resizing = false;
+
+    horizontalResizeHandle.addEventListener("pointerdown", event => {
+
+            event.preventDefault();
+            resizing = true;
+
+            horizontalResizeHandle.setPointerCapture(
+                event.pointerId
+            );
+
+            document.body.style.cursor = "col-resize";
+            document.body.style.userSelect = "none";
         }
-    }
-    materialVisibilityByModel.set(
-        currentModelVisibilityKey,
-        visibilityMap
     );
-}
+    horizontalResizeHandle.addEventListener("pointermove", event => {
 
-function reverseMaterials() {
-    if (currentMaterials.length === 0) {
-        return;
-    }
-
-    // Safety check - if states are empty, rebuild them
-    if (materialStates.visible.size === 0 && materialStates.hidden.size === 0) {
-        for (const material of currentMaterials) {
-            if (material.visible) {
-                materialStates.visible.add(material.uuid);
-            } else {
-                materialStates.hidden.add(material.uuid);
-            }
-        }
-        renderMaterialList();
-        return;
-    }
-
-    // Toggle visibility
-    for (const material of currentMaterials) {
-        const uuid = material.uuid;
-        
-        if (materialStates.visible.has(uuid)) {
-            material.visible = false;
-        } else if (materialStates.hidden.has(uuid)) {
-            material.visible = true;
-        }
-    }
-
-    // Swap the sets
-    const temp = materialStates.visible;
-    materialStates.visible = materialStates.hidden;
-    materialStates.hidden = temp;
-
-    saveCurrentMaterialVisibility();
-    renderMaterialList();
-}
-
-
-function frameModel(object) {
-
-    const box = new THREE.Box3().setFromObject(object);
-
-    const size = box.getSize(new THREE.Vector3());
-    const center = box.getCenter(new THREE.Vector3());
-
-    const maxSize =
-        Math.max(
-            size.x,
-            size.y,
-            size.z
-        );
-
-
-    if (
-        !isFinite(maxSize) ||
-        maxSize <= 0
-    ) {
-        return;
-    }
-
-
-    // Update light target
-    if (directionalLight) {
-        directionalLight.target.position.copy(center);
-        directionalLight.target.updateMatrixWorld();
-    }
-
-    const distance =
-        maxSize /
-        (
-            2 *
-            Math.tan(
-                THREE.MathUtils.degToRad(
-                    camera.fov / 2
-                )
-            )
-        );
-
-    const direction =
-        new THREE.Vector3(
-            0,
-            0,
-            1
-        );
-
-    direction.applyQuaternion(camera.quaternion);
-
-    camera.position.copy(center);
-    camera.position.add(direction.multiplyScalar(distance * 1.4));
-    // Orbit target
-    controls.target.copy(center);
-    // Camera clipping
-    camera.near =
-        Math.max(
-            maxSize / 1000,
-            0.001
-        );
-    camera.far =
-        Math.max(
-            maxSize * 100,
-            1000
-        );
-
-    camera.updateProjectionMatrix();
-    controls.update();
-}
-
-function disposeObject(object) {
-
-    object.traverse(
-        child => {
-
-            if (!child.isMesh) {
+            if (!resizing) {
                 return;
             }
-
-            if (child.geometry) {
-                child.geometry.dispose();
-            }
-
-            if (child.material
-            ) {
-                const materials =
-                    Array.isArray(
-                        child.material
-                    )
-                        ? child.material
-                        : [child.material];
-
-                materials.forEach(
-                    material =>
-                        disposeMaterial(
-                            material
-                        )
+            const minWidth = 280;
+            const maxWidth =
+                Math.floor(
+                    window.innerWidth *
+                    0.7
                 );
-            }
+
+            const newWidth =
+                Math.max(
+                    minWidth,
+                    Math.min(event.clientX, maxWidth)
+                );
+
+            root.style.setProperty(
+                "--sidebar-width",
+                `${newWidth}px`
+            );
+
+            resizeViewer();
+        }
+    );
+    horizontalResizeHandle.addEventListener("pointerup", event => {
+
+            resizing = false;
+
+            try {
+                horizontalResizeHandle.releasePointerCapture(
+                    event.pointerId
+                );
+
+            } catch (_) {}
+
+            document.body.style.cursor = "";
+            document.body.style.userSelect = "";
+            resizeViewer();
+        }
+    );
+    horizontalResizeHandle.addEventListener("pointercancel", () => {
+
+            resizing = false;
+            document.body.style.cursor = "";
+            document.body.style.userSelect = "";
+            resizeViewer();
         }
     );
 }
 
-function disposeMaterial(material) {
 
-    if (!material) {
-        return;
-    }
+// !! VERTICAL RESIZE
+// Model list <-> material list
 
-    for (const key in material) {
+if (verticalResizeHandle &&sidebar) {
+    let resizing = false;
 
-        const value = material[key];
+    verticalResizeHandle.addEventListener("pointerdown", event => {
 
-        if (value && value.isTexture) {
-            value.dispose();
+            event.preventDefault();
+            resizing = true;
+
+            verticalResizeHandle.setPointerCapture(
+                event.pointerId
+            );
+
+            document.body.style.cursor = "row-resize";
+            document.body.style.userSelect = "none";
         }
-    }
+    );
 
-    material.dispose();
+    verticalResizeHandle.addEventListener("pointermove", event => {
+
+            if (!resizing) {
+                return;
+            }
+            const rect = sidebar.getBoundingClientRect();
+
+            const relativeY = event.clientY - rect.top;
+
+            const minModelHeight = 150;
+            const minMaterialHeight = 120;
+
+            const maxModelHeight = rect.height - minMaterialHeight;
+
+            const modelHeight =
+                Math.max(
+                    minModelHeight,
+                    Math.min(
+                        relativeY,
+                        maxModelHeight
+                    )
+                );
+
+            const percentage =
+                (
+                    modelHeight /
+                    rect.height
+                ) * 100;
+
+            root.style.setProperty(
+                "--model-list-height",
+                `${percentage}%`
+            );
+            resizeViewer();
+        }
+    );
+
+    verticalResizeHandle.addEventListener(
+        "pointerup",
+        event => {
+            resizing = false;
+            try {
+                verticalResizeHandle.releasePointerCapture(
+                    event.pointerId
+                );
+
+            } catch (_) {}
+            document.body.style.cursor = "";
+            document.body.style.userSelect = "";
+            resizeViewer();
+        }
+    );
+
+    verticalResizeHandle.addEventListener("pointercancel", () => {
+
+            resizing = false;
+            document.body.style.cursor = "";
+            document.body.style.userSelect = "";
+            resizeViewer();
+        }
+    );
 }
 
-
-// EVENTS
+// NOTE: EVENTS
 
 searchInput?.addEventListener("input", renderModelList);
 resetCameraButton?.addEventListener("click", resetCamera);
@@ -1733,7 +1717,6 @@ if (backgroundColorPicker) {
         }
     );
 }
-
 
 // Handle browser back/forward navigation
 

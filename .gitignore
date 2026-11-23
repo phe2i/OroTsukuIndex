@@ -8,5 +8,4 @@ images/*
 !images/Tsukuyomi/
 
 data/model.json
-scripts/modelViewer_all.js
 onmyojiViewer.html

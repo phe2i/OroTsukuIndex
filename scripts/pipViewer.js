@@ -1,7 +1,11 @@
 const pipButton = document.getElementById("modelViewerPiPButton");
 
 if (pipButton) {
-    pipButton.addEventListener("click", openPiP);
+    if (!("documentPictureInPicture" in window)) {
+        pipButton.style.display = "none";
+    } else {
+        pipButton.addEventListener("click", openPiP);
+    }
 }
 
 async function openPiP() {
@@ -26,8 +30,8 @@ async function openPiP() {
 
     try {
         pipWindow = await window.documentPictureInPicture.requestWindow({
-            width: 480,
-            height: 600,
+            width: 50,
+            height: 300,
         });
 
         const doc = pipWindow.document;
@@ -45,8 +49,6 @@ async function openPiP() {
             link.href = new URL(path, import.meta.url).href;
             doc.head.appendChild(link);
         });
-        
-        window.modelViewerPiPBridge.moveTo(doc.body);
 
         bridge.moveTo(doc.body);
         bridge.mountPinnedBar(doc.body);
