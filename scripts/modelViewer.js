@@ -22,9 +22,9 @@ const DEFAULTS = {
         intensity: 3,
         horizontal: 0,
         vertical: 7,
-        ambientIntensity: 0,
+        ambientIntensity: 0.1,
 
-        fillIntensity: 0.3,
+        fillIntensity: 0,
         fillPosition: [0, -1, -2],
 
         rimIntensity: 0,
@@ -34,9 +34,11 @@ const DEFAULTS = {
 
     matConfig: {
         disable_sph: true,
-        use_custom_emissive: true,
-        custom_emissive: [0, 0, 0],
-        EMISSIVE_FACTOR: 1.0,
+        use_custom_color: true,
+        diffuse: [1, 1, 1],
+        specular: [0, 0, 0],
+        ambient: [0, 0, 0],
+        emissive_factor: 1.0,
     }
 };
 
@@ -126,74 +128,44 @@ async function loadData() {
     }
 }
 
+
 function configureMMDLoader(loader) {
+
+    const matConfig = DEFAULTS.matConfig;
+
+    const disable_sph = matConfig.disable_sph;
+    const use_custom_color = matConfig.use_custom_color;
+    const custom_emissive = new THREE.Color().setRGB(...matConfig.ambient);
+    const custom_specular = new THREE.Color().setRGB(...matConfig.specular);
+    const custom_diffuse = new THREE.Color().setRGB(...matConfig.diffuse);
+
     const materialBuilder = loader.meshBuilder.materialBuilder;
     const originalBuild = materialBuilder.build;
 
-    const disable_sph = DEFAULTS.matConfig.disable_sph;
-    const use_custom_emissive = DEFAULTS.matConfig.use_custom_emissive;
-    const custom_emissive = new THREE.Color().setRGB(
-        DEFAULTS.matConfig.custom_emissive[0],
-        DEFAULTS.matConfig.custom_emissive[1],
-        DEFAULTS.matConfig.custom_emissive[2],
-        THREE.SRGBColorSpace
-    );
-    const EMISSIVE_FACTOR = 1.0;
+    materialBuilder.build = function(data, geometry, ...args) {
 
-    materialBuilder.build = function (data, geometry, onProgress, onError) {
-        const isPMD = data.metadata.format === 'pmd';
-        const originalFileNames = [];
+        data.materials.forEach(material => {
+            material.envTextureIndex = -1;
+        });
+        const materials = originalBuild.call(this, data, geometry, ...args);
 
-        if (disable_sph && isPMD) {
-            for (const material of data.materials) {
-                originalFileNames.push(material.fileName);
+        materials.forEach(material => {
 
-                if (material.fileName && material.fileName.includes('*')) {
-                    const diffuseFile = material.fileName.split('*')[0];
-                    material.fileName = diffuseFile || undefined;
-                }
+            if (disable_sph) {
+                material.matcap = null;
             }
-        }
 
-        let materials;
-
-        try {
-            materials = originalBuild.call(this, data, geometry, onProgress, onError);
-        } finally {
-            if (disable_sph && isPMD) {
-                data.materials.forEach((material, i) => {
-                    material.fileName = originalFileNames[i];
-                });
-            }
-        }
-
-        materials.forEach((material, i) => {
-            if (use_custom_emissive) {
+            if (use_custom_color) {
                 material.emissive.copy(custom_emissive);
-            } else {
-                const ambient = data.materials[i].ambient;
-
-                if (ambient) {
-                    material.emissive.setRGB(
-                        ambient[0],
-                        ambient[1],
-                        ambient[2],
-                        THREE.SRGBColorSpace
-                    );
-                }
+                material.specular.copy(custom_specular);
+                material.diffuse.copy(custom_diffuse);
             }
 
-            material.emissive.multiplyScalar(EMISSIVE_FACTOR);
+            material.emissive.multiplyScalar(matConfig.emissive_factor);
 
-            material.sphereMap = null;
-            material.sphereMapType = 0;
+            material.specularMap = null;
             material.envMap = null;
             material.envMapIntensity = 0;
-            material.specularMap = null;
-
-            if (material.specular) {
-                material.specular.setRGB(0, 0, 0);
-            }
 
             material.shininess = 0;
             material.reflectivity = 0;
@@ -702,7 +674,6 @@ if (lightDistance) {
 }
 
 if (lightIntensity) {
-
     lightIntensity.addEventListener("input", event => {
 
             const value = Number(event.target.value);
@@ -720,7 +691,6 @@ if (lightIntensity) {
 }
 
 if (lightHorizontal) {
-
     lightHorizontal.addEventListener("input", event => {
             const value = Number(event.target.value);
 
@@ -734,7 +704,6 @@ if (lightHorizontal) {
 }
 
 if (lightVertical) {
-
     lightVertical.addEventListener("input", event => {
 
             const value = Number(event.target.value);
@@ -750,7 +719,6 @@ if (lightVertical) {
 }
 
 if (ambientLight) {
-
     ambientLight.addEventListener("input", event => {
 
             const value = Number(event.target.value);
@@ -908,13 +876,9 @@ function frameModel(object) {
             size.z
         );
 
-    if (
-        !isFinite(maxSize) ||
-        maxSize <= 0
-    ) {
+    if (!isFinite(maxSize) || maxSize <= 0) {
         return;
     }
-
     // Update light target
     if (directionalLight) {
         directionalLight.target.position.copy(center);
@@ -932,12 +896,7 @@ function frameModel(object) {
             )
         );
 
-    const direction =
-        new THREE.Vector3(
-            0,
-            0,
-            1
-        );
+    const direction = new THREE.Vector3(0, 0, 1);
 
     direction.applyQuaternion(camera.quaternion);
 
@@ -1065,7 +1024,6 @@ function buildModelData(data) {
         for (
             const costume of data.Qcostume
         ) {
-
             allModels.push({
                 ...costume,
                 character: "Qcostume",
@@ -1489,6 +1447,7 @@ function renderPinnedBar(bar) {
             model.version != null ? `v${model.version}` : ""].filter(Boolean).join(" ");
 
         const itemImage = model.icon || model.thumbnail;
+        const isModelThumb = itemImage?.includes('/thumbnail/') ?? false;
 
         if (itemImage) {
             const image = document.createElement("img");
@@ -1497,15 +1456,25 @@ function renderPinnedBar(bar) {
             image.alt = item.title;
             image.loading = "lazy";
 
-            if (!model.icon) {
+            if (!model.icon && !isModelThumb) {
                 image.className = "non-icon";
             }
-
             item.appendChild(image);
+
+            if (model.keyname.startsWith("Dye") &&
+                !["Orochi", "Tsukuyomi"].includes(model.character)
+            ) {
+                const dyeName = model.keyname.split("_");
+                const altDisplay = document.createElement("span");
+                altDisplay.className = "alt-text";
+                altDisplay.textContent = dyeName[1] ?? "Dye";
+
+                item.appendChild(altDisplay);
+            }
         } else {
             const placeholder = document.createElement("span");
-            placeholder.className = "pinned-model-placeholder";
-            placeholder.textContent = "—";
+            placeholder.className = "alt-text";
+            placeholder.textContent = item.title;
             item.appendChild(placeholder);
         }
 

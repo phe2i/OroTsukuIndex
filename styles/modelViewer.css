@@ -13,9 +13,6 @@
 
     --shadow: rgba(0, 0, 0, 0.25);
 
-    --indigo: oklch(38.555% 0.04728 287.224);
-    --violet: #7e7e99;
-
     --sidebar-width: 436px;
     --model-list-height: 70%;
     --model-section-padding: 0 0 0 16px;
@@ -418,12 +415,21 @@ body {
     min-height: 0;
     /* scrollbar-width: thin; */
 }
+
+.colourScroll{
+    --indigo: oklch(38.555% 0.04728 287.224);
+    --violet: #7676a4;
+    --scroll-track: var(--indigo);
+    --scroll-thumb: var(--violet);
+}
+
 .colourScroll::-webkit-scrollbar {
     height: var(--scroll-size);
     width: var(--scroll-size);
 }
 
 .pinned-model-item {
+    position: relative;
     display: grid;
     place-items: center;
     flex: 0 0 55px;
@@ -454,11 +460,6 @@ body {
     object-position: 0 -2px;
     transform: scale(2.5);
     transform-origin: top center;
-}
-
-.pinned-model-placeholder {
-    font-size: 16px;
-    opacity: 0.6;
 }
 
 .model-pin-button {
@@ -773,25 +774,6 @@ body {
     overflow: hidden;
 
     background: var(--viewport-bg);
-}
-
-.viewer-loading {
-    position: absolute;
-
-    top: 50%;
-    left: 50%;
-
-    transform: translate(-50%, -50%);
-
-    color: var(--text-primary);
-
-    font-size: 18px;
-
-    z-index: 5;
-}
-
-.viewer-loading.hidden {
-    display: none;
 }
 
 .viewer-empty {
