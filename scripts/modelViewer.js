@@ -12,7 +12,7 @@ import { ColorCorrectionShader } from "three/addons/shaders/ColorCorrectionShade
 // import { distance } from "three/src/nodes/math/MathNode.js";
 
 const DEFAULTS = {
-    backgroundColor: "rgb(145,145,145)",
+    backgroundColor: "#919191",
 
     cameraPosition: [0, 1, 4],
     cameraTarget: [0, 1, 0],
@@ -28,8 +28,8 @@ const DEFAULTS = {
         fillPosition: [0, -1, -2],
 
         rimIntensity: 0,
-        rimColor: 0x8888ff,
-        rimPosition: [-2, 1, -6],
+        rimPower: 4,
+        rimColor: "#004cff",
     },
 
     matConfig: {
@@ -39,6 +39,7 @@ const DEFAULTS = {
         specular: [0, 0, 0],
         ambient: [0, 0, 0],
         emissive_factor: 1.0,
+        shininess: 30,
     }
 };
 
@@ -54,6 +55,8 @@ const pinnedBar = document.getElementById("pinnedBar");
 
 const pinnedModels = new Map();
 let pipPinnedBar = null;
+const PINNED_MODELS_COOKIE = "pinnedModels";
+const PINNED_MODELS_MAX_AGE = 60 * 60 * 24 * 30;
 
 // PANEL RESIZING
 
@@ -63,6 +66,8 @@ const verticalResizeHandle =  document.getElementById( "verticalResizeHandle");
 const horizontalResizeHandle = document.getElementById("horizontalResizeHandle");
 
 // VIEWER CTRL
+
+const downloadButton = document.getElementById("downloadButton");
 
 const backgroundColorPicker = document.getElementById("backgroundColor");
 backgroundColorPicker.value = DEFAULTS.backgroundColor;
@@ -88,6 +93,13 @@ const lightVerticalValue = document.getElementById("lightVerticalValue");
 const ambientLight = document.getElementById("ambientLight");
 const ambientLightValue = document.getElementById("ambientLightValue");
 
+const rimColor = document.getElementById("rimColor");
+const rimColorValue = document.getElementById("rimColorValue");
+const rimIntensity = document.getElementById("rimIntensity");
+const rimIntensityValue = document.getElementById("rimIntensityValue");
+const rimPower = document.getElementById("rimPower");
+const rimPowerValue = document.getElementById("rimPowerValue");
+
 
 let topics = [];
 let allModels = [];
@@ -101,12 +113,22 @@ let controls;
 let hemisphereLight;
 let directionalLight;
 
-let fillLight;
-let rimLight;
-
 let currentModel = null;
 let currentMaterials = [];
 let previousMaterialVisibility = new Map();
+
+let fillLight;
+const rimShaderUniforms = {
+    uRimColor: {
+        value: new THREE.Color(DEFAULTS.light.rimColor)
+    },
+    uRimIntensity: {
+        value: DEFAULTS.light.rimIntensity
+    },
+    uRimPower: {
+        value: DEFAULTS.light.rimPower
+    }
+};
 
 async function loadData() {
 
@@ -115,6 +137,7 @@ async function loadData() {
         buildModelData(data);
 
         renderModelList();
+        loadPinnedModels();
         renderPinnedBars();
         checkUrlParams();
 
@@ -122,12 +145,58 @@ async function loadData() {
         console.error("Failed to load model data:", error);
 
         modelList.innerHTML =
-            `<div class="material-empty">
+            `<div class="alt-text viewer-empty">
                 Failed to load model data.
             </div>`;
     }
 }
 
+function applyRimShader(material) {
+    // ref https://threejsroadmap.com/blog/rim-lighting-shader
+    const previousOnBeforeCompile = material.onBeforeCompile;
+    material.onBeforeCompile = function(shader, renderer) {
+
+        previousOnBeforeCompile?.call(this, shader, renderer);
+        shader.uniforms.uRimColor = rimShaderUniforms.uRimColor;
+        shader.uniforms.uRimPower = rimShaderUniforms.uRimPower;
+        shader.uniforms.uRimIntensity = rimShaderUniforms.uRimIntensity;
+
+        shader.fragmentShader = shader.fragmentShader.replace(
+            '#include <common>',
+            `
+            #include <common>
+            uniform vec3 uRimColor;
+            uniform float uRimPower;
+            uniform float uRimIntensity;
+            `
+        );
+        const marker = '#include <emissivemap_fragment>';
+
+        if (!shader.fragmentShader.includes(marker)) {
+            console.warn(
+                'Rim shader injection failed:',
+                material.name,
+                'emissivemap_fragment not found'
+            );
+            return;
+        }
+        // View-dependent Fresnel
+        shader.fragmentShader = shader.fragmentShader.replace(
+            marker,
+            `
+            ${marker}
+            float rimDot = clamp(dot(normalize(normal), normalize(vViewPosition)), 0.0, 1.0);
+
+            float rim = 1.0 - rimDot;
+            rim = pow(rim, uRimPower);
+
+            totalEmissiveRadiance += uRimColor * rim * uRimIntensity;
+            `
+        );
+    };
+    material.customProgramCacheKey = () => 'fresnel-rim';
+    material.needsUpdate = true;
+}
 
 function configureMMDLoader(loader) {
 
@@ -167,7 +236,7 @@ function configureMMDLoader(loader) {
             material.envMap = null;
             material.envMapIntensity = 0;
 
-            material.shininess = 0;
+            material.shininess = matConfig.shininess;
             material.reflectivity = 0;
 
             if ("metalness" in material) {
@@ -176,6 +245,7 @@ function configureMMDLoader(loader) {
             if ("roughness" in material) {
                 material.roughness = 1;
             }
+            applyRimShader(material);
 
             material.needsUpdate = true;
         });
@@ -207,6 +277,9 @@ async function loadModel(model, selectedCard) {
         const currentTarget = controls.target.clone();
         const isFirstModel = !currentModel;
 
+        const modelName = `${model.character}_${model.keyname}_v${model.version}` || "modelViewer"
+        // console.log(modelName);
+
         if (currentModel) {
             scene.remove(currentModel);
             disposeObject(currentModel);
@@ -214,6 +287,7 @@ async function loadModel(model, selectedCard) {
         }
         // currentModel = modelObj.scene;
         currentModel = modelObj;
+        currentModel.name = modelName;
 
         scene.add(currentModel);
         collectMaterials(currentModel, getModelKey(model));
@@ -260,11 +334,8 @@ async function loadModel(model, selectedCard) {
         }
 
     } catch (error) {
+        window.showToast(viewport, "", `Failed to load model:\n${model.modelFile}`, "error");
         console.error("Failed to load model:", error);
-
-        alert(
-            `Failed to load model:\n${model.modelFile}`
-        );
 
     } finally {
         loadingElement.classList.add("hidden");
@@ -277,13 +348,12 @@ function renderMaterialList() {
     if (currentMaterials.length === 0) {
 
         materialList.innerHTML =
-            `<div class="material-empty">
+            `<div class="alt-text viewer-empty">
                 No materials
             </div>`;
 
         return;
     }
-
 
     for (const material of currentMaterials) {
 
@@ -308,7 +378,6 @@ function renderMaterialList() {
             }
         );
 
-
         const name = document.createElement("span");
         name.className = "material-name";
         name.textContent =
@@ -323,7 +392,6 @@ function renderMaterialList() {
                 toggleMaterial(material);
             }
         );
-
         materialList.appendChild(item);
     }
 }
@@ -412,8 +480,7 @@ function collectMaterials(object, modelKey) {
     currentMaterials = Array.from(materialMap.values());
 
     currentModelVisibilityKey = modelKey;
-    const savedVisibility =
-        materialVisibilityByModel.get(modelKey);
+    const savedVisibility = materialVisibilityByModel.get(modelKey);
 
     materialStates.visible = new Set();
     materialStates.hidden = new Set();
@@ -515,8 +582,7 @@ const defaultCameraTarget = new THREE.Vector3(...DEFAULTS.cameraTarget);
 
 function updateDirectionalLight() {
 
-    if (
-        !directionalLight ||
+    if (!directionalLight ||
         !lightHorizontal ||
         !lightVertical ||
         !lightDistance 
@@ -531,11 +597,8 @@ function updateDirectionalLight() {
     /*
      Convert spherical coordinates into XYZ position.
      
-     Horizontal:
-       Rotate around the model.
-     
-     Vertical:
-       Move above / below the model.
+     Horizontal: Rotate around the model.
+     Vertical: Move above / below the model.
      */
 
     const x =
@@ -568,16 +631,65 @@ function updateDirectionalLight() {
     directionalLight.target.updateMatrixWorld();
 }
 
+function updateDirectionalLightColor() {
+    if (!directionalLight || !backgroundColorPicker || !ambientLight) {
+        return;
+    }
 
-// LIGHTING SETUP
+    const backgroundColor = new THREE.Color(backgroundColorPicker.value);
+    const white = new THREE.Color(0xffffff);
+
+    const influence = THREE.MathUtils.clamp(Number(ambientLight.value/100), 0, 1);
+
+    directionalLight.color.copy(white).lerp(backgroundColor, influence);
+    // const hsl = {};
+    // backgroundColor.getHSL(hsl);
+    // directionalLight.color.setHSL(
+    //     hsl.h * influence,
+    //     hsl.s * influence,
+    //     directionalLight.intensity/ambientLight.value
+    // );
+    // console.log("directionalLight", directionalLight.intensity)
+    // console.log("rimLight intensity", rimLight.intensity)
+}
+
+
+function updateAmbientColor(color) {
+    if (!hemisphereLight) return;
+    const bgColor = new THREE.Color(color);
+
+    // Sky
+    hemisphereLight.color.copy(bgColor);
+    // Ground
+    hemisphereLight.groundColor.copy(bgColor).multiplyScalar(0.4);
+}
+
+function updaterimIntensity(value) {
+    rimShaderUniforms.uRimIntensity.value = Number(value);
+}
+
+function updaterimColor(color) {
+    rimShaderUniforms.uRimColor.value.set(color);
+}
+
+function updaterimPower(value) {
+    rimShaderUniforms.uRimPower.value = Number(value);
+}
+
+rimColor.addEventListener('input', function(e) {
+  var hue = ((this.value/100)*360).toFixed(0)
+  var hsl = "hsl("+ hue + ", 100%, 50%)"
+  rimColor.style.color = hsl
+  rimColorValue.style.color = hsl
+  rimColorValue.innerHTML = hsl
+
+  updaterimColor(hsl)
+});
 
 // INITIALIZE LIGHTS
 function setupMMDLighting() {
     fillLight = new THREE.DirectionalLight(0xffffff, 1);
     scene.add(fillLight);
-
-    rimLight = new THREE.DirectionalLight(0xffffff, 1);
-    scene.add(rimLight);
 
     resetLighting();
 }
@@ -596,8 +708,7 @@ function resetLighting() {
 
     // Ambient light
     hemisphereLight.intensity = defaults.ambientIntensity;
-    hemisphereLight.color.setHex(0xffffff);
-    hemisphereLight.groundColor.setHex(0x8888aa);
+    updateAmbientColor(backgroundColorPicker.value || DEFAULTS.backgroundColor);
 
     if (fillLight) {
         fillLight.intensity = defaults.fillIntensity;
@@ -605,11 +716,12 @@ function resetLighting() {
         fillLight.color.setHex(0xffffff);
     }
 
-    if (rimLight) {
-        rimLight.intensity = defaults.rimIntensity;
-        rimLight.position.fromArray(defaults.rimPosition);
-        rimLight.color.setHex(defaults.rimColor);
-    }
+    const { h, s, l } = tinycolor(defaults.rimColor).toHsl();
+    rimColor.value = ((h/360)*100).toFixed(0);
+
+    var event = new Event('input');
+    rimColor.dispatchEvent(event);
+
 
     lightDistance.value = String(defaults.distance);
     lightDistanceValue.textContent = defaults.distance.toFixed(2);
@@ -626,7 +738,18 @@ function resetLighting() {
     ambientLight.value = String(defaults.ambientIntensity);
     ambientLightValue.textContent = defaults.ambientIntensity.toFixed(2);
 
+    rimIntensity.value = String(defaults.rimIntensity);
+    rimIntensityValue.textContent = defaults.rimIntensity.toFixed(2);
+    
+    rimPower.value = String(defaults.rimPower);
+    rimPowerValue.textContent = defaults.rimPower.toFixed(2);
+
     updateDirectionalLight();
+    updateDirectionalLightColor();
+
+    updaterimIntensity(defaults.rimIntensity);
+    updaterimPower(defaults.rimPower);
+    updaterimColor(defaults.rimColor);
 }
 
 function resetCamera() {
@@ -645,22 +768,24 @@ function resetCamera() {
 }
 
 function resetBackground() {
-    scene.background.set(DEFAULTS.backgroundColor);
-    backgroundColorPicker.value = DEFAULTS.backgroundColor;
-}
+    const color = DEFAULTS.backgroundColor;
 
+    scene.background.set(color);
+    backgroundColorPicker.value = color;
+
+    updateAmbientColor(color);
+}
 
 // LIGHT PANEL
 
 if (lightSettings && lightPanel) {
 
     lightSettings.addEventListener("click", () => {
-        
-         lightPanel.classList.toggle("open");
+        lightSettings.classList.toggle("clicked");
+        lightPanel.classList.toggle("open");
         }
     );
 }
-
 
 // LIGHT CTRL
 if (lightDistance) {
@@ -672,7 +797,6 @@ if (lightDistance) {
         updateDirectionalLight();
     });
 }
-
 if (lightIntensity) {
     lightIntensity.addEventListener("input", event => {
 
@@ -681,7 +805,6 @@ if (lightIntensity) {
             if (directionalLight) {
                 directionalLight.intensity = value;
             }
-
             if (lightIntensityValue) {
                 lightIntensityValue.textContent = value.toFixed(2);
             }
@@ -689,7 +812,6 @@ if (lightIntensity) {
         }
     );
 }
-
 if (lightHorizontal) {
     lightHorizontal.addEventListener("input", event => {
             const value = Number(event.target.value);
@@ -697,40 +819,67 @@ if (lightHorizontal) {
             if (lightHorizontalValue) {
                 lightHorizontalValue.textContent = `${value}°`;
             }
-
             updateDirectionalLight();
         }
     );
 }
-
 if (lightVertical) {
     lightVertical.addEventListener("input", event => {
 
             const value = Number(event.target.value);
 
             if (lightVerticalValue) {
-
                 lightVerticalValue.textContent = `${value}°`;
             }
-
             updateDirectionalLight();
         }
     );
 }
-
 if (ambientLight) {
     ambientLight.addEventListener("input", event => {
 
             const value = Number(event.target.value);
 
-            if (hemisphereLight) {
-                hemisphereLight.intensity = value;
-            }
-
+            // if (hemisphereLight) {
+            //     hemisphereLight.intensity = value;
+            // }
             if (ambientLightValue) {
                 ambientLightValue.textContent = value.toFixed(2);
             }
+            updateDirectionalLightColor();
+        }
+    );
+}
+if (rimIntensity) {
+    rimIntensity.addEventListener("input", event => {
 
+            const value = Number(event.target.value);
+            if (rimIntensityValue) {
+                rimIntensityValue.textContent = value.toFixed(2);
+            }
+            updaterimIntensity(value);
+        }
+    );
+}
+if (rimPower) {
+    rimPower.addEventListener("input", event => {
+
+            const value = Number(event.target.value);
+            if (rimPowerValue) {
+                rimPowerValue.textContent = value.toFixed(2);
+            }
+            updaterimPower(value);
+        }
+    );
+}
+
+if (backgroundColorPicker) {
+    backgroundColorPicker.addEventListener("input", event => {
+            if (!scene) return;
+            const color = event.target.value;
+            scene.background.set(color);
+            updateAmbientColor(color);
+            updateDirectionalLightColor();
         }
     );
 }
@@ -764,16 +913,23 @@ function initThree() {
 
     renderer = new THREE.WebGLRenderer({
         antialias: true,
-        alpha: false
+        alpha: true,
+        preserveDrawingBuffer: true
     });
+    renderer.setClearColor(0x000000, 0);
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
     renderer.setSize(viewport.clientWidth, viewport.clientHeight);
     // renderer.outputColorSpace = THREE.LinearSRGBColorSpace;
     renderer.outputColorSpace = THREE.SRGBColorSpace;
     renderer.toneMapping = THREE.NoToneMapping;
     renderer.toneMappingExposure = 1.0;
+
     viewport.appendChild(renderer.domElement);
 
+    renderer.domElement.tabIndex = 0;
+    renderer.domElement.addEventListener("pointerdown", () => {
+        renderer.domElement.focus({ preventScroll: true });
+    });
 
     // POST-PROCESSING
 
@@ -876,9 +1032,8 @@ function frameModel(object) {
             size.z
         );
 
-    if (!isFinite(maxSize) || maxSize <= 0) {
-        return;
-    }
+    if (!isFinite(maxSize) || maxSize <= 0) return;
+
     // Update light target
     if (directionalLight) {
         directionalLight.target.position.copy(center);
@@ -920,14 +1075,118 @@ function frameModel(object) {
     controls.update();
 }
 
-function disposeObject(object) {
+async function saveViewportImage(transparent = true, scale = 2, output = "download") {
+    if (!renderer || !scene || !camera || !currentModel) return;
 
-    object.traverse(
-        child => {
+    const originalSize = renderer.getSize(new THREE.Vector2());
+    const originalPixelRatio = renderer.getPixelRatio();
+    const originalComposerPixelRatio = composer?.getPixelRatio?.() ?? 1;
 
-            if (!child.isMesh) {
+    const width = Math.round(renderer.domElement.width * scale);
+    const height = Math.round(renderer.domElement.height * scale);
+
+    const previousBackground = scene.background;
+    const previousClearColor = renderer.getClearColor(new THREE.Color());
+    const previousClearAlpha = renderer.getClearAlpha();
+
+    let clipboardWritePromise = null;
+
+    try {
+        if (transparent) {
+            scene.background = null;
+            renderer.setClearColor(0x000000, 0);
+        }
+
+        renderer.setPixelRatio(1);
+        renderer.setSize(width, height, false);
+
+        if (composer) {
+            composer.setPixelRatio(1);
+            composer.setSize(width, height);
+            composer.render();
+        } else {
+            renderer.render(scene, camera);
+        }
+
+    // Gen PNG
+    if (output === "clipboard") {
+        if (!navigator.clipboard?.write || typeof ClipboardItem === "undefined") {
+            throw new Error("Clipboard image API is not supported :(");
+        }
+
+        const blobPromise = new Promise((resolve, reject) => {
+            renderer.domElement.toBlob(blob => {
+                if (blob) {
+                    resolve(blob);
+                } else {
+                    reject(new Error("Failed to generate PNG."));
+                }
+            }, "image/png");
+        });
+
+        clipboardWritePromise = navigator.clipboard.write([
+            new ClipboardItem({
+                "image/png": blobPromise
+            })
+        ]);
+
+    } else if (output === "download") {
+        renderer.domElement.toBlob(blob => {
+            if (!blob) {
+                console.error("Failed to export viewport image.");
                 return;
             }
+            const url = URL.createObjectURL(blob);
+
+            const timestamp = new Date()
+                .toLocaleString("sv-SE", { hour12: false })
+                .replace(/[-: ]/g, "")
+                .replace(",", "_");
+
+            const safeName = `${currentModel.name}_${timestamp}`.replace(/[<>:"/\\|?*]/g, "_");
+
+            const link = document.createElement("a");
+            link.href = url;
+            link.download = `${safeName}.png`;
+            link.click();
+
+            setTimeout(() => URL.revokeObjectURL(url), 1000);
+
+        }, "image/png");
+    }
+
+    } catch (error) {
+        console.error("Failed to save viewport image:", error);
+    } finally {
+        renderer.setPixelRatio(originalPixelRatio);
+        renderer.setSize(originalSize.x, originalSize.y, false);
+
+        if (composer) {
+            composer.setPixelRatio(originalComposerPixelRatio);
+            composer.setSize(originalSize.x, originalSize.y);
+        }
+        
+        scene.background = previousBackground;
+        renderer.setClearColor(previousClearColor, previousClearAlpha);
+    }
+
+    if (clipboardWritePromise) {
+        try {
+            await clipboardWritePromise;
+            console.log("image copied");
+            window.showToast(viewport, "content_copy", "Copied to clipboard");
+
+        } catch (error) {
+            console.error("Failed to copy viewport image:", error);
+            window.showToast(viewport, "", "Failed to copy image to clipboard.", "error");
+        }
+    }
+}
+
+function disposeObject(object) {
+    object.traverse(
+        child => {
+            if (!child.isMesh) return;
             if (child.geometry) {
                 child.geometry.dispose();
             }
@@ -942,11 +1201,7 @@ function disposeObject(object) {
 }
 
 function disposeMaterial(material) {
-
-    if (!material) {
-        return;
-    }
-
+    if (!material) return;
     for (const key in material) {
 
         const value = material[key];
@@ -955,7 +1210,6 @@ function disposeMaterial(material) {
             value.dispose();
         }
     }
-
     material.dispose();
 }
 
@@ -1086,20 +1340,14 @@ function renderModelList() {
 
     const query = searchInput ? searchInput.value.trim(): "";
 
-    const filteredModels = allModels.filter(
-            model =>
-                matchesSearch(
-                    model,
-                    query
-                )
-        );
+    const filteredModels = allModels.filter(model => matchesSearch(model, query));
 
     modelList.innerHTML = "";
 
     if (filteredModels.length === 0) {
 
         modelList.innerHTML =
-            `<div class="material-empty">
+            `<div class="alt-text viewer-empty">
                 No models found.
             </div>`;
         return;
@@ -1107,18 +1355,9 @@ function renderModelList() {
 
     const groups = groupModels(filteredModels);
 
-    for (
-        const [
-            groupName,
-            models
-        ] of groups
-    ) {
+    for (const [ groupName, models] of groups) {
 
-        const category =
-            createCategory(
-                groupName,
-                models
-            );
+        const category = createCategory(groupName, models);
 
         modelList.appendChild( category);
     }
@@ -1334,11 +1573,8 @@ function checkUrlParams() {
                     }
                 }
             }
-            
             if (targetCard) {
-                // Scroll to the card
                 targetCard.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                // Load the model
                 loadModel(model, targetCard);
             } else {
                 loadModel(model, null);
@@ -1389,15 +1625,19 @@ function togglePinnedModel(model) {
     } else {
         pinnedModels.set(key, model);
     }
+    savePinnedModels();
     renderPinnedBars();
     updatePinButtons();
 }
 
 function clearPinnedModels() {
     pinnedModels.clear();
+    savePinnedModels();
     renderPinnedBars();
     updatePinButtons();
 }
+pinnedBar?.querySelector(".pinned-clear-button")
+    ?.addEventListener("click", clearPinnedModels);
 
 function createPinnedBar(container, isPiP = false) {
     if (!container) return null;
@@ -1490,9 +1730,6 @@ function renderPinnedBars() {
     renderPinnedBar(pipPinnedBar);
 }
 
-pinnedBar?.querySelector(".pinned-clear-button")
-    ?.addEventListener("click", clearPinnedModels);
-
 function updatePinButtons() {
     document.querySelectorAll(".model-card").forEach(card => {
 
@@ -1514,13 +1751,42 @@ function updatePinButtons() {
     });
 }
 
+function savePinnedModels() {
+    const value = encodeURIComponent(JSON.stringify([...pinnedModels.entries()]));
+
+    document.cookie =
+        `${PINNED_MODELS_COOKIE}=${value}; ` +
+        `Max-Age=${PINNED_MODELS_MAX_AGE}; ` +
+        `Path=/; SameSite = Lax` +
+        (location.protocol === "https:" ? "; Secure" : "");
+}
+
+function loadPinnedModels() {
+    const cookie = document.cookie.split("; ").find(row => row.startsWith(`${PINNED_MODELS_COOKIE}=`));
+    if (!cookie) return;
+
+    try {
+        const value = cookie.substring(PINNED_MODELS_COOKIE.length + 1);
+        const entries = JSON.parse(decodeURIComponent(value));
+
+        if (!Array.isArray(entries)) return;
+
+        pinnedModels.clear();   
+        for (const [key, model] of entries) {
+            pinnedModels.set(key, model);
+        }
+    } catch (error) {
+        console.warn("Unable to restore pinned models:", error);
+        pinnedModels.clear();
+    }
+}
+
 // NOTE: HORIZONTAL RESIZE
 // Sidebar <-> viewer
 
 if (horizontalResizeHandle && sidebar) {
 
     let resizing = false;
-
     horizontalResizeHandle.addEventListener("pointerdown", event => {
 
             event.preventDefault();
@@ -1529,7 +1795,6 @@ if (horizontalResizeHandle && sidebar) {
             horizontalResizeHandle.setPointerCapture(
                 event.pointerId
             );
-
             document.body.style.cursor = "col-resize";
             document.body.style.userSelect = "none";
         }
@@ -1540,17 +1805,9 @@ if (horizontalResizeHandle && sidebar) {
                 return;
             }
             const minWidth = 280;
-            const maxWidth =
-                Math.floor(
-                    window.innerWidth *
-                    0.7
-                );
+            const maxWidth = Math.floor(window.innerWidth * 0.7);
 
-            const newWidth =
-                Math.max(
-                    minWidth,
-                    Math.min(event.clientX, maxWidth)
-                );
+            const newWidth = Math.max(minWidth, Math.min(event.clientX, maxWidth));
 
             root.style.setProperty(
                 "--sidebar-width",
@@ -1563,12 +1820,8 @@ if (horizontalResizeHandle && sidebar) {
     horizontalResizeHandle.addEventListener("pointerup", event => {
 
             resizing = false;
-
             try {
-                horizontalResizeHandle.releasePointerCapture(
-                    event.pointerId
-                );
-
+                horizontalResizeHandle.releasePointerCapture(event.pointerId);
             } catch (_) {}
 
             document.body.style.cursor = "";
@@ -1608,10 +1861,8 @@ if (verticalResizeHandle &&sidebar) {
     );
 
     verticalResizeHandle.addEventListener("pointermove", event => {
+            if (!resizing) return;
 
-            if (!resizing) {
-                return;
-            }
             const rect = sidebar.getBoundingClientRect();
 
             const relativeY = event.clientY - rect.top;
@@ -1624,17 +1875,9 @@ if (verticalResizeHandle &&sidebar) {
             const modelHeight =
                 Math.max(
                     minModelHeight,
-                    Math.min(
-                        relativeY,
-                        maxModelHeight
-                    )
+                    Math.min(relativeY, maxModelHeight)
                 );
-
-            const percentage =
-                (
-                    modelHeight /
-                    rect.height
-                ) * 100;
+            const percentage = ( modelHeight / rect.height ) * 100;
 
             root.style.setProperty(
                 "--model-list-height",
@@ -1677,15 +1920,29 @@ resetCameraButton?.addEventListener("click", resetCamera);
 resetLightButton?.addEventListener("click", resetLighting);
 showAllButton?.addEventListener("click", showAllMaterials);
 reverseButton?.addEventListener("click", reverseMaterials);
-if (backgroundColorPicker) {
-    backgroundColorPicker.addEventListener("input", event => {
-            if (!scene) {
-                return;
-            }
-            scene.background.set(event.target.value);
-        }
-    );
-}
+
+// save img
+window.addEventListener("keydown", event => {
+    const isSave = event.code === "KeyS" && event.shiftKey && !event.ctrlKey;
+    const isCopy = event.code === "KeyC" && event.ctrlKey && !event.shiftKey;
+
+    if (!currentModel) return;
+    if (!isSave && !isCopy) return;
+    if (document.activeElement !== renderer?.domElement) return;
+
+    event.preventDefault();
+
+    if (isSave) {
+        saveViewportImage(true, 2, "download");
+    } else if (isCopy) {
+        saveViewportImage(true, 2, "clipboard");
+    }
+});
+
+downloadButton.addEventListener("click", event => {
+    event.preventDefault();
+    saveViewportImage(true, 2, "download");
+});
 
 // Handle browser back/forward navigation
 

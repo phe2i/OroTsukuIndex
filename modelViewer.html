@@ -16,110 +16,80 @@
 </head>
 
 <body>
-
     <main class="model-viewer-page">
 
         <!-- LEFT PANEL -->
-        <aside
-            id="modelSidebar"
-            class="model-sidebar"
-        >
-            <section class="model-section">
+        <aside id="modelSidebar" class="model-sidebar">
 
+            <section class="model-section">
                 <header class="model-list-header">
-                    <h1>❖ Model List ⏾</h1>
+                    <h1>
+                        <img src="./images/favicon.ico">
+                        Model List
+                    </h1>
+                    <p>Pinned 3D models are saved in browser storage for 30 days.</p>
                     <!-- Search -->
                     <div class="model-search">
-                        <svg
-                            class="search-icon"
-                            viewBox="0 0 24 24"
-                            aria-hidden="true"
+                        <svg class="search-icon" viewBox="0 0 24 24" aria-hidden="true"
                         >
-                            <circle
-                                cx="11"
-                                cy="11"
-                                r="7"
+                            <circle cx="11" cy="11" r="7"
                             ></circle>
 
                             <line
-                                x1="16.5"
-                                y1="16.5"
-                                x2="21"
-                                y2="21"
+                                x1="16.5"   y1="16.5"
+                                x2="21"     y2="21"
                             ></line>
                         </svg>
 
-                        <input
-                            id="modelSearch"
+                        <input id="modelSearch"
                             type="search"
                             placeholder="Search models..."
                             autocomplete="off"
                         >
                     </div>
-
                 </header>
-
-
-                <section
-                    id="modelList"
-                    class="model-list"
-                >
-                </section>
-
+                <section id="modelList" class="model-list"></section>
             </section>
 
-            <div
-                id="verticalResizeHandle"
+            <div id="verticalResizeHandle"
                 class="vertical-resize-handle"
                 title="Resize model/material panels"
             ></div>
 
-
             <section class="material-panel">
-
                 <div class="material-header">
-
                     <h2>
+                        <span class="material-symbols-outlined">
+                            stacks
+                        </span>
                         Material List
                     </h2>
 
-
                     <div class="material-actions">
-
-                        <button
-                            id="showAllMaterials"
+                        <button id="showAllMaterials"
                             class="material-action"
                             title="Show all materials"
                         >
                             A
                         </button>
 
-                        <button
-                            id="reverseMaterials"
+                        <button id="reverseMaterials"
                             class="material-action"
                             title="reverse material visibility"
                         >
                             R
                         </button>
-
                     </div>
-
                 </div>
 
-
-                <div
-                    id="materialList"
-                    class="material-list"
-                >
-                    <div class="material-empty">
+                <div id="materialList" class="material-list">
+                    <div class="alt-text viewer-empty">
                         Select a model
                     </div>
                 </div>
-
             </section>
 
-            <div
-                id="horizontalResizeHandle"
+            <div id="horizontalResizeHandle"
                 class="horizontal-resize-handle"
                 title="Resize sidebar"
             ></div>
@@ -127,11 +97,11 @@
         </aside>
 
         <!-- switch page btn -->
-        <a id="modelViewerBtn"
-        href="./"
-        class="model-viewer-float"
-        aria-label="Open Skin List"
-        title="Open Skin List">
+        <a href="./"
+            id="modelViewerBtn"
+            class="model-viewer-float"
+            aria-label="Open Skin List"
+            title="Open Skin List">
 
             <!-- Idle -->
             <img
@@ -139,7 +109,6 @@
                 src="./images/UI/skinViewer-0.png"
                 alt="Model Viewer"
             >
-
             <!-- Animated GIF -->
             <img
                 id="modelViewerGif"
@@ -148,27 +117,21 @@
             >
         </a>
 
-        <!-- ================
-             MAIN VIEWER AREA
-             ================ -->
-
         <section class="viewer-area">
             <!-- THREE.JS VIEWPORT -->
             <div
                 id="modelViewport"
                 class="model-viewport"
             >
-                <div
-                    id="viewerLoading"
+                <div id="viewerLoading"
                     class="loading hidden"
                 >
                     <div class="loader"></div>
                     <div class="alt-text">Loading...</div>
                 </div>
 
-                <div
-                    id="viewerEmpty"
-                    class="viewer-empty"
+                <div id="viewerEmpty"
+                    class="alt-text viewer-empty"
                 >
                     Select a model
                 </div>
@@ -185,37 +148,29 @@
                 <!-- Viewer controls -->
                 <div class="viewer-controls">
 
-                    <input
-                        id="backgroundColor"
-                        class="background-color-picker"
+                    <input id="backgroundColor" title="Change background color"
+                        class="background-color-picker viewer-button"
                         type="color"
                         value="#c3c3c3"
-                        title="Change background color"
                     >
 
-                    <button
-                        id="resetCamera"
+                    <button id="resetCamera" title="Reset Camera"
                         class="viewer-button"
-                        title="Reset Camera"
                     >
                         <span class="material-symbols-outlined">
                         cameraswitch
                         </span>
                     </button>
 
-                    <button
-                        id="lightSettings"
+                    <button id="lightSettings" title="Light Settings"
                         class="viewer-button"
-                        title="Light Settings"
                     >
                         <span class="material-symbols-outlined">
                         light_mode
                         </span>
                     </button>
-                    <div
-                        id="lightPanel"
-                        class="light-panel"
-                    >
+
+                    <div id="lightPanel" class="light-panel">
 
                         <div class="panel-header-with-button">
                             <span>Light Settings</span>
@@ -232,123 +187,156 @@
                                 <label for="lightDistance">
                                     Distance
                                 </label>
-
                                 <span id="lightDistanceValue">
                                     20.00
                                 </span>
                             </div>
-
-                            <input
-                                id="lightDistance"
+                            <input id="lightDistance"
                                 type="range"
                                 min="0"
-                                max="200"
+                                max="300"
                                 step="10"
                                 value="20"
                             >
-
                         </div>
 
                         <!-- Intensity -->
                         <div class="light-control">
-
                             <div class="light-control-header">
                                 <label for="lightIntensity">
                                     Intensity
                                 </label>
-
                                 <span id="lightIntensityValue">
                                     3.00
                                 </span>
                             </div>
-
-                            <input
-                                id="lightIntensity"
+                            <input id="lightIntensity"
                                 type="range"
                                 min="0"
                                 max="5"
                                 step="0.05"
                                 value="3"
                             >
+                        </div>
 
+                        <!-- Ambient -->
+                        <div class="light-control">
+                            <div class="light-control-header">
+                                <label for="ambientLight">
+                                    Ambient
+                                </label>
+                                <span id="ambientLightValue">
+                                </span>
+                            </div>
+                            <input
+                                id="ambientLight"
+                                type="range"
+                                min="0"
+                                max="100"
+                                step="1"
+                                value="0"
+                            >
                         </div>
 
                         <!-- Horizontal -->
                         <div class="light-control">
-
                             <div class="light-control-header">
                                 <label for="lightHorizontal">
                                     Horizontal
                                 </label>
-
                                 <span id="lightHorizontalValue">
                                 </span>
                             </div>
-
-                            <input
-                                id="lightHorizontal"
+                            <input id="lightHorizontal"
                                 type="range"
                                 min="0"
                                 max="360"
                                 step="1"
                                 value="45"
                             >
-
                         </div>
 
                         <!-- Vertical -->
                         <div class="light-control">
-
                             <div class="light-control-header">
                                 <label for="lightVertical">
                                     Vertical
                                 </label>
-
                                 <span id="lightVerticalValue">
                                 </span>
                             </div>
-
-                            <input
-                                id="lightVertical"
+                            <input id="lightVertical"
                                 type="range"
                                 min="-60"
                                 max="90"
                                 step="1"
                                 value="0"
                             >
-
                         </div>
 
-                        <!-- Ambient -->
+                        <!-- Rimlight -->
+                        <!-- https://threejsroadmap.com/blog/rim-lighting-shader -->
                         <div class="light-control">
-
                             <div class="light-control-header">
-                                <label for="ambientLight">
-                                    Ambient
+                                <label for="rimIntensity">
+                                    Rim Intensity
                                 </label>
-
-                                <span id="ambientLightValue">
+                                <span id="rimIntensityValue">
                                 </span>
                             </div>
-
-                            <input
-                                id="ambientLight"
+                            <input id="rimIntensity"
                                 type="range"
                                 min="0"
                                 max="10"
-                                step="0.05"
-                                value="2"
+                                step="0.5"
+                                value="0"
                             >
-
                         </div>
-
+                        <div class="light-control">
+                            <div class="light-control-header">
+                                <label for="rimPower">
+                                    Rim Power
+                                </label>
+                                <span id="rimPowerValue">
+                                </span>
+                            </div>
+                            <input id="rimPower"
+                                type="range"
+                                min="0"
+                                max="10"
+                                step="0.5"
+                                value="0"
+                            >
+                        </div>
+                        <!-- https://codepen.io/rogie/pen/dqweaE -->
+                        <div class="light-control">
+                            <div class="light-control-header">
+                                <label for="rimColor">
+                                    Rim Color
+                                </label>
+                                <span id="rimColorValue">
+                                </span>
+                            </div>
+                            <input id="rimColor" class="color-range"
+                                type="range"
+                                min="0"
+                                max="100"
+                                step="1"
+                                value="0"
+                            >
+                        </div>
                     </div>
 
-                    <button
-                        id="modelViewerPiPButton"
+                    <button id="downloadButton" title="Save as PNG"
+                        class="viewer-button"
+                    >
+                        <span class="material-symbols-outlined">
+                        photo_camera_back
+                        </span>
+                    </button>
+
+                    <button id="modelViewerPiPButton" title="Open the 3D viewer in a floating window"
                         class="viewer-button pip-button"
-                        type="button"
-                        title="Open the 3D viewer in a floating window"
                     >
                         <span class="material-symbols-outlined">
                         pip
@@ -356,14 +344,12 @@
                     </button>
 
                 </div>
-
+            <!-- THREE.JS VIEWPORT -->
             </div>
 
         </section>
 
     </main>
-    <script src="./scripts/global.js"></script>
-    
     <script type="importmap">
     {
         "imports": {
@@ -372,6 +358,9 @@
         }
     }
     </script>
+    <script src="https://cdn.jsdelivr.net/npm/tinycolor2@1.6.0/cjs/tinycolor.js"></script>
+
+    <script type="module" src="./scripts/global.js"></script>
     <script type="module" src="./scripts/modelData_OroTsuku.js"></script>
     <script type="module" src="./scripts/modelViewer.js"></script>
     <script type="module" src="./scripts/pipViewer.js"></script>

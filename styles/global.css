@@ -7,21 +7,39 @@
   font-family: "omj-font", sans-serif;
 }
 :root{
+  --indigo: oklch(35.9% 0.144 278.697);
+  --violet: oklch(54.1% 0.281 293.009);
   --main-colour: rgb(30,41,59);
   --btn1-colour: rgb(162, 187, 226);
   --btn2-colour: rgb(198, 165, 212);
+  
   --btn-text: rgb(0, 0, 0);
   --primary-header: white;
   --secondary-header:#cad2df;
   --tertiary-header: #9ca3af;
 
-  --accent: #7e7e99;
+  --icon-header-gap: 8px;
 
-  --indigo: oklch(35.9% 0.144 278.697);
-  --violet: oklch(54.1% 0.281 293.009);
+  --accent: #7e7e99;
+  --highlight: oklch(60.305% 0.21467 266.031);;
 
   --scroll-track: var(--indigo);
-  --scroll-thumb: var(--violet;)
+  --scroll-thumb: var(--violet;);
+
+
+  --message-text: var(--accent);
+  --message-bg: white;
+
+  --success-text: green;
+  --success-bg: white;
+
+  --error-text: rgb(164, 64, 64);
+  --error-bg: white;
+}
+
+p {
+  color: var(--tertiary-header);
+  margin: 5px 0;
 }
 
 .material-symbols-outlined {
@@ -36,12 +54,12 @@
   --fill: var(--indigo);
   --stroke: var(--primary-header);
 
-  position: absolute;
-  bottom: 0px;
-
   paint-order: stroke fill;
   color: var(--fill);
   -webkit-text-stroke: 2px var(--stroke);
+
+  position: absolute;
+  bottom: 0px;
 
   font-size: 16px;
   font-weight: bold;
@@ -101,6 +119,12 @@
   }
 }
 
+.clicked {
+  background: white;
+  border: 4px solid var(--highlight);
+  outline: 2px solid white;
+  outline-offset: 0px;
+}
 .glow:hover{
   transform:translateY(-4px);
   box-shadow:0 10px 20px rgba(255, 255, 255, 0.12);
@@ -129,6 +153,49 @@
 .colourScroll::-webkit-scrollbar-thumb {
     background-color: var(--scroll-thumb);
     border-radius: 4px;
+}
+
+.toast-bottom {
+    --background: white;
+    --text-color: black;
+
+    position: absolute;
+    bottom: 16px;
+    left: 50%;
+    z-index: 1000;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+
+    padding: 10px 18px;
+    background: var(--background);
+    color: var(--text-color);
+
+    box-shadow: 4px 4px 0 #000;
+
+    font-size: 14px;
+    font-weight: 700;
+    white-space: nowrap;
+
+    opacity: 0;
+    pointer-events: none;
+    transform: translate(-50%, calc(100% + 20px));
+
+    transition:
+        transform 0.25s ease,
+        opacity 0.2s ease;
+}
+
+.toast-bottom.show {
+    opacity: 1;
+    transform: translate(-50%, 0);
+}
+
+.toast-bottom .material-symbols-outlined {
+    fill: var(--text-color);
+    flex-shrink: 0;
 }
 
 .char-category {
@@ -292,4 +359,102 @@
 .animate-gradient {
   background-size: 300% 300%;
   animation: gradientMove 15s ease infinite;
+}
+
+.color-range{
+  position: relative;
+  z-index: 1;
+  appearance: none;
+  border-radius: 0.5em;
+  background-color: rgba(0,0,0,0.1);
+  height: 0.5em;
+  width: 66%;
+  display: block;
+  outline: none;
+  margin: 4rem auto;
+  transition: color 0.05s linear;
+  background: linear-gradient(to right, rgb(255,0,0), rgb(255,255,0), rgb(0,255,0),rgb(0,255,255),rgb(0,0,255),rgb(255,0,255),rgb(255,0,0));
+  &:focus{
+    outline: none;
+  }
+  &:active,
+  &:hover:active{
+    cursor: grabbing;
+    cursor: -webkit-grabbing;
+  }
+  &::-moz-range-track{
+    appearance: none;
+    opacity: 0;
+    outline: none !important;
+  }
+  &::-ms-track{
+    outline: none !important;
+    appearance: none;
+    opacity: 0;
+  }
+
+  &::-webkit-slider-thumb{
+    height: 17px;
+    width: 17px;
+    border-radius: 2em;
+    appearance: none;
+    background: white;
+    cursor: pointer;
+    cursor: move;
+    cursor: grab;
+    cursor: -webkit-grab;
+    border: 3px solid currentColor;
+    transition: border 0.1s ease-in-out,box-shadow 0.2s ease-in-out, transform 0.1s ease-in-out;
+    box-shadow: 0 0.4em 1em rgba(0,0,0,0.15);
+    &:active,
+    &:hover:active{
+      cursor: grabbing;
+      cursor: -webkit-grabbing;
+      transform: scale(0.975);
+      box-shadow: 0 0 1px rgba(0,0,0,0.1);
+      border: 1.5em solid currentColor;
+    }
+    &:hover{
+      transform: scale(1.1);
+      box-shadow: 0 5px 15px rgba(0,0,0,0.15);
+    }
+  }
+  &::-moz-range-thumb{
+    height: 3em;
+    width: 3em;
+    border-radius: 2em;
+    appearance: none;
+    background: white;
+    border: 0.4em solid currentColor;
+    cursor: pointer;
+    cursor: move;
+    cursor: grab;
+    cursor: -webkit-grab;
+    transition: box-shadow 0.2s ease-in-out, transform 0.1s ease-in-out;
+    box-shadow: 0 1px 11px rgba(0,0,0,0);
+    &:active,
+    &:hover:active{
+      cursor: grabbing;
+      cursor: -webkit-grabbing;
+      transform: scale(0.975);
+      box-shadow: 0 0 1px rgba(0,0,0,0.1);
+    }
+    &:hover{
+      transform: scale(1.1);
+      box-shadow: 0 5px 15px rgba(0,0,0,0.15);
+    }
+  }
+}
+
+.message-text {
+    --background: var(--message-bg);
+    --text-color: var(--message-text);
+}
+.success-text {
+    --background: var(--success-bg);
+    --text-color: var(--success-text);
+}
+.error-text {
+    --background: var(--error-bg);
+    --text-color: var(--error-text);
 }

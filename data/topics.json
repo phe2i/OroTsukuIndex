@@ -1336,8 +1336,8 @@
           "category": "UI Main"
         },
         {
-          "src": "images/Orochi/檀樱倚梦/Talisman_oro.png",
-          "filename": "Talisman_oro.png",
+          "src": "images/Orochi/檀樱倚梦/cc3ddba6c4f3ea13572bad0daa8b5f9d.png",
+          "filename": "cc3ddba6c4f3ea13572bad0daa8b5f9d.png",
           "sortOrder": 1,
           "category": "Misc"
         },
@@ -1698,6 +1698,12 @@
           "filename": "006r2HqOgy1g4lqga8745j30u00u0tgn.jpg",
           "sortOrder": 2,
           "category": "Chibi"
+        },
+        {
+          "src": "images/Orochi/白绯觅影/3bf9e770e9edc1ae2c014758517b9585.png",
+          "filename": "3bf9e770e9edc1ae2c014758517b9585.png",
+          "sortOrder": 3,
+          "category": "UI Icon"
         }
       ],
       "models": [
@@ -1705,7 +1711,7 @@
           "version": 1,
           "thumbnail": null,
           "modelFile": "models/Orochi/白绯觅影/白绯觅影1.pmx",
-          "icon": null
+          "icon": "images/Orochi/白绯觅影/3bf9e770e9edc1ae2c014758517b9585.png"
         }
       ]
     },
@@ -2303,6 +2309,12 @@
           "filename": "006BsaXygy1hjda99xhvyj30rs6jlqv5.jpg",
           "sortOrder": 7,
           "category": "Details"
+        },
+        {
+          "src": "images/Orochi/蛇游幻影/a04406a8f6b2d35085a1f4292def09cc_1.png",
+          "filename": "a04406a8f6b2d35085a1f4292def09cc_1.png",
+          "sortOrder": 8,
+          "category": "UI Icon"
         }
       ],
       "models": [
@@ -2310,7 +2322,7 @@
           "version": 1,
           "thumbnail": null,
           "modelFile": "models/Orochi/蛇游幻影/蛇游幻影1.pmx",
-          "icon": null
+          "icon": "images/Orochi/蛇游幻影/a04406a8f6b2d35085a1f4292def09cc_1.png"
         }
       ]
     },
@@ -3338,81 +3350,87 @@
           "category": "UI Misc"
         },
         {
+          "src": "images/Tsukuyomi/雁回盈缺/0e56afba8fc1bf80078fa8b1a9b64feb.png",
+          "filename": "0e56afba8fc1bf80078fa8b1a9b64feb.png",
+          "sortOrder": 2,
+          "category": "Misc"
+        },
+        {
           "src": "images/Tsukuyomi/雁回盈缺/40b4de6ade8c2ee0.png",
           "filename": "40b4de6ade8c2ee0.png",
-          "sortOrder": 2,
+          "sortOrder": 3,
           "category": "UI Icon"
         },
         {
           "src": "images/Tsukuyomi/雁回盈缺/5e35616def7325cfa26f0e23c2173bf7.png",
           "filename": "5e35616def7325cfa26f0e23c2173bf7.png",
-          "sortOrder": 3,
+          "sortOrder": 4,
           "category": "UI Icon"
         },
         {
           "src": "images/Tsukuyomi/雁回盈缺/04c678e957832f11.png",
           "filename": "04c678e957832f11.png",
-          "sortOrder": 4,
+          "sortOrder": 5,
           "category": "UI Misc"
         },
         {
           "src": "images/Tsukuyomi/雁回盈缺/ee4058c50d98b9571b6d4bd6a0490135.png",
           "filename": "ee4058c50d98b9571b6d4bd6a0490135.png",
-          "sortOrder": 5,
+          "sortOrder": 6,
           "category": "UI Misc"
         },
         {
           "src": "images/Tsukuyomi/雁回盈缺/3169e49d804d38e8.png",
           "filename": "3169e49d804d38e8.png",
-          "sortOrder": 6,
+          "sortOrder": 7,
           "category": "UI Misc"
         },
         {
           "src": "images/Tsukuyomi/雁回盈缺/9d3c6f47ce1023a1fa2cf64d2652d372.png",
           "filename": "9d3c6f47ce1023a1fa2cf64d2652d372.png",
-          "sortOrder": 7,
+          "sortOrder": 8,
           "category": "UI Misc"
         },
         {
           "src": "images/Tsukuyomi/雁回盈缺/loadingpic1739.png",
           "filename": "loadingpic1739.png",
-          "sortOrder": 8,
+          "sortOrder": 9,
           "category": "Illustrations"
         },
         {
           "src": "images/Tsukuyomi/雁回盈缺/6ab9e2503f4a606a4a4ff613zgidtrd607.png",
           "filename": "6ab9e2503f4a606a4a4ff613zgidtrd607.png",
-          "sortOrder": 9,
+          "sortOrder": 10,
           "category": "Illustrations"
         },
         {
           "src": "images/Tsukuyomi/雁回盈缺/006BsaXyly1ihkevmewb6j320t14ygz6.jpg",
           "filename": "006BsaXyly1ihkevmewb6j320t14ygz6.jpg",
-          "sortOrder": 10,
+          "sortOrder": 11,
           "category": "Illustrations"
         },
         {
           "src": "images/Tsukuyomi/雁回盈缺/813cab6470b80a6d.png",
           "filename": "813cab6470b80a6d.png",
-          "sortOrder": 11,
+          "sortOrder": 12,
           "category": "UI Misc"
         },
         {
           "src": "images/Tsukuyomi/雁回盈缺/352ad928870a45426ca3c7510b99cfc2.png",
           "filename": "352ad928870a45426ca3c7510b99cfc2.png",
-          "sortOrder": 12,
+          "sortOrder": 13,
           "category": "UI Misc"
         },
         {
           "src": "images/Tsukuyomi/雁回盈缺/006BsaXyly1ihkevpmfz6g308c08c1l0.gif",
           "filename": "006BsaXyly1ihkevpmfz6g308c08c1l0.gif",
-          "sortOrder": 13,
+          "sortOrder": 14,
           "category": "Misc"
         },
         {
           "src": "images/Tsukuyomi/雁回盈缺/e0be220d459618e1.png",
           "filename": "e0be220d459618e1.png",
-          "sortOrder": 14,
+          "sortOrder": 15,
           "category": "UI Misc"
         }
       ],

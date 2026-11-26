@@ -105,20 +105,29 @@ body {
     background: var(--sidebar-bg);
 }
 .model-list-header {
-    flex-shrink: 0;
-
+    /* flex-shrink: 0; */
     padding: 17px 16px 14px;
 
     background: var(--sidebar-header-bg);
-}
 
-.model-list-header h1 {
-    margin: 0 0 18px;
+    & h1 {
+        display: flex;
+        align-items: center;
 
-    font-size: 32px;
-    font-weight: 400;
+        gap: var(--icon-header-gap);
+        margin: 0 0 5px;
 
-    color: var(--text-primary);
+        font-size: 32px;
+        font-weight: 400;
+
+        color: var(--text-primary);
+    }
+    & img {
+        opacity: 55%;
+    }
+    & p {
+        margin: 0 0 16px;
+    }
 }
 
 .model-search {
@@ -246,7 +255,6 @@ body {
 .model-card {
     width: 100%;
     min-width: 0;
-    
     padding: 5px;
 
     display: flex;
@@ -258,7 +266,6 @@ body {
     border-radius: 8px;
 
     background: transparent;
-
     font-family: inherit;
 
     cursor: pointer;
@@ -548,7 +555,6 @@ body {
 
 .material-header {
     flex-shrink: 0;
-
     min-height: 58px;
 
     padding: 10px 16px;
@@ -562,15 +568,22 @@ body {
     gap: 10px;
 
     background: var(--light);
-}
 
-.material-header h2 {
-    margin: 0;
+    & h2 {
+        margin: 0;
 
-    font-size: 20px;
-    font-weight: 400;
+        font-size: 20px;
+        font-weight: 400;
+        color: var(--text-primary);
+        display: flex;
+        align-items: center;
+        gap: var(--icon-header-gap);
+    }
 
-    color: var(--text-primary);
+    & h2 .material-symbols-outlined {
+        color: var(--text-secondary);
+        transform: translateY(-2px);
+    }
 }
 
 .material-actions {
@@ -607,6 +620,7 @@ body {
 }
 
 .material-list {
+    position: relative;
     flex: 1;
 
     min-height: 0;
@@ -714,17 +728,6 @@ body {
     opacity: 0.45;
 }
 
-.material-empty {
-    padding: 16px;
-
-    text-align: center;
-
-    color: var(--text-secondary);
-
-    font-size: 14px;
-}
-
-
 /* 
    HORIZONTAL RESIZE HANDLE
    Entire sidebar <-> viewer
@@ -777,14 +780,17 @@ body {
 }
 
 .viewer-empty {
+  --fill: color-mix(in srgb, var(--text-primary) 30%, transparent);
+  --stroke: color-mix(in srgb, var(--light) 0%, transparent);
+
     position: absolute;
 
     top: 50%;
     left: 50%;
+    bottom: auto;
+    right: auto;
 
     transform: translate(-50%, -50%);
-
-    color: var(--text-secondary);
 
     font-size: 20px;
 
@@ -865,7 +871,6 @@ body {
     align-items: center;
     justify-content: center;
 
-    border: none;
     border-radius: 50%;
 
     background: rgba(255, 255, 255, 0.9);
